@@ -1,7 +1,6 @@
 <template >
   <v-app>
     <BackgroundImage/>
-    <Header/>
     <v-main>
       <div class="titulo">
         <h1  class="tituloText">Arma tu rutina</h1>
@@ -12,12 +11,11 @@
 </template>
 
 <script>
-import Header from "../components/Header.vue"
 import BackgroundImage from "@/components/BackgroundImage";
 
 export default {
   name: "Home",
-  components: {Header,BackgroundImage},
+  components: {BackgroundImage},
   data() {
     return {}
   }

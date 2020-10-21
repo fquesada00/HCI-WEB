@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Login.vue'
 import Tutorial from '../views/Tutorial.vue'
+import Rutinas from '../views/Rutinas.vue'
+import Signin from '../views/Signin.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +29,16 @@ const routes = [
     path: '/tutorial',
     name:'tutorial',
     component: Tutorial
+  },
+  {
+    path: '/rutinas',
+    name:'rutinas',
+    component: Rutinas
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: Signin
   }
 ]
 

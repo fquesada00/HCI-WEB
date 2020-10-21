@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar tran color="rgb(57, 198, 173,0.9)" max-height="64px">
+  <v-app-bar class="header" tran color="rgb(57, 198, 173,0.9)" max-height="64px">
     <v-toolbar-title class="display-3">FitBo</v-toolbar-title>
     <v-tabs right>
       <v-tab v-for="tab in tabs" v-bind:key="tab.name" v-bind:href="tab.route" >
@@ -10,7 +10,6 @@
   </v-app-bar>
 
 </template>
-
 <script>
 
 export default {
@@ -22,11 +21,10 @@ export default {
       {name:"Explorar",icon:"",bar:false,route:"/explore"},
       {name:"Mi Perfil",icon:"",bar:true,route:"/profile"},
       {name:"Iniciar Sesion",icon:"mdi-login",bar:false,route:"/login"},
-      {name:"Crear Cuenta",icon:"mdi-account-plus-outline",bar:false,route:"/createAccount"}
+      {name:"Crear Cuenta",icon:"mdi-account-plus-outline",bar:false,route:"/signin"}
     ]})
 }
 </script>
 
-<style scoped>
-
+<style scoped >
 </style>
