@@ -1,6 +1,10 @@
 <template>
   <v-card class="profile">
-
+    <v-icon class="gears">
+      mdi-cog
+    </v-icon>
+    <v-avatar color="primary" size="50">
+    </v-avatar>
   </v-card>
 </template>
 
@@ -12,8 +16,13 @@ name: "ProfileCard"
 
 <style scoped>
 .profile {
-  height:300px;
-  width:500px;
+  height:400px;
+  width:300px;
   background-color: white;
+}
+.gears {
+  margin-left:275px;
+  margin-top:3px;
+  position:absolute;
 }
 </style>

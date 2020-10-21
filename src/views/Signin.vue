@@ -2,18 +2,18 @@
  <v-app>
    <BackgroundImage/>
    <v-main>
-     <CreateForm/>
+     <RegisterForm/>
    </v-main>
  </v-app>
 </template>
 
 <script>
 
-import CreateForm from "@/components/CreateForm";
-
+import RegisterForm from "@/components/RegisterForm";
+import BackgroundImage from '@/components/BackgroundImage'
 export default {
   name: "Signin",
-  components: {CreateForm},
+  components: {RegisterForm,BackgroundImage},
 }
 </script>
 

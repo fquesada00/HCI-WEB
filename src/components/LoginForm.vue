@@ -1,37 +1,104 @@
-<template>
-  <v-container class="login" width="40%">
-    <v-row v-for="data in loginInfo" v-bind:key="data.title">
-      <v-text-field :prepend-icon="data.icon" :append-icon="data.outerIcon" :placeholder="data.title"></v-text-field>
-    </v-row>
-    <v-btn x-large style="margin-left:30%;" color="rgb(57, 198, 173)">Iniciar Sesion</v-btn>
-    <br/>
-    <br/>
-    <span>¿Aun no tienes cuenta? </span>
-    <a href="">Crear Cuenta</a>
+<template >
+  <v-container class="form">
+    <validation-observer ref="observer" v-slot="{ invalid }">
+      <form @submit.prevent="submit">
+        <validation-provider
+          v-slot="{ errors }"
+          name="Email"
+          rules="required|email"
+        >
+          <v-text-field
+            v-model="email"
+            :error-messages="errors"
+            label="E-mail"
+            required
+            prepend-icon="mdi-account"
+          ></v-text-field>
+        </validation-provider>
+        <validation-provider
+          v-slot="{ errors }"
+          name="password"
+          rules="required"
+        >
+        <v-text-field v-model="password" :error_messages="errors" label="Password" required 
+            prepend-icon="mdi-lock">        </v-text-field>
+          </validation-provider>
+        <validation-provider
+          v-slot="{ errors }"
+          name="checkbox"
+        >
+          <v-checkbox
+            v-model="checkbox"
+            :error-messages="errors"
+            value="1"
+            label="Remember Me"
+            type="checkbox"
+          ></v-checkbox>
+        </validation-provider>
 
+        <v-btn class="mr-4" type="submit" :disabled="invalid"> submit </v-btn>
+      </form>
+    </validation-observer>
   </v-container>
 </template>
 
 <script>
+import { required, email, max } from "vee-validate/dist/rules";
+import {
+  extend,
+  ValidationObserver,
+  ValidationProvider,
+  setInteractionMode,
+} from "vee-validate";
+
+setInteractionMode("eager");
+
+extend("required", {
+  ...required,
+  message: "{_field_} can not be empty",
+});
+
+extend("max", {
+  ...max,
+  message: "{_field_} may not be greater than {length} characters",
+});
+
+extend("email", {
+  ...email,
+  message: "Email must be valid",
+});
+
 export default {
-  name: "LoginForm",
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+  },
   data: () => ({
-    loginInfo: [
-      {title: "Usuario/Email", icon: "mdi-account"},
-      {title: "Contraseña", icon: "mdi-lock", outerIcon: "mdi-eye-off",}
-    ]
-  })
-}
+    name: "",
+    email: "",
+    select: null,
+    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+    checkbox: null,
+  }),
+
+  methods: {
+    submit() {
+      this.$refs.observer.validate();
+    }
+  },
+};
 </script>
 
 <style scoped>
-.login {
+.form {
   border-radius: 40px;
   background-color: white;
-  align-self: center;
   justify-self: center;
+  align-self: center;
   padding-left: 4%;
   padding-right: 4%;
+  padding-top: 1%;
+  margin-top: 5%;
   max-width: 600px;
 }
 </style>
