@@ -4,7 +4,7 @@
       <h1>Crear Cuenta</h1>
     </v-row>
     <validation-observer ref="observer" v-slot="{ invalid }">
-      <form @submit.prevent="submit" lazy-validation>
+      <form @submit.prevent="submit">
         <v-row>
           <v-col>
             <validation-provider
