@@ -54,12 +54,12 @@
           rules="required|max:50"
           label="Email"
         >
-          <v-text-field
-            v-model="username"
-            :error-messages="errors"
-            label="Usuario"
-            required
-          ></v-text-field>
+          <v-text-field v-model="username" :error-messages="errors" required>
+            <template v-slot:label>
+              <v-icon :color="errors[0] ? 'error' : ''">mdi-account</v-icon>
+              Usuario
+            </template>
+          </v-text-field>
         </validation-provider>
         <validation-provider
           v-slot="{ errors }"
@@ -70,10 +70,12 @@
           <v-text-field
             v-model="password"
             :error-messages="errors"
-            label="Password"
-            type="password"
+            label="Constraseña"
+            :type="show1 ? 'text' : 'password'"
             required
-          ></v-text-field>
+            :append-icon="show1 ? 'mdi-eye': 'mdi-eye-off'"
+            @click:append="show1 = !show1"
+          />
         </validation-provider>
         <validation-provider
           v-slot="{ errors }"
@@ -84,8 +86,10 @@
             v-model="confirmation"
             :error-messages="errors"
             label="Confirm Password"
-            type="password"
+            :type="show2 ? 'text' : 'password'"
             required
+            :append-icon="show2 ? 'mdi-eye': 'mdi-eye-off'"
+            @click:append="show2 = !show2"
           ></v-text-field>
         </validation-provider>
         <v-row>
@@ -152,9 +156,7 @@
           </v-col>
         </v-row>
         <v-row class="justify-center">
-          <v-btn type="submit" :disabled="invalid">
-            submit
-          </v-btn>
+          <v-btn type="submit" :disabled="invalid"> submit </v-btn>
         </v-row>
       </form>
     </validation-observer>
@@ -175,6 +177,8 @@ import {
   ValidationProvider,
   setInteractionMode,
 } from "vee-validate";
+
+import { User, UserApi } from "../js/user.js";
 
 setInteractionMode("eager");
 
@@ -216,16 +220,26 @@ export default {
     confirmation: "",
     gender: null,
     allowedGenders: ["Male", "Female", "Other"],
-    checkbox: null,
     birthday: null,
     menu: false,
+    show1: false,
+    show2: false,
     nowDate: new Date().toISOString().slice(0, 10),
   }),
 
   methods: {
-    submit() {
-      //this.$refs.observer.validate();
-      console.log([this.name, this.email, this.select, this.checkbox]);
+    async submit() {
+      this.$refs.observer.validate();
+      let user = new User(
+        this.username,
+        this.password,
+        this.email,
+        this.name + " " + this.lastname,
+        new Date(this.birthday).getTime(),
+        this.gender.toLowerCase()
+      );
+      let ret = await UserApi.register(user);
+      console.log(ret.status);
     },
   },
 };
@@ -240,7 +254,7 @@ export default {
   padding-left: 4%;
   padding-right: 4%;
   padding-top: 1%;
-  margin-top: 5%;
+  margin-top: 2%;
   max-width: 600px;
 }
 </style>
