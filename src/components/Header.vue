@@ -1,11 +1,21 @@
 <template>
   <v-app-bar
     class="header"
-    tran
+    fixed
     color="rgb(57, 198, 173,0.9)"
     max-height="64px"
+    app
   >
-    <v-toolbar-title class="display-3">FitBo</v-toolbar-title>
+    <v-container>
+    <v-app-bar-nav-icon >
+    <v-img
+      src="../assets/logoFitbo.png"
+      width="150px"
+      height="150px"
+    ></v-img>
+    </v-app-bar-nav-icon>
+    <v-app-bar-nav-title class="display-2">FitBo</v-app-bar-nav-title>
+    </v-container>
     <v-tabs right>
       <v-tab v-for="tab in tabs" v-bind:key="tab.name" :to="tab.route">
         <span>{{ tab.name }}</span>
@@ -17,6 +27,7 @@
 <script>
 export default {
   name: "Header.vue",
+
   data: () => ({
     tabs: [
       { name: "Inicio", icon: "", bar: false, route: "/" },
@@ -43,7 +54,6 @@ export default {
 
 <style scoped >
 .router-link-exact-active {
-  
-    border: 5px dashed red;
+  border: 5px dashed red;
 }
 </style>
