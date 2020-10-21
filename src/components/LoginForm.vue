@@ -1,5 +1,8 @@
 <template >
   <v-container class="form">
+    <v-row class="justify-center">
+      <h1>Iniciar Sesion</h1>
+    </v-row>
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
         <validation-provider
@@ -31,12 +34,12 @@
             v-model="checkbox"
             :error-messages="errors"
             value="1"
-            label="Remember Me"
+            label="Recordame"
             type="checkbox"
           ></v-checkbox>
         </validation-provider>
 
-        <v-btn class="mr-4" type="submit" :disabled="invalid"> submit </v-btn>
+        <v-btn class="mr-4" type="submit" :disabled="invalid">Ingresar</v-btn>
       </form>
     </validation-observer>
   </v-container>
