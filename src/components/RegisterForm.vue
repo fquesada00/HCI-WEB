@@ -85,7 +85,7 @@
           <v-text-field
             v-model="confirmation"
             :error-messages="errors"
-            label="Confirm Password"
+            label="Confirmar Contraseña"
             :type="show2 ? 'text' : 'password'"
             required
             :append-icon="show2 ? 'mdi-eye': 'mdi-eye-off'"
@@ -125,6 +125,7 @@
               <v-date-picker
                 v-model="birthday"
                 type="date"
+                locale="es"
                 no-title
                 scrollable
                 :max="nowDate"

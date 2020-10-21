@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar
+  <v-app-bar fixed
     class="header"
     tran
     color="rgb(57, 198, 173,0.9)"

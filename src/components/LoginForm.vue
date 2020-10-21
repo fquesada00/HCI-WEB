@@ -23,7 +23,7 @@
           name="password"
           rules="required"
         >
-        <v-text-field v-model="password" :error_messages="errors" label="Password" required 
+        <v-text-field v-model="password" :error_messages="errors" label="Contraseña" required 
             prepend-icon="mdi-lock">        </v-text-field>
           </validation-provider>
         <validation-provider
@@ -34,7 +34,7 @@
             v-model="checkbox"
             :error-messages="errors"
             value="1"
-            label="Recordame"
+            label="Recordarme"
             type="checkbox"
           ></v-checkbox>
         </validation-provider>
@@ -63,12 +63,12 @@ extend("required", {
 
 extend("max", {
   ...max,
-  message: "{_field_} may not be greater than {length} characters",
+  message: "{_field_} no debe ser mayor a {length} caracteres",
 });
 
 extend("email", {
   ...email,
-  message: "Email must be valid",
+  message: "El email debe ser válido",
 });
 
 export default {
