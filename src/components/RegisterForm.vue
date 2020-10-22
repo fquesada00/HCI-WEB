@@ -83,23 +83,13 @@
             rules="confirmed:confirmation"
         >
           <v-text-field
-<<<<<<< HEAD
             v-model="confirmation"
             :error-messages="errors"
-            label="Confirmar Contraseña"
+            label="Confirmar constraseña"
             :type="show2 ? 'text' : 'password'"
             required
             :append-icon="show2 ? 'mdi-eye': 'mdi-eye-off'"
             @click:append="show2 = !show2"
-=======
-              v-model="confirmation"
-              :error-messages="errors"
-              label="Confirm Password"
-              :type="show2 ? 'text' : 'password'"
-              required
-              :append-icon="show2 ? 'mdi-eye': 'mdi-eye-off'"
-              @click:append="show2 = !show2"
->>>>>>> c3960d5796fb93cfe9b83b3fb19714dbaaa96f77
           ></v-text-field>
         </validation-provider>
         <v-row>
