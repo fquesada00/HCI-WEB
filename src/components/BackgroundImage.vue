@@ -14,7 +14,7 @@ name: "BackgroundImage"
   height: 100%;
   position: absolute;
   top: 0;
-  margin-top: 0;
+  margin: 0 0 0 0;
   left: 0;
   z-index: 0;
   background: url('../assets/meghan-holmes-buWcS7G1_28-unsplash.jpg') no-repeat center center;

@@ -2,19 +2,18 @@
  <v-app>
    <BackgroundImage/>
    <v-main>
-     <CreateForm style="  margin-top:12%;"/>
+     <RegisterForm style="  margin-top:12%;"/>
    </v-main>
  </v-app>
 </template>
 
 <script>
 
-import CreateForm from "@/components/CreateForm";
+import RegisterForm from "@/components/LoginForm";
 import BackgroundImage from "@/components/BackgroundImage";
-
 export default {
   name: "Login",
-  components: {CreateForm, BackgroundImage},
+  components: {RegisterForm, BackgroundImage},
 }
 </script>
 
