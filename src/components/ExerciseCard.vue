@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels class="panel">
-    <v-expansion-panel  style="margin-bottom:2%" v-bind:key="card" v-for="card in cards">
+    <v-expansion-panel  style="margin-bottom:30px" v-bind:key="card" v-for="card in cards">
       <v-expansion-panel-header style="font-size:30px">
         {{ card.titulo }}
       </v-expansion-panel-header>
@@ -53,6 +53,5 @@ export default {
 
 <style scoped>
 .panel{
-  width:800px;
 }
 </style>
