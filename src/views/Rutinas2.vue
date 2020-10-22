@@ -1,7 +1,8 @@
 <template>
   <div class="rutinas">
     <BackgroundImage />
-    <DisplayExercises/>
+    <v-container>
+       <DisplayExercises /> </v-container>
     <!-- <v-col class="mt-n16">
       <v-row v-for="i in exercises" :key="i">
         <Exercises :ej="i" @reduceQty="remove($event)"></Exercises>
@@ -22,7 +23,7 @@ import DisplayExercises from "@/components/DisplayExercises2";
 // import Exercises from "@/components/ExerciseBox2";
 export default {
   name: "Rutinas",
-  components: { BackgroundImage, DisplayExercises},
+  components: { BackgroundImage, DisplayExercises },
   data() {
     return {
       texto_user: "",
