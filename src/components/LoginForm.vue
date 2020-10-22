@@ -23,8 +23,14 @@
           name="password"
           rules="required"
         >
-        <v-text-field v-model="password" :error_messages="errors" label="Contraseña" required 
-            prepend-icon="mdi-lock">        </v-text-field>
+        <v-text-field 
+        v-model="password" 
+        :error_messages="errors" 
+        label="Contraseña"
+        :type="show1 ? 'text' : 'password'" 
+        prepend-icon="mdi-lock" 
+        :append-icon="show1 ? 'mdi-eye': 'mdi-eye-off'"
+        @click:append="show1 = !show1"></v-text-field>
           </validation-provider>
         <validation-provider
           v-slot="{ errors }"
@@ -82,6 +88,7 @@ export default {
     select: null,
     items: ["Item 1", "Item 2", "Item 3", "Item 4"],
     checkbox: null,
+    show1: false
   }),
 
   methods: {

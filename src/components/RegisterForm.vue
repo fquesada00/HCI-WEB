@@ -186,12 +186,12 @@ setInteractionMode("eager");
 
 extend("required", {
   ...required,
-  message: "{_field_} no puede ser vacio",
+  message: "El {_field_} no puede estar vacio",
 });
 
 extend("max", {
   ...max,
-  message: "{_field_} no puede ser mayor a {length} caracteres",
+  message: "El {_field_} debe ser menor a {length} caracteres",
 });
 
 extend("email", {
@@ -210,7 +210,7 @@ extend("alpha_num", {
 
 extend("confirmed", {
   ...confirmed,
-  message: "Passwords don't match",
+  message: "Las contraseñas deben ser iguales",
 });
 export default {
   components: {
