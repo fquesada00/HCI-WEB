@@ -1,6 +1,6 @@
 <template >
   <v-app>
-    <BackgroundImage/>
+    <BackgroundImage class="background"/>
     <v-main>
       <div class="titulo">
         <h1  class="tituloText">Arma tu rutina</h1>

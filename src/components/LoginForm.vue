@@ -122,7 +122,6 @@ export default {
   padding-left: 4%;
   padding-right: 4%;
   padding-top: 1%;
-  margin-top: 5%;
   max-width: 600px;
 }
 </style>
