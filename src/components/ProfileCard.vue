@@ -49,6 +49,7 @@ export default {
 
 <style scoped>
 .profile {
+  margin:auto;
   height: 450px;
   width: 350px;
   background-color: white;

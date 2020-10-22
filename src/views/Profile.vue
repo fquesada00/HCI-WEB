@@ -1,16 +1,14 @@
 <template>
   <v-app>
     <BackgroundImage/>
-    <v-row>
-      <v-col  class="exerciseCard">
-        <ExerciseCard/>
-      </v-col>
-      <v-spacer></v-spacer>
-      <v-col class="profileCard">
-        <ProfileCard />
-      </v-col>
-    </v-row>
-
+    <v-container>
+        <v-row class="profileCard">
+          <ProfileCard/>
+        </v-row>
+        <v-row class="exerciseCard">
+          <ExerciseCard/>
+        </v-row>
+    </v-container>
   </v-app>
 </template>
 
@@ -28,11 +26,11 @@ export default {
 <style scoped>
 .exerciseCard {
   margin-top: 5%;
-  margin-left:10%;
+  padding-left:5%;
+  padding-right:5%;
 }
 
 .profileCard {
-  margin-right:20%;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 </style>
