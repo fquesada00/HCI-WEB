@@ -18,8 +18,7 @@ class UserApi {
     }
 
     static async register(userData, controller) {
-        const result = await Api.post(` ${UserApi.url} `, false, userData, controller)
-        return result;
+        return await Api.post(` ${UserApi.url} `, false, userData, controller)
     }
     //FOR TESTING ONLY
     static async verifyEmail(credentials,code,controller){
@@ -30,10 +29,9 @@ class UserApi {
 }
 
 class Credentials {
-    constructor(username, password,email) {
+    constructor(username, password) {
         this.username = username;
         this.password = password;
-        this.email = email;
     }
 }
 //PENSAR

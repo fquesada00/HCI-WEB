@@ -1,4 +1,4 @@
-<template >
+<template>
   <v-container class="form">
     <v-row class="justify-center">
       <h1>Iniciar Sesion</h1>
@@ -6,59 +6,68 @@
     <validation-observer ref="observer" v-slot="{ invalid }">
       <form @submit.prevent="submit">
         <validation-provider
-          v-slot="{ errors }"
-          name="Email"
-          rules="required|email"
+            v-slot="{ errors }"
+            name="Usuario"
+            rules="required|alpha_num"
         >
           <v-text-field
-            v-model="email"
-            :error-messages="errors"
-            label="E-mail"
-            required
-            prepend-icon="mdi-account"
-          ></v-text-field>
-        </validation-provider>
-        <validation-provider
-          v-slot="{ errors }"
-          name="password"
-          rules="required"
-        >
-        <v-text-field 
-        v-model="password" 
-        :error_messages="errors" 
-        label="Contraseña"
-        :type="show1 ? 'text' : 'password'" 
-        prepend-icon="mdi-lock" 
-        :append-icon="show1 ? 'mdi-eye': 'mdi-eye-off'"
-        @click:append="show1 = !show1"></v-text-field>
-          </validation-provider>
-        <validation-provider
-          v-slot="{ errors }"
-          name="checkbox"
-        >
-          <v-checkbox
-            v-model="checkbox"
-            :error-messages="errors"
-            value="1"
-            label="Recordarme"
-            type="checkbox"
-          ></v-checkbox>
+              v-model="username"
+              :error-messages="errors"
+              label="Usuario"
+              required
+          >
+            <template v-slot:label>
+              <v-icon :color="errors[0] ? 'error' : ''">mdi-account</v-icon>
+              Usuario
+            </template>
+          </v-text-field>
         </validation-provider>
 
-        <v-btn class="mr-4" type="submit" :disabled="invalid">Ingresar</v-btn>
+        <validation-provider
+            v-slot="{ errors }"
+            name="contraseña"
+            rules="required"
+        >
+          <v-text-field
+              v-model="password"
+              :error_messages="errors"
+              label="Contraseña"
+              :type="show1 ? 'text' : 'password'"
+              :append-icon="show1 ? 'mdi-eye': 'mdi-eye-off'"
+              @click:append="show1 = !show1"></v-text-field>
+        </validation-provider>
+        <validation-provider
+            v-slot="{ errors }"
+            name="checkbox"
+        >
+          <v-checkbox
+              v-model="checkbox"
+              :error-messages="errors"
+              value="1"
+              label="Recordame"
+              type="checkbox"
+          ></v-checkbox>
+        </validation-provider>
+        <v-row class="justify-center" v-if="error != null">
+          <span class="error--text">{{ error }}</span>
+        </v-row>
+        <v-row class="justify-center">
+          <v-btn class="mr-4" type="submit" :disabled="invalid">Ingresar</v-btn>
+        </v-row>
       </form>
     </validation-observer>
   </v-container>
 </template>
 
 <script>
-import { required, email, max } from "vee-validate/dist/rules";
+import {required, email, alpha_num} from "vee-validate/dist/rules";
 import {
   extend,
   ValidationObserver,
   ValidationProvider,
   setInteractionMode,
 } from "vee-validate";
+import {Credentials, UserApi} from "../js/user";
 
 setInteractionMode("eager");
 
@@ -67,9 +76,9 @@ extend("required", {
   message: "{_field_} can not be empty",
 });
 
-extend("max", {
-  ...max,
-  message: "{_field_} no debe ser mayor a {length} caracteres",
+extend("alpha_num", {
+  ...alpha_num,
+  message: "{_field_} invalido",
 });
 
 extend("email", {
@@ -83,17 +92,22 @@ export default {
     ValidationObserver,
   },
   data: () => ({
-    name: "",
-    email: "",
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+    username: "",
+    password: "",
+    error: null,
     checkbox: null,
     show1: false
   }),
 
   methods: {
-    submit() {
+    async submit() {
       this.$refs.observer.validate();
+      let cred = new Credentials(this.username, this.password)
+      UserApi.login(cred)
+          .then(() => this.$router.push(this.$route.query.redirect || '/'))
+          .catch((e) => {
+            this.error = e.details[0]
+          })
     }
   },
 };

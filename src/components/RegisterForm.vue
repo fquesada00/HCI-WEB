@@ -156,6 +156,9 @@
             </validation-provider>
           </v-col>
         </v-row>
+        <v-row class="justify-center" v-if="error != null">
+          <span  class="error--text">{{ error }}</span>
+        </v-row>
         <v-row class="justify-center">
           <v-btn type="submit" :disabled="invalid"> submit</v-btn>
         </v-row>
@@ -230,6 +233,7 @@ export default {
     menu: false,
     show1: false,
     show2: false,
+    error:null,
     nowDate: new Date().toISOString().slice(0, 10),
   }),
 
@@ -244,8 +248,10 @@ export default {
           new Date(this.birthday).getTime(),
           this.gender.toLowerCase()
       );
-      let ret = await UserApi.register(user);
-      console.log(ret.status);
+      UserApi.register(user)
+          .then(() => this.$router.push(this.$route.query.redirect || '/'))
+          .catch((e) => {
+            this.error = e.description})
     },
   },
 };
