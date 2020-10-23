@@ -1,6 +1,4 @@
 <template>
-  <v-app>
-    <BackgroundImage/>
     <v-main>
       <v-carousel  :show-arrows="false" class="tutorial">
         <v-carousel-item v-for="slide in tutorialSlides" v-bind:key="slide.title" >
@@ -16,15 +14,12 @@
         </v-carousel-item>
       </v-carousel>
     </v-main>
-  </v-app>
 </template>
 
 <script>
-import BackgroundImage from "@/components/BackgroundImage";
 
 export default {
   name: "Tutorial",
-  components: {BackgroundImage},
   data: () => ({
     tutorialSlides: [
       {
@@ -48,7 +43,6 @@ export default {
 }
 </script>
 
-import Header from "@/components/Header.vue"
 
 <style scoped>
 .tutorial {

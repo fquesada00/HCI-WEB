@@ -1,19 +1,14 @@
 <template>
- <v-app>
-   <BackgroundImage/>
    <v-main>
-     <RegisterForm style="  margin-top:12%;"/>
+     <LoginForm style="" @logged="this.$emit('logged')"/>
    </v-main>
- </v-app>
 </template>
 
 <script>
-
-import RegisterForm from "@/components/LoginForm";
-import BackgroundImage from "@/components/BackgroundImage";
+import LoginForm from "@/components/LoginForm";
 export default {
   name: "Login",
-  components: {RegisterForm, BackgroundImage},
+  components: {LoginForm},
 }
 </script>
 

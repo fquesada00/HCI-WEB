@@ -1,4 +1,4 @@
-<template>
+<template  :key="sessionStorage.length">
   <v-app-bar
       class="header"
       fixed
@@ -16,7 +16,7 @@
       ></v-img>
     </v-app-bar-nav-icon>
 
-    <v-toolbar-title class="display-2" @click="$router.push('/')"
+    <v-toolbar-title class="display-2" @click="this.$route.query.redirect || '/'"
                      style="cursor:pointer; width: 500px" >FitBo</v-toolbar-title>
     <v-tabs v-if="!loggedIn" right fixed-tabs>
       <v-tab v-for="tab in tabsLoggedOut" v-bind:key="tab.name" :to="tab.route" >
@@ -33,9 +33,10 @@
 <script>
 export default {
   name: "Header.vue",
-  props: ['loggedIn'],
 
   data: () => ({
+    key: 0,
+    loggedIn: false,
     tabsLoggedOut: [
       {name: "Inicio", icon: null, route: "/"},
       {name: "Crear Rutinas", icon: null, route: "/rutinas"},
@@ -64,5 +65,23 @@ export default {
     ],
     active: 0,
   }),
+  computed:{
+  },
+  methods:{
+    checkLogin:function (){
+      this.loggedIn = !!this.sessionStorage.getItem('token')
+    },
+    updateLogin:function (){
+      let ret = sessionStorage.getItem('token') != null
+      this.key = 1;
+      return ret
+    }
+  },
+  mounted() {
+    window.addEventListener('logged',() =>{
+      this.loggedIn = !!sessionStorage.getItem('token')
+    })
+  }
+
 };
 </script>

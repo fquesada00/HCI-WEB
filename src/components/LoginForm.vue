@@ -108,6 +108,7 @@ export default {
           .catch((e) => {
             this.error = e.details[0]
           })
+      window.dispatchEvent(new CustomEvent('logged'));
     }
   },
 };

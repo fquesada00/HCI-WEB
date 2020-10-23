@@ -1,6 +1,7 @@
 <template>
   <v-app>
-     <Header v-bind:loggedIn="loggedIn"></Header>
+    <BackgroundImage/>
+     <Header ></Header>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -9,15 +10,9 @@
 
 <script>
 import Header from '@/components/Header.vue'
-
+import BackgroundImage from "./components/BackgroundImage";
 export default {
   name: 'App',
-  components: { Header},
-
-  data() {
-    return {
-      loggedIn: false
-    }
-  }  
+  components: { Header,BackgroundImage},
 };
 </script>
