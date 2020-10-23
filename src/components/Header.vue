@@ -18,9 +18,14 @@
 
     <v-toolbar-title class="display-2" @click="$router.push('/')"
                      style="cursor:pointer; width: 500px" >FitBo</v-toolbar-title>
-    <v-tabs right fixed-tabs>
-      <v-tab v-for="tab in filteredTabs" v-bind:key="tab.name" :to="tab.route" >
-        <div :append-icon="tab.icon" v-if="tab.showme">{{ tab.name }}</div>
+    <v-tabs v-if="!loggedIn" right fixed-tabs>
+      <v-tab v-for="tab in tabsLoggedOut" v-bind:key="tab.name" :to="tab.route" >
+        <div :append-icon="tab.icon">{{ tab.name }}</div>
+      </v-tab>
+    </v-tabs>
+    <v-tabs v-else right fixed-tabs>
+      <v-tab v-for="tab in tabsLoggedIn" v-bind:key="tab.name" :to="tab.route" >
+        <div :append-icon="tab.icon">{{ tab.name }}</div>
       </v-tab>
     </v-tabs>
   </v-app-bar>
@@ -28,42 +33,36 @@
 <script>
 export default {
   name: "Header.vue",
+  props: ['loggedIn'],
 
   data: () => ({
-    loggedIn: false,
-    tabs: [
-      {name: "Inicio", icon: null, showme: true,route: "/"},
-      {name: "Crear Rutinas", icon: null, showme: true, route: "/rutinas"},
-      {name: "Explorar", icon: null, showme: true, route: "/explore"},
-      {name: "Mi Perfil", icon: null, showme: loggedIn, route: "/profile"},
+    tabsLoggedOut: [
+      {name: "Inicio", icon: null, route: "/"},
+      {name: "Crear Rutinas", icon: null, route: "/rutinas"},
+      {name: "Explorar", icon: null, route: "/explore"},
       {
         name: "Iniciar Sesion",
         icon: "mdi-login",
-        showme: !loggedIn,
         route: "/login",
       },
       {
         name: "Crear Cuenta",
         icon: "mdi-account-plus-outline",
-        showme: !loggedIn,
         route: "/signin",
       },
+    ],
+    tabsLoggedIn: [
+      {name: "Inicio", icon: null,route: "/"},
+      {name: "Crear Rutinas", icon: null, route: "/rutinas"},
+      {name: "Explorar", icon: null, route: "/explore"},
+      {name: "Mi Perfil", icon: null, route: "/profile"},
       {
         name: "Cerrar Sesion",
         icon: "mdi-exit-to-app",
-        showme: loggedIn,
         route: "/",
       },
     ],
     active: 0,
   }),
-  computed: {
-    filteredTabs: function() {
-      return this.tabs.filter(e => e.showme)
-    },
-    loggedIn: function() {
-      return sessionStorage.getItem('token') != null
-    }
-  }
 };
 </script>

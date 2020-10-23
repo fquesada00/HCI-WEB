@@ -1,6 +1,6 @@
 <template>
   <v-app>
-     <Header></Header>
+     <Header v-bind:loggedIn="loggedIn"></Header>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -14,8 +14,10 @@ export default {
   name: 'App',
   components: { Header},
 
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+      loggedIn: false
+    }
+  }  
 };
 </script>
