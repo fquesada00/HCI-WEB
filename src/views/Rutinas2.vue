@@ -1,29 +1,31 @@
 <template>
-  <div class="rutinas">
-    <BackgroundImage />
-    <v-container>
-       <DisplayExercises /> </v-container>
-    <!-- <v-col class="mt-n16">
-      <v-row v-for="i in exercises" :key="i">
-        <Exercises :ej="i" @reduceQty="remove($event)"></Exercises>
-      </v-row>
-    </v-col>
-    <v-text-field label="Nombre ejercicio" type="text" v-model="texto_user">
-    </v-text-field>
-    <v-btn @click="add">AGREGAR EJERCICIO</v-btn>
-    <div>
-      <span>Tengo {{ qty }} elementos</span>
-    </div> -->
-  </div>
+  <v-app>
+    <BackgroundImage/>
+
+    <v-main class="rutinas">
+        <DisplayExercises/>
+      <!-- <v-col class="mt-n16">
+        <v-row v-for="i in exercises" :key="i">
+          <Exercises :ej="i" @reduceQty="remove($event)"></Exercises>
+        </v-row>
+      </v-col>
+      <v-text-field label="Nombre ejercicio" type="text" v-model="texto_user">
+      </v-text-field>
+      <v-btn @click="add">AGREGAR EJERCICIO</v-btn>
+      <div>
+        <span>Tengo {{ qty }} elementos</span>
+      </div> -->
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 import BackgroundImage from "@/components/BackgroundImage";
-import DisplayExercises from "@/components/DisplayExercises2";
+import DisplayExercises from "@/components/DisplayExercises3";
 // import Exercises from "@/components/ExerciseBox2";
 export default {
   name: "Rutinas",
-  components: { BackgroundImage, DisplayExercises },
+  components: {BackgroundImage, DisplayExercises},
   data() {
     return {
       texto_user: "",

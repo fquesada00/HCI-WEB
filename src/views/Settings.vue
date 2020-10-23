@@ -6,7 +6,6 @@
         <v-row>
           <v-col order-sm="1">
             <ProfileCard class="profileSettingsFormat"/>
-
           </v-col>
           <v-col order-sm="0">
             <SettingsForm class="settingsFormFormat"/>
