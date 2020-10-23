@@ -6,7 +6,6 @@ import Profile from '../views/Profile.vue';
 import Tutorial from '../views/Tutorial.vue';
 import Rutinas from '../views/Rutinas2.vue';
 import Signin from '../views/Signin.vue';
-import Settings from "@/views/Settings";
 import Explore from "@/views/Explore";
 Vue.use(VueRouter)
 
@@ -25,11 +24,6 @@ const routes = [
         path: '/profile',
         name: 'profile',
         component: Profile
-    },
-    {
-        path: '/settings',
-        name: 'settings',
-        component: Settings
     },
     {
         path: '/tutorial',

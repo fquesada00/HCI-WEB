@@ -104,14 +104,19 @@ export default {
       this.$refs.observer.validate();
       let cred = new Credentials(this.username, this.password)
       UserApi.login(cred)
-          .then(() => this.$router.push(this.$route.query.redirect || '/'))
+          .then(() => {
+            this.$router.push(this.$route.query.redirect || '/');
+            window.dispatchEvent(new CustomEvent('logged'));
+          })
           .catch((e) => {
             this.error = e.details[0]
           })
-      window.dispatchEvent(new CustomEvent('logged'));
+
     }
-  },
-};
+  }
+  ,
+}
+;
 </script>
 
 <style scoped>
