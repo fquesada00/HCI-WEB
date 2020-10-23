@@ -44,7 +44,7 @@
               v-model="checkbox"
               :error-messages="errors"
               value="1"
-              label="Recordame"
+              label="Recordarme"
               type="checkbox"
           ></v-checkbox>
         </validation-provider>
