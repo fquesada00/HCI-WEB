@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <v-card width="600" height="400" style="border-radius: 10px">
+
+    <v-card width="30%" height="50%" style="border-radius: 10px">
       <v-row class="ma-0" style="height: 83px"
-        ><v-col class="d-flex" cols="6" sm="6" lg="6" style="height: 83px">
+        ><v-col class="d-flex" cols="6" sm="6" lg="6" xs="12" style="height: 83px">
           <div class="mb-10">
             <v-select
               color="black"
@@ -17,7 +17,7 @@
             ></v-select>
           </div>
         </v-col>
-        <v-col class="d-flex" cols="6" sm="6" lg="6">
+        <v-col class="d-flex" cols="6" sm="6" lg="6" xs="12">
           <v-spacer></v-spacer>
           <div class="mb-12">
             <v-text-field
@@ -85,7 +85,7 @@
           </div>
       </v-card-actions> -->
     </v-card>
-  </div>
+
 </template>
 
 <script>

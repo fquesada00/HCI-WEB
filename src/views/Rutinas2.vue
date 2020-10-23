@@ -1,8 +1,7 @@
 <template>
   <div class="rutinas">
     <BackgroundImage />
-    <v-container>
-       <DisplayExercises /> </v-container>
+    <v-card width="30%"> <BigExBox :seccion_name="title" class="mt-10"></BigExBox> </v-card>
     <!-- <v-col class="mt-n16">
       <v-row v-for="i in exercises" :key="i">
         <Exercises :ej="i" @reduceQty="remove($event)"></Exercises>
@@ -19,17 +18,19 @@
 
 <script>
 import BackgroundImage from "@/components/BackgroundImage";
-import DisplayExercises from "@/components/DisplayExercises2";
+// import DisplayExercises from "@/components/DisplayExercises2";
+import BigExBox from "@/components/BigExerciseBox2";
 // import Exercises from "@/components/ExerciseBox2";
 export default {
   name: "Rutinas",
-  components: { BackgroundImage, DisplayExercises },
+  components: { BackgroundImage, BigExBox },
   data() {
     return {
       texto_user: "",
       ej: "",
       qty: 0,
       exercises: [],
+      title: "ENTRADA EN CALOR",
     };
   },
   methods: {
