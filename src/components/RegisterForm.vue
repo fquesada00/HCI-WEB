@@ -248,12 +248,10 @@ export default {
           new Date(this.birthday).getTime(),
           this.gender.toLowerCase()
       );
-      UserApi.register(user)
-          .then(() => {
-            this.$router.push(this.$route.query.redirect || '/')
-          })
+      await UserApi.register(user)
           .catch((e) => {
             this.error = e.description})
+      this.$emit('success');
     },
   },
 };
