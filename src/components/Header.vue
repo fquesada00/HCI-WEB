@@ -1,4 +1,4 @@
-<template>
+<template  :key="sessionStorage.length">
   <v-app-bar
       class="header"
       fixed
@@ -16,12 +16,16 @@
       ></v-img>
     </v-app-bar-nav-icon>
 
-    <v-toolbar-title class="display-2" @click="$router.push('/')"
+    <v-toolbar-title class="display-2" @click="$router.push($route.query.redirect || '/')"
                      style="cursor:pointer; width: 500px" >FitBo</v-toolbar-title>
-    <v-tabs right fixed-tabs>
-      <v-tab v-for="tab in tabs" v-bind:key="tab.name" :to="tab.route" >
-        <div>{{ tab.name }}</div>
-        <v-icon v-show="tab.icon != null" right>{{ tab.icon }}</v-icon>
+    <v-tabs v-if="!loggedIn" right fixed-tabs>
+      <v-tab v-for="tab in tabsLoggedOut" v-bind:key="tab.name" :to="tab.route" >
+        <div :append-icon="tab.icon">{{ tab.name }}</div>
+      </v-tab>
+    </v-tabs>
+    <v-tabs v-else right fixed-tabs>
+      <v-tab v-for="tab in tabsLoggedIn" v-bind:key="tab.name" :to="tab.route" >
+        <div :append-icon="tab.icon">{{ tab.name }}</div>
       </v-tab>
     </v-tabs>
   </v-app-bar>
@@ -31,25 +35,53 @@ export default {
   name: "Header.vue",
 
   data: () => ({
-    tabs: [
-      {name: "Inicio", icon: null, bar: false, route: "/"},
-      {name: "Crear Rutinas", icon: null, bar: false, route: "/rutinas"},
-      {name: "Explorar", icon: null, bar: false, route: "/explore"},
-      {name: "Mi Perfil", icon: null, bar: true, route: "/profile"},
+    key: 0,
+    loggedIn: false,
+    tabsLoggedOut: [
+      {name: "Inicio", icon: null, route: "/"},
+      {name: "Crear Rutinas", icon: null, route: "/rutinas"},
+      {name: "Explorar", icon: null, route: "/explore"},
       {
         name: "Iniciar Sesion",
         icon: "mdi-login",
-        bar: false,
         route: "/login",
       },
       {
         name: "Crear Cuenta",
         icon: "mdi-account-plus-outline",
-        bar: false,
         route: "/signin",
+      },
+    ],
+    tabsLoggedIn: [
+      {name: "Inicio", icon: null,route: "/"},
+      {name: "Crear Rutinas", icon: null, route: "/rutinas"},
+      {name: "Explorar", icon: null, route: "/explore"},
+      {name: "Mi Perfil", icon: null, route: "/profile"},
+      {
+        name: "Cerrar Sesion",
+        icon: "mdi-exit-to-app",
+        route: "/",
       },
     ],
     active: 0,
   }),
+  computed:{
+  },
+  methods:{
+    checkLogin:function (){
+      this.loggedIn = !!this.sessionStorage.getItem('token')
+    },
+    updateLogin:function (){
+      let ret = sessionStorage.getItem('token') != null
+      this.key = 1;
+      return ret
+    }
+  },
+  mounted() {
+    window.addEventListener('logged',() =>{
+      this.loggedIn = !!sessionStorage.getItem('token')
+    })
+  }
+
 };
 </script>

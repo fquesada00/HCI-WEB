@@ -249,7 +249,9 @@ export default {
           this.gender.toLowerCase()
       );
       UserApi.register(user)
-          .then(() => this.$router.push(this.$route.query.redirect || '/'))
+          .then(() => {
+            this.$router.push(this.$route.query.redirect || '/')
+          })
           .catch((e) => {
             this.error = e.description})
     },

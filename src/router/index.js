@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Profile from '../views/Profile.vue'
-import Tutorial from '../views/Tutorial.vue'
-import Rutinas from '../views/Rutinas2.vue'
-import Signin from '../views/Signin.vue'
-import Settings from "@/views/Settings";
+import Home from '../views/Home.vue';
+import Login from '../views/Login.vue';
+import Profile from '../views/Profile.vue';
+import Tutorial from '../views/Tutorial.vue';
+import Rutinas from '../views/Rutinas2.vue';
+import Signin from '../views/Signin.vue';
+import Explore from "@/views/Explore";
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,11 +26,6 @@ const routes = [
         component: Profile
     },
     {
-        path: '/settings',
-        name: 'settings',
-        component: Settings
-    },
-    {
         path: '/tutorial',
         name: 'tutorial',
         component: Tutorial
@@ -44,6 +39,11 @@ const routes = [
         path: '/signin',
         name: 'signin',
         component: Signin
+    },
+    {
+        path: '/explore',
+        name: 'explore',
+        component: Explore
     }
 ]
 

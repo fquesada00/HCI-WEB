@@ -37,7 +37,7 @@ export default {
     add(name) {
       this.ej = this.texto_user;
       this.texto_user = "";
-      if (this.exercises.find((e) => e == name)) {
+      if (this.exercises.find((e) => e === name)) {
         console.log("Element already exists");
         return;
       }
@@ -45,8 +45,8 @@ export default {
       this.qty++;
     },
     remove(name) {
-      var idx = this.exercises.findIndex((e) => e == name);
-      if (idx == -1) {
+      const idx = this.exercises.findIndex((e) => e === name);
+      if (idx === -1) {
         console.log("Element does not exists");
         return;
       }

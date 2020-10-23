@@ -5,15 +5,15 @@
         ><v-col class="d-flex" cols="6" sm="6" lg="6" xs="12" style="height: 83px">
           <div class="mb-10">
             <v-select
-              color="black"
-              class="categorias"
-              :items="items"
-              filled
-              solo
-              label="Categorías"
-              background-color="teal accent-4"
-              style="border-radius: 10px"
-              @input="selectExer"
+                color="black"
+                class="categorias"
+                :items="items"
+                filled
+                solo
+                label="Categorías"
+                background-color="teal accent-4"
+                style="border-radius: 10px"
+                @input="selectExer"
             ></v-select>
           </div>
         </v-col>
@@ -21,44 +21,45 @@
           <v-spacer></v-spacer>
           <div class="mb-12">
             <v-text-field
-              class="busqueda"
-              placeholder="Búsqueda"
-              filled
-              dense
-              height="55"
-              width="10"
-              solo
-              background-color="teal accent-4"
-              elevation-1
-              style="border-radius: 10px"
+                class="busqueda"
+                placeholder="Búsqueda"
+                filled
+                dense
+                height="55"
+                width="10"
+                solo
+                background-color="teal accent-4"
+                elevation-1
+                style="border-radius: 10px"
             ></v-text-field>
           </div>
         </v-col>
       </v-row>
-      <v-divider></v-divider>
       <v-card class="purple" width="100%" height="100%">
-        <div v-for="item in samples" :key="item.grupo" class="yellow">
-          <v-row class="red"  v-if="item.show">
-            <v-col cols="auto" v-for="exer in item.ejs" :key="exer">
-              <v-card height="160px" width="150px">
-                <v-img
-                  class="align-baseline"
-                  :src="exer.img"
-                  height="160px"
-                  width="150px"
-                >
-                  <v-container
-                    fluid
-                    class="justify-center"
-                    style="background-color: white; opacity: 0.6"
+
+          <div v-for="item in samples" :key="item.grupo" class="yellow">
+            <v-row class="red" v-if="item.show">
+              <v-col cols="auto" v-for="exer in item.ejs" :key="exer">
+                <v-card>
+                  <v-img
+                      class="align-baseline"
+                      :src="exer.img"
+                      height="160px"
+                      width="150px"
                   >
-                    {{ exer.nombre }}
-                  </v-container>
-                </v-img>
-              </v-card>
-            </v-col>
-          </v-row>
-        </div>
+                    <v-container
+                        fluid
+                        class="justify-center"
+                        style="background-color: white; opacity: 0.6"
+                    >
+                      {{ exer.nombre }}
+                    </v-container>
+                  </v-img>
+                </v-card>
+              </v-col>
+            </v-row>
+
+          </div>
       </v-card>
       <!-- <v-card-actions class="red">
           <div v-for="item in samples" :key="item.grupo" class="yellow">
@@ -85,7 +86,6 @@
           </div>
       </v-card-actions> -->
     </v-card>
-
 </template>
 
 <script>
@@ -241,22 +241,28 @@ export default {
   width: 200px;
   margin-bottom: -20px;
 }
+
 .divisor {
   margin-top: -50px;
 }
+
 .busqueda {
   width: 200px;
   height: 10px;
 }
+
 .v-text-field >>> input {
   font-size: 1.16em;
 }
+
 .v-select {
   font-size: 1.2em;
 }
+
 .v-select >>> label {
   font-size: 0.99em;
 }
+
 .v-select__selection {
   max-width: 90%;
   height: 90px;

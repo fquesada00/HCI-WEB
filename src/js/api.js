@@ -1,7 +1,7 @@
 export { Api };
 
 class Api {
-  static token;
+  static token = sessionStorage.getItem('token');
 
   static get baseUrl() {
     return 'http://127.0.0.1:5500/api';
@@ -33,7 +33,7 @@ class Api {
       return result;
     } catch (error) {
       if (!error.code) {
-        // error = { "code": 99, "description": error.message.toLowerCase() };
+        throw {"code": 99, "description": error.message.toLowerCase()}
       }
       throw error;
     } finally {
