@@ -1,4 +1,4 @@
-<template  :key="sessionStorage.length">
+<template>
   <v-app-bar
       class="header"
       fixed
@@ -33,10 +33,9 @@
 <script>
 export default {
   name: "Header.vue",
-
   data: () => ({
     key: 0,
-    loggedIn: false,
+    loggedIn: sessionStorage.getItem('token'),
     tabsLoggedOut: [
       {name: "Inicio", icon: null, route: "/"},
       {name: "Crear Rutinas", icon: null, route: "/rutinas"},
@@ -80,8 +79,8 @@ export default {
   mounted() {
     window.addEventListener('logged',() =>{
       this.loggedIn = !!sessionStorage.getItem('token')
+      console.log(!!sessionStorage.getItem('token'))
     })
   }
-
 };
 </script>
