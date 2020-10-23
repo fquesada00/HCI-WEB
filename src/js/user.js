@@ -52,6 +52,7 @@ class UserApi {
     }
 
     //FOR TESTING ONLY
+    //TODO
     static async verifyEmail(email, code, controller) {
         let verification = {email: email, code: code};
         console.log(verification);
