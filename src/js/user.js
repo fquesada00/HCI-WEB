@@ -55,8 +55,8 @@ class UserApi {
     //TODO
     static async verifyEmail(email, code, controller) {
         let verification = {email: email, code: code};
-        console.log(verification);
-        await Api.post(` ${UserApi.url}/verify_email `, false, verification, controller)
+        return await Api.post(` ${UserApi.url}/verify_email `, false, verification, controller)
+
     }
 }
 

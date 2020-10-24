@@ -1,5 +1,5 @@
 import { Api} from "./api";
-export {RoutinesApi}
+export {RoutinesApi,Routine}
 class RoutinesApi{
     static get url() {
         return `${Api.baseUrl}/routines`;
@@ -18,5 +18,14 @@ class RoutinesApi{
     }
     static async updateRoutine(updatedRoutine,id,controller){
         return await Api.put(`${RoutinesApi.url}/`+id,true,updatedRoutine,controller)
+    }
+}
+class Routine{
+    constructor(name,detail,isPublic,category,difficulty) {
+        this.name=name;
+        this.detail=detail;
+        this.isPublic=isPublic;
+        this.category={id:category};
+        this.difficulty=difficulty;
     }
 }

@@ -1,6 +1,6 @@
 import { Api} from "./api";
 import {RoutinesApi} from "./routines";
-export {CyclesApi}
+export {CyclesApi,Cycle}
 class CyclesApi{
     static get url() {
         return `${RoutinesApi.url}/`;
@@ -25,4 +25,14 @@ class CyclesApi{
         })
     }
 
+}
+
+class Cycle{
+    constructor(name,detail,type,order,repetitions) {
+        this.name=name;
+        this.detail=detail;
+        this.type=type;
+        this.order=order;
+        this.repetitions=repetitions
+    }
 }

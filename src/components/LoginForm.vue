@@ -52,7 +52,7 @@
           <span class="error--text">{{ error }}</span>
         </v-row>
         <v-row class="justify-center">
-          <v-btn class="mr-4" type="submit" :disabled="invalid">Ingresar</v-btn>
+          <v-btn class="mr-4" type="submit" :disabled="invalid" :loading="loading">Ingresar</v-btn>
         </v-row>
       </form>
     </validation-observer>
@@ -68,6 +68,7 @@ import {
   setInteractionMode,
 } from "vee-validate";
 import {Credentials, UserApi} from "../js/user";
+import {bus} from "../main";
 
 setInteractionMode("eager");
 
@@ -96,20 +97,24 @@ export default {
     password: "",
     error: null,
     checkbox: null,
-    show1: false
+    show1: false,
+    loading:false
   }),
 
   methods: {
     async submit() {
+      this.loading=true;
       this.$refs.observer.validate();
       let cred = new Credentials(this.username, this.password)
       UserApi.login(cred)
           .then(() => {
+            this.$emit('logged')
             this.$router.push(this.$route.query.redirect || '/');
-            window.dispatchEvent(new CustomEvent('logged'));
+            bus.$emit('logged');
           })
           .catch((e) => {
             this.error = e.details[0]
+            this.loading=false
           })
 
     }

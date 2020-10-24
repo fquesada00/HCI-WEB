@@ -1,7 +1,8 @@
 import {UserApi} from "./user";
-import {CyclesApi} from "./cycles";
+import {Cycle, CyclesApi} from "./cycles";
 import {ExercisesApi} from "./exercises";
-import {RoutinesApi} from "./routines";
+import {RoutinesApi,Routine} from "./routines";
+import {CategoriesApi, Category} from "./Categories";
 
 export {Store}
 
@@ -81,6 +82,41 @@ class Store {
             }
         }
 
+
+    }
+
+    static async initUser(controller){
+        let val = await UserApi.getCurrentUserRoutines(controller).catch(() => {
+            val = null
+        })
+        if (val != null && val.totalCount === 0) {
+            CategoriesApi.getCategories(controller).catch(() =>{
+            }).then(async (cat) => {
+                if (cat != null && cat.totalCount === 0) {
+                    await CategoriesApi.putCategory(new Category('Larga', 'Rutinas de duracion larga'),controller)
+                    await CategoriesApi.putCategory(new Category('Media', 'Rutinas de duracion media'),controller)
+                    await CategoriesApi.putCategory(new Category('Corta', 'Rutinas de duracion corta'),controller)
+                }
+                this.error = ''
+                await Store.initExercisesList(controller).catch(() => {
+                    this.error = 'No se pudo inicializar mis ejercicios'
+                })
+            });
+
+        }
+    }
+
+
+    static async initExercisesList(controller)
+    {
+        let num=1
+        let cycles = [new Cycle('Brazos', 'Ejercicios de Brazos', 'exercise', num++, 1),
+            new Cycle('Piernas', 'Ejercicios de Piernas', 'exercise', num++, 1),
+            new Cycle('Pecho','Ejercicios de Pecho','exercise',num++,1),
+            new Cycle('Abdominales','Ejercicios de Abdominales','exercise',num++,1)]
+        let myExercises = new Routine('Mis Ejercicios','Ejercicios creados por mi',false,1, 'intermediate')
+
+        return await this.createRoutine(myExercises, cycles, [], controller)
 
     }
 

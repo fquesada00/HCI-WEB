@@ -16,8 +16,8 @@
     </v-app-bar-nav-icon>
 
     <v-toolbar-title class="display-2" @click="$router.push($route.query.redirect || '/')"
-                     style="cursor:pointer; width: 500px" >FitBo</v-toolbar-title>
-    <v-tabs v-if="!loggedIn" right fixed-tabs>
+                     style="cursor:pointer; min-width: 200px" >FitBo</v-toolbar-title>
+    <v-tabs v-if="!loggedIn" right fixed-tabs show-arrows="true">
       <v-tab v-for="tab in tabsLoggedOut" v-bind:key="tab.name" :to="tab.route" >
         <div>{{ tab.name }}</div>
         <v-icon right >{{tab.icon}}</v-icon>
@@ -28,7 +28,7 @@
         <div>{{ tab.name }}</div>
         <v-icon right >{{tab.icon}}</v-icon>
       </v-tab>
-      <v-btn large color="rgb(57, 198, 173,0.9)" dark height="64px">Cerrar Sesion
+      <v-btn depressed large color="rgb(57, 198, 173,0.9)" dark height="64px">Cerrar Sesion
       <v-icon>mdi-exit-to-app</v-icon>
     </v-btn>
     </v-tabs>
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import {bus} from "../main";
+
 export default {
   name: "Header.vue",
   data: () => ({
@@ -78,7 +80,7 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('logged',() =>{
+    bus.$on('logged',() =>{
       this.loggedIn = !!sessionStorage.getItem('token')
       console.log(!!sessionStorage.getItem('token'))
     })

@@ -160,7 +160,7 @@
           <span  class="error--text">{{ error }}</span>
         </v-row>
         <v-row class="justify-center">
-          <v-btn type="submit" :disabled="invalid"> submit</v-btn>
+          <v-btn :loading="loading" type="submit" :disabled="invalid" @click="loading = true"> submit</v-btn>
         </v-row>
       </form>
     </validation-observer>
@@ -234,11 +234,14 @@ export default {
     show1: false,
     show2: false,
     error:null,
+    loading:false,
+    loader:null,
     nowDate: new Date().toISOString().slice(0, 10),
   }),
 
   methods: {
     async submit() {
+
       this.$refs.observer.validate();
       let user = new User(
           this.username,
@@ -249,9 +252,15 @@ export default {
           this.gender.toLowerCase()
       );
       await UserApi.register(user)
+          .then(()=>{
+            this.loading = false;
+          })
           .catch((e) => {
             this.error = e.description})
       this.$emit('success');
+
+
+
     },
   },
 };
