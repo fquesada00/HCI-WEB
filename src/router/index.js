@@ -9,6 +9,7 @@ import Signin from '../views/Signin.vue';
 import Explore from "@/views/Explore";
 import ConfirmEmail from "../views/ConfirmEmail";
 import NewExercise from "@/views/NewExercise";
+import Test from "@/views/Test";
 Vue.use(VueRouter)
 
 const routes = [
@@ -51,6 +52,10 @@ const routes = [
         path: '/explore',
         name: 'explore',
         component: Explore
+    },{
+        path: '/test',
+        name: 'test',
+        component: Test
     },
     {
         path: '/verifyEmail',
