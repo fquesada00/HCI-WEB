@@ -1,42 +1,17 @@
 <template>
-  <div class="big-exercise-box2">
-    <v-container>
-      <v-row class="d-flex justify-space-between">
-        <v-col cols="12" md="8" lg="9">
-          <div>
-            <p class="font-weight-black text-h5">{{ seccion_name }}</p>
-          </div>
-        </v-col>
-        <v-col class="align-content-center" lg="3" md="4" cols="7">
-          <!-- <v-text-field
-            prefix="#"
-            placeholder="0"
-            type="number"
-            solo
-            :rules="[verify]"
-          >
-          </v-text-field> -->
-        </v-col>
-      </v-row>
-      <v-divider></v-divider>
-      <v-col v-for="exercise in exercises" :key="exercise.ej">
-        <v-container>
-          <ExerciseBox :ej="exercise.ej"></ExerciseBox>
-        </v-container>
-      </v-col>
-      <v-divider></v-divider>
-      <v-col align="center">
-        <v-btn class="teal accent-4 font-weight-black text-h6">CONTINUAR</v-btn>
-      </v-col>
-    </v-container>
-  </div>
+  <v-container rounded class="bigExerciseBox2">
+    <h2>{{ seccion_name }}</h2>
+    <v-row v-for="exercise in exercises" :key="exercise.ej">
+      <ExerciseBox  :ej="exercise.ej"></ExerciseBox>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import { bus } from "../main";
+import {bus} from "../main";
 import ExerciseBox from "./ExerciseBox";
 export default {
-  components: { ExerciseBox },
+  components: {ExerciseBox},
   props: ["seccion_name"],
 
   data() {
@@ -45,16 +20,9 @@ export default {
     };
   },
   methods: {
-    // verify(v) {
-    //   //   if (!v.trim()) return true;
-    //   if (!isNaN(parseFloat(v)) && v >= 0 && v <= 99) {
-    //     this.reps = v;
-    //     return true;
-    //   }
-    //   if (v != undefined) {
-    //     alert("Number has to be between 0 and 99");
-    //   }
-    // },
+    nextStep: function () {
+      bus.$emit('nextStep')
+    }
   },
   mounted() {
     bus.$on("addExerToBigBox", (data) => {
@@ -80,4 +48,10 @@ export default {
 </script>
 
 <style scoped>
+.bigExerciseBox2 {
+  height: 100%;
+  width: 50%;
+  min-width:550px;
+  justify-content: center;
+}
 </style>

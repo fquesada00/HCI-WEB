@@ -1,54 +1,54 @@
 <template>
-  <v-card class="Exercise_Box">
-    <v-card-text>
-      <div class="exercise_name">
-        {{ ej }}
-      </div>
-    </v-card-text>
-    <v-divider ></v-divider>
-    <v-container>
-      <v-row>
-        <v-col cols="4" sm="3">
-          <div>HOLA</div>
-        </v-col>
-        <v-col cols="4" sm="3">
-          <v-btn text color="secondary">
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-        </v-col>
-        <v-col cols="4" sm="3">
-          <v-btn text color="pink">
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
+  <v-row style="padding-left: 2%;padding-right: 2%" class="Exercise_Box">
+    <v-col class="col-xl-6 col-sm-4">
+      <span>{{ ej }}</span>
+    </v-col>
+    <v-spacer></v-spacer>
+    <v-col cols="2">
+      <v-btn left color="orange" @click="overlay = !overlay">More</v-btn>
+    </v-col>
+    <v-col cols="2">
+      <v-btn rigth color="error">
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
+    </v-col>
+    <v-col cols="1">
+      <v-btn fab x-small>
+        <v-icon>mdi-arrow-up</v-icon>
+      </v-btn>
+    </v-col>
+    <v-col cols="1">
+      <v-btn fab x-small>
+        <v-icon>mdi-arrow-down</v-icon>
+      </v-btn>
+    </v-col>
+    <v-overlay rounded light :value="overlay">
+      <v-card rounded height="600px" width="600px" light>
+        <CreateExercise/>
+        <!--        No se como se te ocurre aca octa,
+        tipo si le pasas como props datos o no se, mañana lo vemos?-->
+        <v-btn color="orange" @click="overlay = !overlay">Close</v-btn>
+      </v-card>
+    </v-overlay>
+  </v-row>
+
 </template>
 
 <script>
+import CreateExercise from "@/components/CreateExercise";
+
 export default {
   name: "Exercice_box.vue",
+  components: {CreateExercise},
   props: ["ej"],
   data() {
     return {
       cantidad: "CANTIDAD",
+      overlay: false
     };
   },
 };
 </script>
 
 <style scoped>
-.Exercise_Box {
-  margin: 100px;
-  width: 300px;
-  height: 200px;
-  position: relative;
-}
-.exercise_name {
-  font-size: 20px;
-}
-.fila_inferior {
-  margin: 10px;
-}
 </style>
