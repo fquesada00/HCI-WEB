@@ -16,8 +16,8 @@
     </v-app-bar-nav-icon>
 
     <v-toolbar-title class="display-2" @click="$router.push($route.query.redirect || '/')"
-                     style="cursor:pointer; min-width: 200px" >FitBo</v-toolbar-title>
-    <v-tabs v-if="!loggedIn" right fixed-tabs show-arrows="true">
+                     style="cursor:pointer; width: 500px" >FitBo</v-toolbar-title>
+    <v-tabs v-if="!loggedIn" right fixed-tabs>
       <v-tab v-for="tab in tabsLoggedOut" v-bind:key="tab.name" :to="tab.route" >
         <div>{{ tab.name }}</div>
         <v-icon right >{{tab.icon}}</v-icon>
@@ -28,7 +28,7 @@
         <div>{{ tab.name }}</div>
         <v-icon right >{{tab.icon}}</v-icon>
       </v-tab>
-      <v-btn depressed large color="rgb(57, 198, 173,0.9)" dark height="64px">Cerrar Sesion
+      <v-btn large color="rgb(57, 198, 173,0.9)" @click="logOut"  :replace="true" to='/' dark height="64px">Cerrar Sesion
       <v-icon>mdi-exit-to-app</v-icon>
     </v-btn>
     </v-tabs>
@@ -36,7 +36,10 @@
 </template>
 
 <script>
-import {bus} from "../main";
+
+import {
+  UserApi
+} from '../js/user'
 
 export default {
   name: "Header.vue",
@@ -67,9 +70,12 @@ export default {
     ],
     active: 0,
   }),
-  computed:{
-  },
   methods:{
+
+    logOut: function() {
+      UserApi.logout();
+      this.loggedIn = !!sessionStorage.getItem('token')
+    },
     checkLogin:function (){
       this.loggedIn = !!this.sessionStorage.getItem('token')
     },
@@ -80,7 +86,7 @@ export default {
     }
   },
   mounted() {
-    bus.$on('logged',() =>{
+    window.addEventListener('logged',() =>{
       this.loggedIn = !!sessionStorage.getItem('token')
       console.log(!!sessionStorage.getItem('token'))
     })
