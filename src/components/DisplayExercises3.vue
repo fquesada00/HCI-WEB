@@ -24,16 +24,14 @@
 import {bus} from "../main";
 
 export default {
-  props: ["exercises"],
+  props: ["exercises","idx"],
   name: "DisplayExercises3",
   data: () => ({}),
   methods: {
     addExer(name, amount) {
-      bus.$emit("addExerToBigBox", {ej: name, cant: amount});
+      var index = this.idx;
+      bus.$emit("addExerToBigBox", {ej: name, cant: amount, indice: index});
     },
-    show_me() {
-      console.log(this.exercises);
-    }
   },
 };
 </script>

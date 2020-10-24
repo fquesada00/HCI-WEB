@@ -11,7 +11,7 @@
     </v-row>
     <div>
       <div v-for="display in samples" :key="display.group">
-        <DisplayList v-if="display.show" :exercises="display.exercises"/>
+        <DisplayList v-if="display.show" :exercises="display.exercises" :idx="idx"/>
       </div>
     </div>
   </v-container>
@@ -22,6 +22,7 @@ import DisplayList from "./DisplayExercises3";
 
 export default {
   components: {DisplayList},
+  props: ["idx"],
   name: "DisplayExercises",
   data: () => ({
     items: ["Espalda", "Biceps", "Hombros", "Pecho", "Triceps", "Piernas"],
