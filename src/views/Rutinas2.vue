@@ -1,17 +1,17 @@
 <template>
-  <div class="rutinas">
+  <v-app >
     <BackgroundImage />
-    <v-row>
-      <v-col lg="4">
+    <v-main >
+      <v-col>
         <v-card
           ><BigExBox :seccion_name="title" class="mt-10"></BigExBox
         ></v-card>
       </v-col>
-      <v-col lg="3">
+      <v-col>
         <v-card><DisplayLista /> </v-card
       ></v-col>
-    </v-row>
-  </div>
+    </v-main>
+  </v-app>
 </template>
 
 <script>

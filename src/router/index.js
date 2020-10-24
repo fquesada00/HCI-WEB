@@ -8,6 +8,7 @@ import Rutinas from '../views/Rutinas2.vue';
 import Signin from '../views/Signin.vue';
 import Explore from "@/views/Explore";
 import ConfirmEmail from "../views/ConfirmEmail";
+import NewExercise from "@/views/NewExercise";
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,6 +16,11 @@ const routes = [
         path: '/',
         name: 'home',
         component: Home
+    },
+    {
+        path: '/createExercise',
+        name: 'newexercise',
+        component: NewExercise
     },
     {
         path: '/login',
