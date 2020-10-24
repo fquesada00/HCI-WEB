@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar fixed
+  <v-app-bar absolute
       class="header"
       color="rgb(57, 198, 173,0.9)"
       max-height="64px"
@@ -28,6 +28,9 @@
         <div>{{ tab.name }}</div>
         <v-icon right >{{tab.icon}}</v-icon>
       </v-tab>
+      <v-btn large color="rgb(57, 198, 173,0.9)" dark height="64px">Cerrar Sesion
+      <v-icon>mdi-exit-to-app</v-icon>
+    </v-btn>
     </v-tabs>
   </v-app-bar>
 </template>
@@ -58,11 +61,7 @@ export default {
       {name: "Crear Rutinas", icon: null, route: "/rutinas"},
       {name: "Explorar", icon: null, route: "/explore"},
       {name: "Mi Perfil", icon: "mdi-account", route: "/profile"},
-      {
-        name: "Cerrar Sesion",
-        icon: "mdi-exit-to-app",
-        route: "/",
-      },
+    
     ],
     active: 0,
   }),
