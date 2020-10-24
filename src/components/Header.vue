@@ -15,7 +15,7 @@
       ></v-img>
     </v-app-bar-nav-icon>
 
-    <v-toolbar-title class="display-2" @click="$router.push($route.query.redirect || '/')"
+    <v-toolbar-title class="display-2 font-weight-bold" @click="$router.push($route.query.redirect || '/')"
                      style="cursor:pointer; width: 500px" >FitBo</v-toolbar-title>
     <v-tabs v-if="!loggedIn" right fixed-tabs>
       <v-tab v-for="tab in tabsLoggedOut" v-bind:key="tab.name" :to="tab.route" >
@@ -76,6 +76,7 @@ export default {
     logOut: function() {
       UserApi.logout().then(()=>{
         this.loggedIn = !!sessionStorage.getItem('token')
+        bus.$emit('logged')
       });
 
     },
