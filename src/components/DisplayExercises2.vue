@@ -1,95 +1,56 @@
 <template>
-
-    <v-card width="30%" height="50%" style="border-radius: 10px">
-      <v-row class="ma-0" style="height: 83px"
-        ><v-col class="d-flex" cols="6" sm="6" lg="6" xs="12" style="height: 83px">
+  <v-container>
+      <v-row class="ma-0"
+        ><v-col class="d-flex" style="height: 83px">
           <div class="mb-10">
             <v-select
-                color="black"
-                class="categorias"
-                :items="items"
-                filled
-                solo
-                label="Categorías"
-                background-color="teal accent-4"
-                style="border-radius: 10px"
-                @input="selectExer"
+              color="black"
+              class="categorias"
+              :items="items"
+              filled
+              solo
+              label="Categorías"
+              background-color="teal accent-4"
+              style="border-radius: 10px"
+              @input="selectExer"
             ></v-select>
           </div>
         </v-col>
-        <v-col class="d-flex" cols="6" sm="6" lg="6" xs="12">
-          <v-spacer></v-spacer>
-          <div class="mb-12">
-            <v-text-field
-                class="busqueda"
-                placeholder="Búsqueda"
-                filled
-                dense
-                height="55"
-                width="10"
-                solo
-                background-color="teal accent-4"
-                elevation-1
-                style="border-radius: 10px"
-            ></v-text-field>
+        <!-- <v-col class="d-flex" cols="6" sm="6" lg="6" xs="12">
+        <v-spacer></v-spacer>
+        <div class="mb-12">
+          <v-text-field
+            class="busqueda"
+            placeholder="Búsqueda"
+            filled
+            dense
+            height="55"
+            width="10"
+            solo
+            background-color="teal accent-4"
+            elevation-1
+            style="border-radius: 10px"
+          ></v-text-field>
+        </div>
+      </v-col> -->
+      </v-row>
+
+      <v-row>
+        <v-col v-for="display in samples" :key="display.group">
+          <div v-if="display.show">
+            <v-card
+              ><DisplayList :exercises="display.exercises"></DisplayList
+            ></v-card>
           </div>
         </v-col>
       </v-row>
-      <v-card class="purple" width="100%" height="100%">
-
-          <div v-for="item in samples" :key="item.grupo" class="yellow">
-            <v-row class="red" v-if="item.show">
-              <v-col cols="auto" v-for="exer in item.ejs" :key="exer">
-                <v-card>
-                  <v-img
-                      class="align-baseline"
-                      :src="exer.img"
-                      height="160px"
-                      width="150px"
-                  >
-                    <v-container
-                        fluid
-                        class="justify-center"
-                        style="background-color: white; opacity: 0.6"
-                    >
-                      {{ exer.nombre }}
-                    </v-container>
-                  </v-img>
-                </v-card>
-              </v-col>
-            </v-row>
-
-          </div>
-      </v-card>
-      <!-- <v-card-actions class="red">
-          <div v-for="item in samples" :key="item.grupo" class="yellow">
-            <v-row v-if="item.show">
-              <v-col cols="auto" v-for="exer in item.ejs" :key="exer">
-                <v-card height="160px" width="150px">
-                  <v-img
-                    class="align-baseline"
-                    :src="exer.img"
-                    height="160px"
-                    width="150px"
-                  >
-                    <v-container
-                      fluid
-                      class="justify-center"
-                      style="background-color: white; opacity: 0.6"
-                    >
-                      {{ exer.nombre }}
-                    </v-container>
-                  </v-img>
-                </v-card>
-              </v-col>
-            </v-row>
-          </div>
-      </v-card-actions> -->
-    </v-card>
+  </v-container>
 </template>
 
 <script>
+import DisplayList from "./DisplayExercises3";
 export default {
+  components: { DisplayList },
   name: "DisplayExercises",
   data: () => ({
     items: ["Espalda", "Biceps", "Hombros", "Pecho", "Triceps", "Piernas"],
@@ -98,125 +59,127 @@ export default {
       {
         grupo: "Espalda",
         show: false,
-        ejs: [
-          {
-            nombre: "Espalda al pecho",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Alternado",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Conjuntos",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Espalda al pecho",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Alternado",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Conjuntos",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Conjuntos",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
+        exercises: [
+          { icon: "mdi-weight-gram", name: "ESPALDA", amount: 0 },
+          { icon: "mdi-bike", name: "Destruye Brazos", amount: 0 },
+          { icon: "mdi-biathlon", name: "Ayuda Abs", amount: 0 },
+          { icon: "mdi-bowling", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cactus", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cannabis", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-castle", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-dog", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-elephant", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-face", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-foot-print", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-ghost", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-heart-pulse", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-lingerie", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-nintendo-switch", name: "Destruye Piernas", amount: 0 },
         ],
       },
       {
         grupo: "Biceps",
         show: false,
-        ejs: [
-          {
-            nombre: "Biceps al pecho",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Alternado",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Conjuntos",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
+        exercises: [
+          { icon: "mdi-weight-gram", name: "BICEPS", amount: 0 },
+          { icon: "mdi-bike", name: "Destruye Brazos", amount: 0 },
+          { icon: "mdi-biathlon", name: "Ayuda Abs", amount: 0 },
+          { icon: "mdi-bowling", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cactus", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cannabis", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-castle", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-dog", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-elephant", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-face", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-foot-print", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-ghost", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-heart-pulse", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-lingerie", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-nintendo-switch", name: "Destruye Piernas", amount: 0 },
         ],
       },
       {
         grupo: "Hombros",
         show: false,
-        ejs: [
-          {
-            nombre: "Hombros al pecho",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Alternado",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Conjuntos",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
+        exercises: [
+          { icon: "mdi-weight-gram", name: "HOMBROS", amount: 0 },
+          { icon: "mdi-bike", name: "Destruye Brazos", amount: 0 },
+          { icon: "mdi-biathlon", name: "Ayuda Abs", amount: 0 },
+          { icon: "mdi-bowling", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cactus", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cannabis", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-castle", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-dog", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-elephant", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-face", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-foot-print", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-ghost", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-heart-pulse", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-lingerie", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-nintendo-switch", name: "Destruye Piernas", amount: 0 },
         ],
       },
       {
         grupo: "Pecho",
         show: false,
-        ejs: [
-          {
-            nombre: "Pecho al pecho",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Alternado",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Conjuntos",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
+        exercises: [
+          { icon: "mdi-weight-gram", name: "PECHO", amount: 0 },
+          { icon: "mdi-bike", name: "Destruye Brazos", amount: 0 },
+          { icon: "mdi-biathlon", name: "Ayuda Abs", amount: 0 },
+          { icon: "mdi-bowling", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cactus", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cannabis", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-castle", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-dog", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-elephant", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-face", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-foot-print", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-ghost", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-heart-pulse", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-lingerie", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-nintendo-switch", name: "Destruye Piernas", amount: 0 },
         ],
       },
       {
         grupo: "Triceps",
         show: false,
-        ejs: [
-          {
-            nombre: "Triceps al pecho",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Alternado",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Conjuntos",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
+        exercises: [
+          { icon: "mdi-weight-gram", name: "TRICEPS", amount: 0 },
+          { icon: "mdi-bike", name: "Destruye Brazos", amount: 0 },
+          { icon: "mdi-biathlon", name: "Ayuda Abs", amount: 0 },
+          { icon: "mdi-bowling", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cactus", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cannabis", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-castle", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-dog", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-elephant", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-face", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-foot-print", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-ghost", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-heart-pulse", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-lingerie", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-nintendo-switch", name: "Destruye Piernas", amount: 0 },
         ],
       },
       {
         grupo: "Piernas",
         show: false,
-        ejs: [
-          {
-            nombre: "Piernas al pecho",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Alternado",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
-          {
-            nombre: "Biceps Conjuntos",
-            img: "https://cdn.vuetifyjs.com/images/john.jpg",
-          },
+        exercises: [
+          { icon: "mdi-weight-gram", name: "PIERNAS", amount: 0 },
+          { icon: "mdi-bike", name: "Destruye Brazos", amount: 0 },
+          { icon: "mdi-biathlon", name: "Ayuda Abs", amount: 0 },
+          { icon: "mdi-bowling", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cactus", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-cannabis", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-castle", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-dog", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-elephant", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-face", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-foot-print", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-ghost", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-heart-pulse", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-lingerie", name: "Destruye Piernas", amount: 0 },
+          { icon: "mdi-nintendo-switch", name: "Destruye Piernas", amount: 0 },
         ],
       },
     ],

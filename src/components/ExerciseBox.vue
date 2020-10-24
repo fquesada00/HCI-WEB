@@ -2,21 +2,21 @@
   <v-card class="Exercise_Box">
     <v-card-text>
       <div class="exercise_name">
-        {{ text }}
+        {{ ej }}
       </div>
     </v-card-text>
-    <v-divider dark="true"></v-divider>
+    <v-divider ></v-divider>
     <v-container>
       <v-row>
-        <v-col cols="12" sm="3">
+        <v-col cols="4" sm="3">
           <div>HOLA</div>
         </v-col>
-        <v-col cols="12" sm="3">
+        <v-col cols="4" sm="3">
           <v-btn text color="secondary">
             <v-icon>mdi-heart</v-icon>
           </v-btn>
         </v-col>
-        <v-col cols="12" sm="3">
+        <v-col cols="4" sm="3">
           <v-btn text color="pink">
             <v-icon>mdi-heart</v-icon>
           </v-btn>
@@ -29,9 +29,9 @@
 <script>
 export default {
   name: "Exercice_box.vue",
+  props: ["ej"],
   data() {
     return {
-      text: "NOMBRE EJERCICIOSSSSSSSSSSSSSSSSSSS".slice(0, 20), //es un aprox, cambiar
       cantidad: "CANTIDAD",
     };
   },

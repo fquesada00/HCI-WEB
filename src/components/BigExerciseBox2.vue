@@ -8,24 +8,22 @@
           </div>
         </v-col>
         <v-col class="align-content-center" lg="3" md="4" cols="7">
-          <v-text-field
+          <!-- <v-text-field
             prefix="#"
             placeholder="0"
             type="number"
             solo
             :rules="[verify]"
           >
-          </v-text-field>
+          </v-text-field> -->
         </v-col>
       </v-row>
       <v-divider></v-divider>
-      <v-col v-for="nombre in nombres" :key="nombre">
-        <v-container class="grey">
-          <p class="text-h6">{{nombre}}</p>
+      <v-col v-for="exercise in exercises" :key="exercise.ej">
+        <v-container>
+          <ExerciseBox :ej="exercise.ej"></ExerciseBox>
         </v-container>
       </v-col>
-      <v-text-field label="Regular" v-model="ej">NOMBRE EJ</v-text-field>
-      <v-btn @click="add">add</v-btn>
       <v-divider></v-divider>
       <v-col align="center">
         <v-btn class="teal accent-4 font-weight-black text-h6">CONTINUAR</v-btn>
@@ -35,30 +33,48 @@
 </template>
 
 <script>
+import { bus } from "../main";
+import ExerciseBox from "./ExerciseBox";
 export default {
+  components: { ExerciseBox },
   props: ["seccion_name"],
 
   data() {
     return {
-      ej: "",
-      nombres: [],
+      exercises: [],
     };
   },
   methods: {
-    verify(v) {
-      if (!v.trim()) return true;
-      if (!isNaN(parseFloat(v)) && v >= 0 && v <= 99) {
-        this.reps = v;
-        return true;
+    // verify(v) {
+    //   //   if (!v.trim()) return true;
+    //   if (!isNaN(parseFloat(v)) && v >= 0 && v <= 99) {
+    //     this.reps = v;
+    //     return true;
+    //   }
+    //   if (v != undefined) {
+    //     alert("Number has to be between 0 and 99");
+    //   }
+    // },
+  },
+  mounted() {
+    bus.$on("addExerToBigBox", (data) => {
+      console.log(this.exercises);
+      if (data == undefined) {
+        alert("Element is undefined!"); //error nuestro aca
+        return;
       }
-      return "Number has to be between 0 and 99";
-    },
-    add() {
-      if (this.ej != null) {
-        this.nombres.push(this.ej);
-        this.ej = "";
+      if (this.exercises.length == 0) {
+        this.exercises.push(data);
+        return;
+      } else {
+        var element = this.exercises.findIndex((e) => e.ej == data.ej);
+        if (element === -1) {
+          this.exercises.push(data);
+          return;
+        }
+        alert("Exercise is already in the list!");
       }
-    },
+    });
   },
 };
 </script>
