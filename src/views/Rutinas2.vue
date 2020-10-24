@@ -90,7 +90,6 @@ import { bus } from "@/main";
 export default {
   name: "Rutinas",
   components: {
-    BackgroundImage,
     BigExBox,
     DisplayLista,
     MotherBigBox,
@@ -176,6 +175,9 @@ export default {
     bus.$on("addExerToMotherBigBox", (data) => {
       console.log(data);
       if (data.indice > -1) {
+        // if(this.mother_big_ex_box[data.indice] == undefined){
+        //   this.mother_big_ex_box[data.indice].push({})
+        // }
         if (this.mother_big_ex_box[data.indice].ejs.length == 0) {
           this.mother_big_ex_box[data.indice].ejs.push({
             ej: data.ej,

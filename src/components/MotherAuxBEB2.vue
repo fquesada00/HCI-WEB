@@ -1,8 +1,14 @@
 <template>
   <v-container rounded class="bigExerciseBox2">
     <h2>{{ seccion_name }}</h2>
-        <v-btn @click="updateIdx">HERE</v-btn>
-                <v-btn @click="removeIdx">REMOVE</v-btn>
+    <v-btn v-if="!show" style="margin-right: 20px" @click="updateIdx"
+      >HERE</v-btn
+    >
+    <v-btn v-else color="primary" style="margin-right: 20px" @click="updateIdx"
+      >HERE</v-btn
+    >
+
+    <v-btn color="error" removeIdx>REMOVE</v-btn>
 
     <v-row v-for="exercise in exercises" :key="exercise.ej">
       <ExerciseBox
@@ -24,7 +30,7 @@ export default {
 
   data() {
     return {
-      // exercises: [],
+      show: false,
     };
   },
   methods: {
@@ -32,18 +38,29 @@ export default {
       var index = this.idx;
       if (data.indice == index) {
         bus.$emit("removeExerciseFromMotherBigBox", data);
-
       } else {
         console.log("Index out of range");
       }
     },
-    updateIdx(){
-        bus.$emit("changeMotherIdx", this.idx);
+    updateIdx() {
+      bus.$emit("changeMotherIdx", this.idx);
     },
-    removeIdx(){
-        bus.$emit("eraseMotherIdx", this.idx);
-        bus.$emit("restartIdx");
-    }
+    removeIdx() {
+      bus.$emit("eraseMotherIdx", this.idx);
+      bus.$emit("restartIdx");
+    },
+  },
+  mounted() {
+    console.log("ESTOY EN MOUNTED");
+    bus.$on("seleccionarBoton", (data) => {
+      if (this.idx == data) {
+        this.show = true;
+      } else {
+        this.show = false;
+      }
+      console.log("Estoy en el idx = " + this.idx + " y estoy " + this.show);
+    });
+    console.log("Estoy en el idx = " + this.idx + " y estoy " + this.show);
   },
 };
 </script>

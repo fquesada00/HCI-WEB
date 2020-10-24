@@ -40,6 +40,8 @@ export default {
   mounted(){
       bus.$on("changeMotherIdx", data => {
           this.idx = data;
+          console.log("El indice es = "+data);
+          bus.$emit("seleccionarBoton",data);
       });
       bus.$on("restartIdx", () => {
           this.idx = -1;
