@@ -208,7 +208,7 @@ extend("alpha_spaces", {
 });
 extend("alpha_num", {
   ...alpha_num,
-  message: "Solo se permiten letras y espacios",
+  message: "Solo se permiten letras y numeros",
 });
 
 extend("confirmed", {
@@ -257,6 +257,7 @@ export default {
             this.$emit('success');
           })
           .catch((e) => {
+            this.loading=false;
             this.error = e.description})
 
 
