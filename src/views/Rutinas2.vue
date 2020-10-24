@@ -45,10 +45,10 @@
         <v-stepper-items>
           <v-stepper-content v-for="(step,index) in ciclos" v-bind:key="index" :step="index">
             <v-row>
-              <v-col style="height: fit-content">
+              <v-col order-sm="1" order-lg="0" style="height: fit-content">
                 <BigExBox style="background-color: white ; z-index: 1;" :seccion_name="step"/>
               </v-col>
-              <v-col style="height: fit-content">
+              <v-col order-sm="0" order-lg="1"  style="height: fit-content">
                 <DisplayLista style="z-index: 1; background-color: white"/>
               </v-col>
             </v-row>
@@ -58,8 +58,12 @@
               return
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn v-show="show" style="text-align:right; margin-right:10px" @click="addCycle" color="success">Add
-              routine
+            <v-btn v-show="show" style="text-align:right; margin-right:10px" @click="addCycle" color="error">
+              <v-icon>
+                mdi-delete
+              </v-icon>
+            </v-btn>
+            <v-btn v-show="show" style="text-align:right; margin-right:10px" @click="addCycle" color="success">Add Cycle
             </v-btn>
             <v-btn style="text-align:right" @click="e1++" color="primary">
               continue
@@ -120,7 +124,7 @@ export default {
 <style scoped>
 .main {
   margin-left: auto;
-  width: 65%;
+  width: 75%;
   margin-right: auto;
 }
 </style>
