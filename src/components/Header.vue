@@ -28,7 +28,7 @@
         <div>{{ tab.name }}</div>
         <v-icon right >{{tab.icon}}</v-icon>
       </v-tab>
-      <v-btn large color="rgb(57, 198, 173,0.9)" @click="logOut"  :replace="true" to='/' dark height="64px">Cerrar Sesion
+      <v-btn large color="rgb(57, 198, 173,0.9)" @click="logOut" depressed :replace="true" to='/' dark height="64px">Cerrar Sesion
       <v-icon>mdi-exit-to-app</v-icon>
     </v-btn>
     </v-tabs>
@@ -40,6 +40,7 @@
 import {
   UserApi
 } from '../js/user'
+import {bus} from "../main";
 
 export default {
   name: "Header.vue",
@@ -73,8 +74,10 @@ export default {
   methods:{
 
     logOut: function() {
-      UserApi.logout();
-      this.loggedIn = !!sessionStorage.getItem('token')
+      UserApi.logout().then(()=>{
+        this.loggedIn = !!sessionStorage.getItem('token')
+      });
+
     },
     checkLogin:function (){
       this.loggedIn = !!this.sessionStorage.getItem('token')
@@ -86,9 +89,8 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('logged',() =>{
+    bus.$on('logged',() =>{
       this.loggedIn = !!sessionStorage.getItem('token')
-      console.log(!!sessionStorage.getItem('token'))
     })
   }
 };
