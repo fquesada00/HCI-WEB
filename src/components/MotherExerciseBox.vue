@@ -1,5 +1,5 @@
 <template>
-  <v-row style="padding-left: 2%; padding-right: 2%" class="Exercise_Box">
+  <v-row style="padding-left: 2%;padding-right: 2%" class="Exercise_Box">
     <v-col class="col-xl-6 col-sm-4">
       <span>{{ ej }}</span>
     </v-col>
@@ -23,50 +23,40 @@
       </v-btn>
     </v-col>
     <v-overlay rounded light :value="overlay">
-      <v-card rounded height="600px" width="600px" light>
-        <CreateExercise />
+      <v-card rounded height="600px" width="600px" light> 
+        <CreateExercise/>
         <!--        No se como se te ocurre aca octa,
         tipo si le pasas como props datos o no se, mañana lo vemos?-->
         <v-btn color="orange" @click="overlay = !overlay">Close</v-btn>
       </v-card>
     </v-overlay>
   </v-row>
+
 </template>
 
 <script>
 import CreateExercise from "@/components/CreateExercise";
-import { bus } from "../main";
 export default {
-  name: "Exercice_box.vue",
-  components: { CreateExercise },
-  props: ["ej", "idx"],
+  components: {CreateExercise},
+  props: ["ej","idx"],
   data() {
     return {
       cantidad: "CANTIDAD",
       overlay: false,
-      up: "up",
-      down: "down",
+      up:"up",
+      down:"down",
     };
   },
-  methods: {
-    removeExercise(name) {
+  methods:{
+    removeExercise(name){
       var index = this.idx;
-      this.$emit("borrarEj", { nombre: name, indice: index });
+      this.$emit("borrarEjMother",{nombre:name, indice:index});
     },
-    move(position) {
-      var index = this.idx;
-      bus.$emit("moveExer", {
-        nombre: this.ej,
-        indice: index,
-        posicion: position,
-      });
-      bus.$emit("moveExer2", {
-        nombre: this.ej,
-        indice: index,
-        posicion: position,
-      });
-    },
-  },
+    // move(position){
+    //   var index = this.idx;
+    //   bus.$emit("moveExer",{nombre:this.ej, indice:index, posicion: position});
+    // }
+  }
 };
 </script>
 

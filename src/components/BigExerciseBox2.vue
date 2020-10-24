@@ -6,7 +6,6 @@
         :ej="exercise.ej"
         :idx="idx"
         @borrarEj="removeExer($event)"
-        @moveExer="desplazar($event)"
       ></ExerciseBox>
     </v-row>
   </v-container>
@@ -45,42 +44,106 @@ export default {
         console.log("Index out of range");
       }
     },
-    desplazar(data) {
-      if (data.indice == this.idx) {
-        var element = this.exercises.findIndex((e) => e.ej == data.nombre);
-        console.log(data);
-        console.log(element + " - " + data.posicion);
-        if (element > -1) {
-          if (data.posicion == "up") {
-            if (element > 0) {
-              [this.exercises[element - 1], this.exercises[element]] = [
-                this.exercises[element],
-                this.exercises[element - 1],
-              ];
-              console.log(this.exercises);
-              return;
-            }
-          } else if (data.posicion == "down") {
-            if (element != this.exercises.length - 1) {
-              [this.exercises[element + 1], this.exercises[element]] = [
-                this.exercises[element],
-                this.exercises[element + 1],
-              ];
-
-              return;
-            }
-          } else {
-            console.log("Position unknown");
-          }
-        } else {
-          console.log("Element is not present in the list"); //error nuestro
-          return;
-        }
-      }
-    },
   },
-  updated(){
-    }
+  // beforeUpdate() {
+  //   bus.$on("moveExer", (data) => {
+  //     if (data.indice == this.idx) {
+  //       var element = this.exercises.findIndex((e) => e.ej == data.nombre);
+  //       if (element > -1) {
+  //         if (data.posicion == "up") {
+  //           if (element > 0) {
+  //             [this.exercises[element - 1], this.exercises[element]] = [
+  //               this.exercises[element],
+  //               this.exercises[element - 1],
+  //             ];
+  //             console.log(this.exercises);
+  //             return;
+  //           }
+  //         } else if (data.posicion == "down") {
+  //           if (element != this.exercises.length - 1) {
+  //             [this.exercises[element + 1], this.exercises[element]] = [
+  //               this.exercises[element],
+  //               this.exercises[element + 1],
+  //             ];
+
+  //             return;
+  //           }
+  //         } else {
+  //           console.log("Position unknown");
+  //         }
+  //       } else {
+  //         console.log("Element is not present in the list"); //error nuestro
+  //         return;
+  //       }
+  //     }
+  //   });
+  // },
+  // updated() {
+  //   bus.$on("moveExer2", (data) => {
+  //     if (data.indice == this.idx) {
+  //       var element = this.exercises.findIndex((e) => e.ej == data.nombre);
+  //       if (element > -1) {
+  //         if (data.posicion == "up") {
+  //           if (element > 0) {
+  //             [this.exercises[element - 1], this.exercises[element]] = [
+  //               this.exercises[element],
+  //               this.exercises[element - 1],
+  //             ];
+  //             console.log(this.exercises);
+  //             return;
+  //           }
+  //         } else if (data.posicion == "down") {
+  //           if (element != this.exercises.length - 1) {
+  //             [this.exercises[element + 1], this.exercises[element]] = [
+  //               this.exercises[element],
+  //               this.exercises[element + 1],
+  //             ];
+
+  //             return;
+  //           }
+  //         } else {
+  //           console.log("Position unknown");
+  //         }
+  //       } else {
+  //         console.log("Element is not present in the list"); //error nuestro
+  //         return;
+  //       }
+  //     }
+  //   });
+  // },
+  // mounted() {
+  //   bus.$on("moveExer2", (data) => {
+  //     if (data.indice == this.idx) {
+  //       var element = this.exercises.findIndex((e) => e.ej == data.nombre);
+  //       if (element > -1) {
+  //         if (data.posicion == "up") {
+  //           if (element > 0) {
+  //             [this.exercises[element - 1], this.exercises[element]] = [
+  //               this.exercises[element],
+  //               this.exercises[element - 1],
+  //             ];
+  //             console.log(this.exercises);
+  //             return;
+  //           }
+  //         } else if (data.posicion == "down") {
+  //           if (element != this.exercises.length - 1) {
+  //             [this.exercises[element + 1], this.exercises[element]] = [
+  //               this.exercises[element],
+  //               this.exercises[element + 1],
+  //             ];
+
+  //             return;
+  //           }
+  //         } else {
+  //           console.log("Position unknown");
+  //         }
+  //       } else {
+  //         console.log("Element is not present in the list"); //error nuestro
+  //         return;
+  //       }
+  //     }
+  //   });
+  // },
   // mounted() {
   //   bus2.$on("addExerToBigBox", (data) => {
   //     if (data == undefined) {
