@@ -1,8 +1,7 @@
 <template>
   <v-app>
-    <BackgroundImage />
+
     <v-main class="main">
-      <v-container></v-container>
       <v-row>
         <v-spacer></v-spacer>
         <v-btn style="margin-right: 13px" color="primary">
@@ -12,35 +11,8 @@
       </v-row>
       <v-stepper v-model="e1">
         <v-stepper-header>
-          <v-stepper-step :complete="e1 > 1" step="1"
-            >Entrada en Calor
-          </v-stepper-step>
-          <!--          <v-divider></v-divider>-->
-          <!--          <v-stepper-step-->
-          <!--              :complete="e1 > 2"-->
-          <!--              step="2">-->
-          <!--            Ejercitacion Principal-->
-          <!--          </v-stepper-step>-->
-          <!--          <v-divider></v-divider>-->
-          <!--          <v-stepper-step-->
-          <!--              :complete="e1 > 3"-->
-          <!--              step="3">-->
-          <!--            Enfriamiento-->
-          <!--          </v-stepper-step>-->
-          <!--          <v-divider></v-divider>-->
-          <!--          <v-stepper-step-->
-          <!--              :complete="e1 > 4"-->
-          <!--              step="4">-->
-          <!--            Confirmar-->
-          <!--          </v-stepper-step>-->
-
-          <v-stepper-step
-            v-for="(step, index) in ciclos"
-            v-bind:key="index"
-            :step="index + 1"
-            :complete="e1 > index"
-            v-show="index > 0"
-            >{{ step }}
+          <v-stepper-step v-for="(step,index) in ciclos" v-bind:key="index" :step="index"
+                          :complete="e1 > index" v-show="index > 0">{{ step }}
           </v-stepper-step>
         </v-stepper-header>
 
@@ -98,7 +70,6 @@
 </template>
 
 <script>
-import BackgroundImage from "@/components/BackgroundImage";
 import DisplayLista from "@/components/DisplayExercises2";
 import BigExBox from "@/components/BigExerciseBox2";
 // import { bus2 } from "@/main";
@@ -106,7 +77,7 @@ import { bus } from "@/main";
 
 export default {
   name: "Rutinas",
-  components: { BackgroundImage, BigExBox, DisplayLista },
+  components: { BigExBox, DisplayLista },
   data() {
     return {
       ciclos: [

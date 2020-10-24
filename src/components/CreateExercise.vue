@@ -43,7 +43,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-text-field @change="show = !show"
+      <v-text-field @change="show = isVideo(vid)"
                     label="Video (opcional)"
                     :v-model="vid">
       </v-text-field>
@@ -70,9 +70,13 @@ export default {
     vid: "",
     show: false
   }),
+
   computed: {
     video: function () {
       return this.vid != null
+    },
+    isVideo : function(youtube){
+      return youtube === /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w-]+\?v=|embed\/|v\/)?)([\w-]+)(\S+)?$/
     }
   }
 }
