@@ -8,7 +8,7 @@
       <v-spacer>
       </v-spacer>
       <v-col cols="1">
-      <v-btn v-if="cantCiclos > 0" @click="cantCiclos--" x-small fab>
+      <v-btn v-if="cantCiclos > 1" @click="cantCiclos--" x-small fab>
         <v-icon>
           mdi-minus
         </v-icon>
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       // exercises: [],
-      cantCiclos : 0
+      cantCiclos : 1
     };
   },
   methods: {
