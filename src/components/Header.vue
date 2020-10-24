@@ -1,9 +1,9 @@
 <template>
-  <v-app-bar absolute
+  <v-app-bar
       class="header"
       color="rgb(57, 198, 173,0.9)"
       max-height="64px"
-      app
+      app fixed
   >
 
     <v-app-bar-nav-icon to="/">

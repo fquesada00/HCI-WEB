@@ -17,7 +17,7 @@ name: "BackgroundImage"
   margin: 0 0 0 0;
   left: 0;
   z-index: 0;
-  background: url('../assets/meghan-holmes-buWcS7G1_28-unsplash.jpg') no-repeat center center;
+  background: url('../assets/meghan-holmes-buWcS7G1_28-unsplash.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 </style>

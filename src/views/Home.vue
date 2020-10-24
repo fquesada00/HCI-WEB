@@ -1,18 +1,29 @@
 <template >
-    <v-main>
+  <v-container v-if="!logged">
       <div class="titulo">
         <h1  class="tituloText">Arma tu rutina</h1>
-        <v-btn depressed color="rgb(57, 198, 173)" x-large tile>ingresar</v-btn>
       </div>
-    </v-main>
+  </v-container>
+  <v-container v-else>
+
+  </v-container>
 </template>
 
 <script>
 
+import {bus} from "../main";
+
 export default {
   name: "Home",
   data() {
-    return {}
+    return {
+      logged:false
+    }
+  },
+  mounted() {
+    bus.$on('logged',()=>{
+      this.logged = true
+    })
   }
 }
 </script>
