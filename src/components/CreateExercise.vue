@@ -3,7 +3,7 @@
     <v-row class="justify-center">
       <h1>Crear Ejercicio</h1>
     </v-row>
-
+  <validation-observer ref="observer" v-slot="{ invalid }">
     <v-row>
       <v-col>
         <validation-provider
@@ -84,8 +84,9 @@
       </v-col>
     </v-row>
     <v-row class="justify-center">
-      <v-btn class="mr-4" type="submit" :loading="loading" color="primary">Crear</v-btn>
+      <v-btn class="mr-4" type="submit" :loading="loading" :disabled="invalid" color="primary">Crear</v-btn>
     </v-row>
+  </validation-observer>
   </v-container>
 </template>
 
@@ -94,6 +95,7 @@ import {required, max, alpha_spaces, numeric} from "vee-validate/dist/rules";
 import {
   extend,
   ValidationProvider,
+    ValidationObserver,
 } from "vee-validate";
 
 extend("required", {
@@ -119,7 +121,7 @@ extend("positive",value =>{
 })
 export default {
   name: "CreateExercise",
-  components: {ValidationProvider},
+  components: {ValidationProvider,ValidationObserver},
   data: () => ({
     name: "",
     detail: "",
