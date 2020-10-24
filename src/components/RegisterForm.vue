@@ -254,10 +254,11 @@ export default {
       await UserApi.register(user)
           .then(()=>{
             this.loading = false;
+            this.$emit('success');
           })
           .catch((e) => {
             this.error = e.description})
-      this.$emit('success');
+
 
 
 
