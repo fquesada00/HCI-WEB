@@ -11,7 +11,7 @@
         </v-col>
         <v-col>
           <ProfileCard :user="user" :id="id"
-                       :created="createdRoutines.length"
+                       :created="createdRoutines.length-1"
                        :completed="completed.length"
                        :favourite="favourite.length" class="profileCard"
                        @showSettings="toggleSettings"/>

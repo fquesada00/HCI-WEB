@@ -3,62 +3,123 @@
     <v-row class="justify-center">
       <h1>Crear Ejercicio</h1>
     </v-row>
-    <v-row>
-      <v-text-field
-          label="Nombre del Ejercicio"
-          v-model="name">
-      </v-text-field>
-    </v-row>
-    <v-row>
-      <v-textarea
-          label="Informacion Adicional"
-          v-model="detail"
-      ></v-textarea>
-    </v-row>
+
     <v-row>
       <v-col>
-        <v-text-field
-            type="number"
-            placeholder="0"
-            label="Repetitions"
-            prefix="#"
-            dense
-        ></v-text-field>
+        <validation-provider
+            v-slot="{ errors }"
+            name="Nombre ejercicio"
+            rules="required|max:100"
+        >
+          <v-text-field
+              label="Nombre del Ejercicio"
+              v-model="name"
+              :error-messages="errors">
+          </v-text-field>
+        </validation-provider>
       </v-col>
+    </v-row>
+    <v-row justify="center">
       <v-col>
-        <v-text-field
-            type="number"
-            placeholder="0"
-            label="Duration"
-            suffix="s"
-            dense
-        ></v-text-field>
-      </v-col>
-      <v-col>
-        <v-select
-            :items="categorias"
-            label="Categoria"
-            dense
-        ></v-select>
+        <validation-provider
+            v-slot="{ errors }"
+            name="Descripcion"
+            rules="required|max:200"
+        >
+          <v-textarea
+              label="Informacion Adicional"
+              v-model="detail"
+              counter
+              :error-messages="errors"
+          ></v-textarea>
+        </validation-provider>
       </v-col>
     </v-row>
     <v-row>
-      <v-text-field @change="show = isVideo(vid)"
-                    label="Video (opcional)"
-                    :v-model="vid">
-      </v-text-field>
+      <v-col>
+        <validation-provider
+            v-slot="{ errors }"
+            name="Repeticiones"
+            rules="required|positive"
+        >
+          <v-text-field
+              type="number"
+              label="Repetitions"
+              prefix="#"
+              v-model="repetitions"
+              dense
+              :error-messages="errors"
+          ></v-text-field>
+        </validation-provider>
+      </v-col>
+      <v-col>
+        <validation-provider
+            v-slot="{ errors }"
+            name="duracion"
+            rules="required|positive"
+        >
+          <v-text-field
+              type="number"
+              label="Duration"
+              suffix="s"
+              dense
+              v-model="duration"
+              :error-messages="errors"
+          ></v-text-field>
+        </validation-provider>
+      </v-col>
+      <v-col>
+        <validation-provider
+            v-slot="{ errors }"
+            name="tipo"
+            rules="required"
+        >
+          <v-select
+              :items="categorias"
+              label="Categoria"
+              dense
+              :error-messages="errors"
+          ></v-select>
+        </validation-provider>
+      </v-col>
     </v-row>
-    <v-row v-if="show">
-      <iframe width="560" height="315" :src="vid" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+    <v-row class="justify-center">
+      <v-btn class="mr-4" type="submit" :loading="loading" color="primary">Crear</v-btn>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import {required, max, alpha_spaces, numeric} from "vee-validate/dist/rules";
+import {
+  extend,
+  ValidationProvider,
+} from "vee-validate";
+
+extend("required", {
+  ...required,
+  message: "{_field_} no puede ser vacio",
+});
+extend("numeric", {
+  ...numeric,
+  message: "{_field_} tiene que se un numero",
+});
+extend("alpha_spaces", {
+  ...alpha_spaces,
+  message: "Solo se permiten letras y espacios",
+});
+extend("max", {
+  ...max,
+  message: "El {_field_} debe ser menor a {length} caracteres",
+});
+extend("positive",value =>{
+   if(value > 0){
+     return true
+   } return '{_field_} no puede ser menor a 1';
+})
 export default {
   name: "CreateExercise",
+  components: {ValidationProvider},
   data: () => ({
     name: "",
     detail: "",
@@ -68,17 +129,9 @@ export default {
     categoria: "",
     categorias: ["Brazos", "Piernas", "Pecho", "Abs"],
     vid: "",
-    show: false
+    show: false,
+    loading: false
   }),
-
-  computed: {
-    video: function () {
-      return this.vid != null
-    },
-    isVideo : function(youtube){
-      return youtube === /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w-]+\?v=|embed\/|v\/)?)([\w-]+)(\S+)?$/
-    }
-  }
 }
 </script>
 
