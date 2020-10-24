@@ -1,51 +1,26 @@
 <template>
-  <v-app>
-    <BackgroundImage />
-    <v-main class="main">
-      <v-container></v-container>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-btn style="margin-right: 13px" color="primary">
-          <!--ToDo: rutear-->
-          Tutorial
-        </v-btn>
-      </v-row>
-      <v-stepper v-model="e1">
-        <v-stepper-header>
-          <v-stepper-step :complete="e1 > 1" step="1"
-            >Entrada en Calor
-          </v-stepper-step>
-          <!--          <v-divider></v-divider>-->
-          <!--          <v-stepper-step-->
-          <!--              :complete="e1 > 2"-->
-          <!--              step="2">-->
-          <!--            Ejercitacion Principal-->
-          <!--          </v-stepper-step>-->
-          <!--          <v-divider></v-divider>-->
-          <!--          <v-stepper-step-->
-          <!--              :complete="e1 > 3"-->
-          <!--              step="3">-->
-          <!--            Enfriamiento-->
-          <!--          </v-stepper-step>-->
-          <!--          <v-divider></v-divider>-->
-          <!--          <v-stepper-step-->
-          <!--              :complete="e1 > 4"-->
-          <!--              step="4">-->
-          <!--            Confirmar-->
-          <!--          </v-stepper-step>-->
 
-          <v-stepper-step
-            v-for="(step, index) in ciclos"
-            v-bind:key="index"
-            :step="index + 1"
-            :complete="e1 > index"
-            v-show="index > 0"
-            >{{ step }}
-          </v-stepper-step>
-        </v-stepper-header>
+  <v-main>
+    <v-row>
+      <v-spacer></v-spacer>
+      <v-btn style="margin-right: 13px" color="primary">
+        <!--ToDo: rutear-->
+        Tutorial
+      </v-btn>
+    </v-row>
+    <v-stepper v-model="e1">
+      <v-stepper-header>
+        <v-stepper-step v-for="(step,index) in ciclos" v-bind:key="index" :step="index"
+                        :complete="e1 > index" v-show="index > 0">{{ step }}
+        </v-stepper-step>
+        <v-stepper-step
+            :step="ciclos.length"
+            :complete="e1 > ciclos.length">Finalizar Rutina
+        </v-stepper-step>
+      </v-stepper-header>
 
-        <v-stepper-items>
-          <v-stepper-content
+      <v-stepper-items>
+        <v-stepper-content
             v-for="(step, index) in ciclos"
             v-bind:key="index"
             :step="index"
@@ -92,20 +67,18 @@
               style="text-align: right; margin-right: 10px"
               @click="addCycle"
               color="success"
-              >Add Cycle
-            </v-btn>
-            <v-btn style="text-align: right" @click="nextStep" color="primary">
-              continue
-            </v-btn>
-          </v-row>
-        </v-stepper-items>
-      </v-stepper>
-    </v-main>
-  </v-app>
+          >Add Cycle
+          </v-btn>
+          <v-btn style="text-align: right" @click="nextStep" color="primary">
+            continue
+          </v-btn>
+        </v-row>
+      </v-stepper-items>
+    </v-stepper>
+  </v-main>
 </template>
 
 <script>
-import BackgroundImage from "@/components/BackgroundImage";
 import DisplayLista from "@/components/DisplayExercises2";
 import BigExBox from "@/components/BigExerciseBox2";
 import MotherBigBox from "@/components/MotherBigExerciseBox2";
@@ -132,9 +105,9 @@ export default {
         "Enfriamiento",
       ],
       big_ex_box: [
-        { grupo: "Entrada en Calor", ejs: [] },
-        { grupo: "Ejercitacion Principal", ejs: [] },
-        { grupo: "Enfriamiento", ejs: [] },
+        {grupo: "Entrada en Calor", ejs: []},
+        {grupo: "Ejercitacion Principal", ejs: []},
+        {grupo: "Enfriamiento", ejs: []},
       ],
       mother_big_ex_box: [""],
       texto_user: "",
@@ -180,7 +153,7 @@ export default {
           });
         } else {
           var element = this.big_ex_box[data.indice].ejs.findIndex(
-            (e) => e.ej == data.ej
+              (e) => e.ej == data.ej
           );
           if (element == -1) {
             this.big_ex_box[data.indice].ejs.push({
@@ -189,7 +162,7 @@ export default {
             });
           } else {
             console.log(
-              "Element is already in bigBox number " +
+                "Element is already in bigBox number " +
                 data.indice +
                 " at index " +
                 element
@@ -233,7 +206,7 @@ export default {
     bus.$on("removeExerciseFromBigBox", (data) => {
       //ya chequee el idx valido
       var element = this.big_ex_box[data.indice].ejs.findIndex(
-        (e) => e.ej == data.nombre
+          (e) => e.ej == data.nombre
       );
       if (element > -1) {
         this.big_ex_box[data.indice].ejs.splice(element, 1);

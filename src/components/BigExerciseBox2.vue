@@ -1,6 +1,28 @@
 <template>
   <v-container rounded class="bigExerciseBox2">
-    <h2>{{ seccion_name }}</h2>
+    <v-row>
+      <v-col cols="8">
+        <h2>{{ seccion_name }} x{{ cantCiclos}}</h2>
+        <h3></h3>
+      </v-col>
+      <v-spacer>
+      </v-spacer>
+      <v-col cols="1">
+      <v-btn v-if="cantCiclos > 1" @click="cantCiclos--" x-small fab>
+        <v-icon>
+          mdi-minus
+        </v-icon>
+      </v-btn>
+      </v-col>
+      <v-col cols="1">
+        <v-btn  @click="cantCiclos++" x-small fab>
+          <v-icon>
+            mdi-plus
+          </v-icon>
+        </v-btn>
+      </v-col>
+
+    </v-row>
     <v-row v-for="exercise in exercises" :key="exercise.ej">
       <ExerciseBox
         :ej="exercise.ej"
@@ -15,6 +37,7 @@
 // import { bus2 } from "../main";
 import { bus } from "../main";
 import ExerciseBox from "./ExerciseBox";
+
 export default {
   components: { ExerciseBox },
   props: ["seccion_name", "idx", "exercises"],
@@ -22,6 +45,7 @@ export default {
   data() {
     return {
       // exercises: [],
+      cantCiclos : 1
     };
   },
   methods: {

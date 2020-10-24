@@ -1,18 +1,13 @@
 <template>
-  <v-app>
-    <BackgroundImage/>
-    <v-main>
-      <CreateExercise/>
-    </v-main>
-  </v-app>
+  <CreateExercise/>
 </template>
 
 <script>
-import BackgroundImage from "@/components/BackgroundImage";
 import CreateExercise from "@/components/CreateExercise";
+
 export default {
-name: "NewExercise",
-  components: {CreateExercise, BackgroundImage}
+  name: "NewExercise",
+  components: {CreateExercise}
 }
 </script>
 

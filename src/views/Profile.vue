@@ -3,15 +3,12 @@
     <transition mode="out-in" enter-active-class="animated slideInLeft" leave-active-class="animated slideOutRight">
 
       <v-row>
-        <v-col v-if="!settings">
-          <ExerciseCard class="exerciseCard"/>
-        </v-col>
-        <v-col v-else>
+        <v-col>
           <SettingsForm @updateData="getData" />
         </v-col>
         <v-col>
           <ProfileCard :user="user" :id="id"
-                       :created="createdRoutines.length"
+                       :created="createdRoutines.length-1"
                        :completed="completed.length"
                        :favourite="favourite.length" class="profileCard"
                        @showSettings="toggleSettings"/>
@@ -27,7 +24,6 @@
 </template>
 
 <script>
-import ExerciseCard from "@/components/ExerciseCard";
 import ProfileCard from "@/components/ProfileCard";
 import {UserApi} from "../js/user";
 import {Store} from "../js/store";
@@ -35,7 +31,7 @@ import SettingsForm from "../components/SettingsForm";
 
 export default {
   name: "Profile",
-  components: {ProfileCard, ExerciseCard, SettingsForm},
+  components: {ProfileCard, SettingsForm},
   data: () => ({
     error: null,
     user: null,
@@ -77,10 +73,6 @@ export default {
 </script>
 
 <style scoped>
-.exerciseCard {
-  margin-top: 5%;
-  flex: auto;
-}
 
 .profileCard {
   margin-top: 5%;
