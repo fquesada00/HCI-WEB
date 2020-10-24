@@ -1,5 +1,5 @@
-<template>
-  <v-container class="form" @load="getData">
+<template @load="getData">
+  <v-container class="form">
     <v-row class="justify-center">
       <h1>Configuración</h1>
     </v-row>
@@ -13,7 +13,7 @@
                 rules="alpha_spaces|max:50"
             >
               <v-text-field
-                  v-model="this.user.fullName"
+                  v-model="user.fullName"
                   :error-messages="errors"
                   label="Nombre Completo"
               ></v-text-field>
@@ -26,7 +26,7 @@
                 ref="menu"
                 v-model ="menu"
                 :close-on-content-click="false"
-                :return-value.sync="birthday"
+                :return-value.sync="user.birthdate"
                 transition="scale-transition"
                 offset-y
                 max-width="290px"
@@ -34,7 +34,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                      v-model="birthday"
+                      v-model="user.birthdate"
                       label="Fecha de nacimiento"
                       prepend-icon="mdi-calendar"
                       readonly
@@ -43,7 +43,7 @@
                   ></v-text-field>
               </template>
               <v-date-picker
-                  v-model="birthday"
+                  v-model="user.birthdate"
                   type="date"
                   locale="es"
                   no-title
@@ -54,7 +54,7 @@
                 <v-btn text color="primary" @click="menu = false">
                   Cancel
                 </v-btn>
-                <v-btn text color="primary" @click="$refs.menu.save(birthday)">
+                <v-btn text color="primary" @click="$refs.menu.save(user.birthdate)">
                   OK
                 </v-btn>
               </v-date-picker>
@@ -67,7 +67,7 @@
                 rules="required"
             >
               <v-select
-                  v-model="gender"
+                  v-model="user.gender"
                   :items="allowedGenders"
                   :error-messages="errors"
                   label="Genero"
@@ -115,15 +115,12 @@ export default {
     ValidationObserver,
   },
   data: () => ({
-    user:null,
+    user: new User(),
     menu:false,
-    name: "",
-    lastname: "",
     username: "",
     email: "",
     password: "",
     confirmation: "",
-    birthday: "",
     gender: "",
     show2: false,
     allowedGenders: ["Male", "Female", "Other"],
@@ -136,21 +133,30 @@ export default {
   methods: {
     async submit() {
       this.$refs.observer.validate();
-      let user = new User(null,
-          null,
-          this.name + this.lastname,
-          this.gender.toLowerCase(),
-          new Date(this.birthday).getTime(),
-          'a@mail.com')
+      let validDay = new Date(this.user.birthdate).getTime()
+      validDay = validDay ? validDay : this.user.birthdate
+      let user = new User("",
+          "",
+          'a@mail.com',
+          this.user.fullName,
+          validDay,
+          this.user.gender.toLowerCase(),"",""
+          )
       await UserApi.updateCurrentUser(user).catch(err => {
         this.error = err.description
-      }).finally(this.$router.push(this.$route.query.redirect || '/profile'))
+      }).finally(()=>{this.$emit('updateData')})
 
     },
     async getData(){
       this.user = await UserApi.getCurrentUser().catch(err => {
         this.error = err.description})
+      this.user.birthdate = new Date(this.user.birthdate).toISOString().slice(0, 10)
+      this.user.gender = this.user.gender.charAt(0).toUpperCase()+this.user.gender.slice(1)
+      console.log(" la data es " + this.user.gender);
     }
+  },
+  created() {
+    this.getData()
   }
 }
 </script>

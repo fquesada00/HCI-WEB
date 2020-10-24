@@ -7,7 +7,7 @@
         </v-icon>
       </v-row>
       <v-row justify="center">
-        <v-avatar onmouseover="" style="border-style: solid; border-color:darkgrey;" size="150">
+        <v-avatar @click="editAvatar" style="border-style: solid; border-color:darkgrey;" size="150">
           <v-img draggable="false"
                  :src="img" @load="viewImg">
           </v-img>
@@ -56,7 +56,9 @@ export default {
     },
     toggleSettings(){
       this.$emit('showSettings')
-      console.log('toque')
+    },
+    editAvatar(){
+
     }
   },
   computed: {
@@ -80,7 +82,7 @@ export default {
 <style scoped>
 .profile {
   margin: auto;
-  height: 450px;
+  min-height: 450px;
   width: 350px;
   background-color: white;
 }

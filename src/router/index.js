@@ -7,6 +7,7 @@ import Tutorial from '../views/Tutorial.vue';
 import Rutinas from '../views/Rutinas2.vue';
 import Signin from '../views/Signin.vue';
 import Explore from "@/views/Explore";
+import ConfirmEmail from "../views/ConfirmEmail";
 Vue.use(VueRouter)
 
 const routes = [
@@ -44,6 +45,11 @@ const routes = [
         path: '/explore',
         name: 'explore',
         component: Explore
+    },
+    {
+        path: '/verifyEmail',
+        name: 'verifyEmail',
+        component: ConfirmEmail
     }
 ]
 

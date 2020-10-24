@@ -1,7 +1,6 @@
-<template  :key="sessionStorage.length">
-  <v-app-bar
+<template>
+  <v-app-bar absolute
       class="header"
-      fixed
       color="rgb(57, 198, 173,0.9)"
       max-height="64px"
       app
@@ -20,23 +19,28 @@
                      style="cursor:pointer; width: 500px" >FitBo</v-toolbar-title>
     <v-tabs v-if="!loggedIn" right fixed-tabs>
       <v-tab v-for="tab in tabsLoggedOut" v-bind:key="tab.name" :to="tab.route" >
-        <div :append-icon="tab.icon">{{ tab.name }}</div>
+        <div>{{ tab.name }}</div>
+        <v-icon right >{{tab.icon}}</v-icon>
       </v-tab>
     </v-tabs>
     <v-tabs v-else right fixed-tabs>
       <v-tab v-for="tab in tabsLoggedIn" v-bind:key="tab.name" :to="tab.route" >
-        <div :append-icon="tab.icon">{{ tab.name }}</div>
+        <div>{{ tab.name }}</div>
+        <v-icon right >{{tab.icon}}</v-icon>
       </v-tab>
+      <v-btn large color="rgb(57, 198, 173,0.9)" dark height="64px">Cerrar Sesion
+      <v-icon>mdi-exit-to-app</v-icon>
+    </v-btn>
     </v-tabs>
   </v-app-bar>
 </template>
+
 <script>
 export default {
   name: "Header.vue",
-
   data: () => ({
     key: 0,
-    loggedIn: false,
+    loggedIn: sessionStorage.getItem('token'),
     tabsLoggedOut: [
       {name: "Inicio", icon: null, route: "/"},
       {name: "Crear Rutinas", icon: null, route: "/rutinas"},
@@ -56,12 +60,8 @@ export default {
       {name: "Inicio", icon: null,route: "/"},
       {name: "Crear Rutinas", icon: null, route: "/rutinas"},
       {name: "Explorar", icon: null, route: "/explore"},
-      {name: "Mi Perfil", icon: null, route: "/profile"},
-      {
-        name: "Cerrar Sesion",
-        icon: "mdi-exit-to-app",
-        route: "/",
-      },
+      {name: "Mi Perfil", icon: "mdi-account", route: "/profile"},
+    
     ],
     active: 0,
   }),
@@ -80,8 +80,8 @@ export default {
   mounted() {
     window.addEventListener('logged',() =>{
       this.loggedIn = !!sessionStorage.getItem('token')
+      console.log(!!sessionStorage.getItem('token'))
     })
   }
-
 };
 </script>

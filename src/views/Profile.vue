@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="error == null">
+  <v-container v-if="error == null && user != null">
     <transition mode="out-in" enter-active-class="animated slideInLeft" leave-active-class="animated slideOutRight">
 
       <v-row>
@@ -7,7 +7,7 @@
           <ExerciseCard class="exerciseCard"/>
         </v-col>
         <v-col v-else>
-          <SettingsForm/>
+          <SettingsForm @updateData="getData" />
         </v-col>
         <v-col>
           <ProfileCard :user="user" :id="id"
@@ -38,7 +38,7 @@ export default {
   components: {ProfileCard, ExerciseCard, SettingsForm},
   data: () => ({
     error: null,
-    user: "",
+    user: null,
     id: "",
     createdRoutines: [],
     completed: [],
@@ -59,14 +59,15 @@ export default {
       let created = await Store.getMyRoutines().catch(err => {
         this.error = err.details
       })
-      console.log(created);
       this.createdRoutines = created ? created.results : [];
       let fav = await Store.getFavs().catch(err => {
         this.error = err.details;
       })
-      console.log(fav);
       this.favourite = fav ? fav.results : [];
-
+      let completed = await Store.getCompleted().catch(err =>{
+        this.error = err.details;
+      })
+      this.completed = completed ? completed.results :[]
     },
     toggleSettings() {
       this.settings = !this.settings
