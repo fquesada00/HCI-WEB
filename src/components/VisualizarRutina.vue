@@ -130,8 +130,10 @@
 </template>
 
 <script>
+import {Cycle} from '../js/cycles'
 import { bus } from "@/main";
 import { Routine } from "@/js/routines";
+import {Store} from '../js/store';
 import {
   alpha_num,
   alpha_spaces,
@@ -174,18 +176,14 @@ export default {
     };
   },
   methods: {
-    submit() {
-      // for (var i = 0; i < this.ejer.length; i++) {
-      //   class Cycle {
-      //     constructor(name, detail, type, order, repetitions) {
-      //       this.name = name;
-      //       this.detail = detail;
-      //       this.type = type;
-      //       this.order = order;
-      //       this.repetitions = repetitions;
-      //     }
-      //   }
-      // }
+    async submit() {
+      let store = [];
+      let array_ejs = [];
+      for (let i = 0; i < this.ejer.length; i++) {
+        array_ejs[i].push(this.ejer[i].ejs);
+        store.push(new Cycle(this.ejer[i].grupo, this.ejer[i].grupo, "exercise",i,this.ejer[i].ciclos));
+      }
+      await Store.createRoutine(this.routine, store, array_ejs);
     },
   },
   mounted() {
