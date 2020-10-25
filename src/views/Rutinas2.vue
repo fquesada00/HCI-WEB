@@ -59,7 +59,7 @@
             </v-btn>
             <v-spacer></v-spacer>
             <div v-if="e1 - 1 == 1">
-              <v-text-field v-model="nombre">NUEVO NOMBRE</v-text-field>
+              <v-text-field v-model="nombre" placeholder="NUEVO NOMBRE DEL CICLO"></v-text-field>
             </div>
 
             <v-btn
@@ -108,7 +108,8 @@ export default {
         {grupo: "Ejercitacion Principal", ejs: []},
         {grupo: "Enfriamiento", ejs: []},
       ],
-      mother_big_ex_box: [""],
+      mother_big_ex_box: [],
+      cant: 0,
       texto_user: "",
       ej: "",
       qty: 0,
@@ -150,6 +151,8 @@ export default {
             ej: data.ej,
             cant: data.cant,
           });
+          console.log("entre = "+this.big_ex_box[data.indice].ejs);
+          return;
         } else {
           var element = this.big_ex_box[data.indice].ejs.findIndex(
               (e) => e.ej == data.ej
@@ -175,9 +178,9 @@ export default {
     bus.$on("addExerToMotherBigBox", (data) => {
       console.log(data);
       if (data.indice > -1) {
-        // if(this.mother_big_ex_box[data.indice] == undefined){
-        //   this.mother_big_ex_box[data.indice].push({})
-        // }
+        if(this.mother_big_ex_box[data.indice].ejs == undefined){
+          this.mother_big_ex_box[data.indice].ejs = "";
+        }
         if (this.mother_big_ex_box[data.indice].ejs.length == 0) {
           this.mother_big_ex_box[data.indice].ejs.push({
             ej: data.ej,
@@ -206,7 +209,10 @@ export default {
       }
     });
     bus.$on("removeExerciseFromBigBox", (data) => {
-      //ya chequee el idx valido
+      if(data.indice == undefined){
+        console.log("Index is undefined");//error nuestro
+        return;
+      }
       var element = this.big_ex_box[data.indice].ejs.findIndex(
           (e) => e.ej == data.nombre
       );
@@ -217,7 +223,15 @@ export default {
       }
     });
     bus.$on("removeExerciseFromMotherBigBox", (data) => {
-      //ya chequee el idx valido
+      //estos dos ifs chequean errores internos
+      if(data.indice == undefined){
+        console.log("Index is undefined");
+        return;
+      }
+      if(this.mother_big_ex_box[data.indice].ejs == undefined){
+        console.log("Arrays of exercises is undefined");
+        return;
+      }
       var element = this.mother_big_ex_box[data.indice].ejs.findIndex(
         (e) => e.ej == data.nombre
       );

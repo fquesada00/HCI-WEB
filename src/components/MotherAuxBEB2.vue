@@ -8,13 +8,12 @@
       >HERE</v-btn
     >
 
-    <v-btn color="error" removeIdx>REMOVE</v-btn>
+    <v-btn color="error" @click="removeIdx">REMOVE</v-btn>
 
     <v-row v-for="exercise in exercises" :key="exercise.ej">
       <ExerciseBox
         :ej="exercise.ej"
         :idx="idx"
-        @borrarEjMother="removeExer($event)"
       ></ExerciseBox>
     </v-row>
   </v-container>
@@ -34,14 +33,6 @@ export default {
     };
   },
   methods: {
-    removeExer(data) {
-      var index = this.idx;
-      if (data.indice == index) {
-        bus.$emit("removeExerciseFromMotherBigBox", data);
-      } else {
-        console.log("Index out of range");
-      }
-    },
     updateIdx() {
       bus.$emit("changeMotherIdx", this.idx);
     },
@@ -60,7 +51,6 @@ export default {
       }
       console.log("Estoy en el idx = " + this.idx + " y estoy " + this.show);
     });
-    console.log("Estoy en el idx = " + this.idx + " y estoy " + this.show);
   },
 };
 </script>

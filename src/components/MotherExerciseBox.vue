@@ -36,6 +36,7 @@
 
 <script>
 import CreateExercise from "@/components/CreateExercise";
+import {bus} from "../main";
 export default {
   components: {CreateExercise},
   props: ["ej","idx"],
@@ -50,7 +51,7 @@ export default {
   methods:{
     removeExercise(name){
       var index = this.idx;
-      this.$emit("borrarEjMother",{nombre:name, indice:index});
+      bus.$emit("removeExerciseFromMotherBigBox",{nombre:name, indice:index});
     },
     // move(position){
     //   var index = this.idx;
