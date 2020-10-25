@@ -33,7 +33,7 @@ export default {
     items: ["Brazos", "Piernas", "Pecho", "Abdominales"],
     busqueda: "",
     indice_interno: -1,
-    samples: [],
+    samples: [[],[],[],[]],
     active: null,
   }),
   methods: {

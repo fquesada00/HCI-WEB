@@ -31,7 +31,7 @@ export default {
   data: () => ({
     items: ["Brazos", "Piernas", "Pecho", "Abdominales"],
     busqueda: "",
-    samples: [],
+    samples: [[],[],[],[]],
     active: null,
   }),
   methods: {

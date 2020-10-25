@@ -112,7 +112,7 @@
           <v-row class="justify-center">
             <v-btn style="margin-left: auto; margin-right: auto"
                    color="success"
-                   x-large type="submit" :disabled="invalid"> submit</v-btn>
+                   x-large type="submit" :disabled="invalid" > Submit</v-btn>
           </v-row>
         </form>
       </validation-observer>
