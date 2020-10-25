@@ -20,39 +20,44 @@
       </v-stepper-header>
 
       <v-stepper-items>
+        <v-stepper-content :step="ciclos.length" >
+          <VisualizarRutina></VisualizarRutina>
+        </v-stepper-content>
         <v-stepper-content
             v-for="(step, index) in ciclos"
             v-bind:key="index"
             :step="index"
-          >
-            <v-row>
-              <v-col order-sm="1" order-lg="0" style="height: fit-content">
-                <div v-if="e1 - 1 != 1">
-                  <BigExBox
+        >
+          <v-row>
+            <v-col order-sm="1" order-lg="0" style="height: fit-content">
+              <div v-if="e1 - 1 != 1">
+                <BigExBox
                     style="background-color: white; z-index: 1"
                     :seccion_name="step"
                     :idx="e1 - 1"
                     :exercises="big_ex_box[e1 - 1].ejs"
-                  />
-                </div>
-                <div v-if="e1 - 1 == 1">
-                  <MotherBigBox
+                />
+              </div>
+              <div v-if="e1 - 1 == 1">
+                <MotherBigBox
                     style="background-color: white; z-index: 1"
                     :big_box="mother_big_ex_box"
-                  />
-                </div>
-              </v-col>
-              <v-col order-sm="0" order-lg="1" style="height: fit-content">
-                <div v-if="e1 - 1 != 1">
-                  <DisplayLista
+                />
+              </div>
+            </v-col>
+            <v-col order-sm="0" order-lg="1" style="height: fit-content">
+              <div v-if="e1 - 1 != 1">
+                <DisplayLista
                     style="z-index: 1; background-color: white"
                     :idx="e1 - 1"
-                  />
-                </div>
-                <div v-if="e1 - 1 == 1"><MotherDisplayLista :idx="-1" /></div>
-              </v-col>
-            </v-row>
-          </v-stepper-content>
+                />
+              </div>
+              <div v-if="e1 - 1 == 1">
+                <MotherDisplayLista :idx="-1"/>
+              </div>
+            </v-col>
+          </v-row>
+
           <v-row style="padding: 20px">
             <v-btn style="text-align: right" @click="e1--" color="warning">
               return
@@ -63,16 +68,17 @@
             </div>
 
             <v-btn
-              v-show="show"
-              style="text-align: right; margin-right: 10px"
-              @click="addCycle"
-              color="success"
-          >Add Cycle
-          </v-btn>
-          <v-btn style="text-align: right" @click="nextStep" color="primary">
-            continue
-          </v-btn>
-        </v-row>
+                v-if="e1 - 1 == 1"
+                style="text-align: right; margin-right: 10px"
+                @click="addCycle"
+                color="success"
+            >Add Cycle
+            </v-btn>
+            <v-btn style="text-align: right" @click="nextStep" color="primary">
+              continue
+            </v-btn>
+          </v-row>
+        </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
   </v-main>
@@ -85,11 +91,13 @@ import MotherBigBox from "@/components/MotherBigExerciseBox2";
 import MotherDisplayLista from "@/components/MotherDisplayExercises2";
 
 // import { bus2 } from "@/main";
-import { bus } from "@/main";
+import {bus} from "@/main";
+import VisualizarRutina from "@/components/VisualizarRutina";
 
 export default {
   name: "Rutinas",
   components: {
+    VisualizarRutina,
     BigExBox,
     DisplayLista,
     MotherBigBox,
@@ -130,12 +138,12 @@ export default {
   },
   methods: {
     addCycle: function () {
-      this.mother_big_ex_box.push({ nombre: this.nombre, ejs: [] });
+      this.mother_big_ex_box.push({nombre: this.nombre, ejs: [null]});
       this.nombre = "";
     },
     nextStep() {
       this.e1++;
-      if (this.e1 == this.big_ex_box.length) {
+      if ((this.e1 - 1) === this.big_ex_box.length) {
         bus.$emit("confirmarRutina", this.big_ex_box);
       }
     },
@@ -151,7 +159,7 @@ export default {
             ej: data.ej,
             cant: data.cant,
           });
-          console.log("entre = "+this.big_ex_box[data.indice].ejs);
+          console.log("entre = " + this.big_ex_box[data.indice].ejs);
           return;
         } else {
           var element = this.big_ex_box[data.indice].ejs.findIndex(
@@ -178,7 +186,7 @@ export default {
     bus.$on("addExerToMotherBigBox", (data) => {
       console.log(data);
       if (data.indice > -1) {
-        if(this.mother_big_ex_box[data.indice].ejs == undefined){
+        if (this.mother_big_ex_box[data.indice].ejs == undefined) {
           this.mother_big_ex_box[data.indice].ejs = "";
         }
         if (this.mother_big_ex_box[data.indice].ejs.length == 0) {
@@ -188,7 +196,7 @@ export default {
           });
         } else {
           var element = this.mother_big_ex_box[data.indice].ejs.findIndex(
-            (e) => e.ej == data.ej
+              (e) => e.ej == data.ej
           );
           if (element == -1) {
             this.mother_big_ex_box[data.indice].ejs.push({
@@ -197,7 +205,7 @@ export default {
             });
           } else {
             console.log(
-              "Element is already in bigBox number " +
+                "Element is already in bigBox number " +
                 data.indice +
                 " at index " +
                 element
@@ -209,7 +217,7 @@ export default {
       }
     });
     bus.$on("removeExerciseFromBigBox", (data) => {
-      if(data.indice == undefined){
+      if (data.indice == undefined) {
         console.log("Index is undefined");//error nuestro
         return;
       }
@@ -224,16 +232,16 @@ export default {
     });
     bus.$on("removeExerciseFromMotherBigBox", (data) => {
       //estos dos ifs chequean errores internos
-      if(data.indice == undefined){
+      if (data.indice == undefined) {
         console.log("Index is undefined");
         return;
       }
-      if(this.mother_big_ex_box[data.indice].ejs == undefined){
+      if (this.mother_big_ex_box[data.indice].ejs == undefined) {
         console.log("Arrays of exercises is undefined");
         return;
       }
       var element = this.mother_big_ex_box[data.indice].ejs.findIndex(
-        (e) => e.ej == data.nombre
+          (e) => e.ej == data.nombre
       );
       if (element > -1) {
         this.mother_big_ex_box[data.indice].ejs.splice(element, 1);
@@ -241,16 +249,16 @@ export default {
         console.log("Index out of range");
       }
     });
-    bus.$on("eraseMotherIdx", data =>{
-      if(data > -1 && data < this.mother_big_ex_box.length){
-        this.mother_big_ex_box.splice(data,1);
-      }else{
+    bus.$on("eraseMotherIdx", data => {
+      if (data > -1 && data < this.mother_big_ex_box.length) {
+        this.mother_big_ex_box.splice(data, 1);
+      } else {
         console.log("Element is not in the list");
       }
     });
     bus.$on("moveExer", (data) => {
       var element = this.big_ex_box[data.indice].ejs.findIndex(
-        (e) => e.ej == data.nombre
+          (e) => e.ej == data.nombre
       );
       if (element > -1) {
         if (data.posicion == "up") {
@@ -282,10 +290,10 @@ export default {
       }
     });
   },
-  updated(){
+  updated() {
     bus.$on("moveExer", (data) => {
       var element = this.big_ex_box[data.indice].ejs.findIndex(
-        (e) => e.ej == data.nombre
+          (e) => e.ej == data.nombre
       );
       if (element > -1) {
         if (data.posicion == "up") {
