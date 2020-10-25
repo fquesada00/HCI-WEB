@@ -30,7 +30,7 @@ export default {
   methods: {
     addExer(name, amount) {
       var index = this.idx;
-      bus.$emit("addExerToBigBox", {ej: name, cant: amount, indice: index});
+      bus.$emit("addExerToBigBox", {ej: name, cant: amount, indice: index, isMother: 0});
     },
   },
 };

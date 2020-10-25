@@ -64,14 +64,20 @@
           </v-row>
         </v-stepper-content>
         <v-row style="padding: 20px">
-          <v-btn v-if="e1 > 1" style="text-align: right" @click="e1--" color="warning">
+          <v-btn
+            v-if="e1 > 1"
+            style="text-align: right"
+            @click="e1--"
+            color="warning"
+          >
             return
           </v-btn>
           <v-spacer></v-spacer>
           <div v-if="e1 - 1 == 1">
             <v-text-field
               v-model="nombre"
-              placeholder="NUEVO NOMBRE DEL CICLO"
+              label="Nombre del ciclo"
+              style="margin-right: 60px"
             ></v-text-field>
           </div>
 
@@ -82,7 +88,12 @@
             color="success"
             >Add Cycle
           </v-btn>
-          <v-btn v-if="e1 < 4" style="text-align: right" @click="nextStep" color="primary">
+          <v-btn
+            v-if="e1 < 4"
+            style="text-align: right"
+            @click="nextStep"
+            color="primary"
+          >
             continue
           </v-btn>
         </v-row>
@@ -119,9 +130,9 @@ export default {
         "Enfriamiento",
       ],
       big_ex_box: [
-        { grupo: "ENTRADA EN CALOR",ciclos: 1, ejs: [] },
-        { grupo: "EJERCITACION PRINCIPAL",ciclos:1, ejs: [] },
-        { grupo: "ENFRIAMIENTO",ciclos: 1, ejs: [] },
+        { grupo: "ENTRADA EN CALOR", ciclos: 1, ejs: [] },
+        { grupo: "EJERCITACION PRINCIPAL", ciclos: 1, ejs: [] },
+        { grupo: "ENFRIAMIENTO", ciclos: 1, ejs: [] },
       ],
       mother_big_ex_box: [],
       cant: 0,
@@ -144,12 +155,21 @@ export default {
     },
   },
   methods: {
-    modifyCicle(event){
+    modifyCicle(event) {
       this.big_ex_box[event.indice].ciclos = event.ciclos;
       console.log(this.big_ex_box[event.indice].ciclos);
     },
     addCycle: function () {
-      this.mother_big_ex_box.push({ nombre: this.nombre,ciclos:1, ejs: [] });
+      var element = this.mother_big_ex_box.findIndex(
+        (e) => e.nombre == this.nombre
+      );
+      if (element == -1) {
+        this.mother_big_ex_box.push({
+          nombre: this.nombre,
+          ciclos: 1,
+          ejs: [],
+        });
+      }
       this.nombre = "";
     },
     nextStep() {
@@ -158,26 +178,40 @@ export default {
       if (this.e1 - 1 === this.big_ex_box.length) {
         var object = [];
         var count = 0;
-        if(this.big_ex_box[0].ejs != undefined && this.big_ex_box[0].ejs.length != 0){
-        object.push(this.big_ex_box[0]);
-        count=1;
+        var limit = 0;
+        if (
+          this.big_ex_box[0].ejs != undefined &&
+          this.big_ex_box[0].ejs.length != 0
+        ) {
+          object.push(this.big_ex_box[0]);
+          count++;
         }
         for (var i = 0; i < this.mother_big_ex_box.length; i++) {
-          if (this.mother_big_ex_box[i].ejs != undefined && this.mother_big_ex_box[i].ejs.length != 0) {
-            object.push({
-              grupo: "EJERCITACION PRINCIPAL : ".concat( this.mother_big_ex_box[i].nombre),
-              ciclos: this.mother_big_ex_box[i].ciclos,
-              ejs: this.mother_big_ex_box[i].ejs,
-            });
-            count=1;
+          if (this.mother_big_ex_box[i].ejs != undefined) {
+            if (this.mother_big_ex_box[i].nombres != undefined) {
+              limit++;
+            }
+            if (this.mother_big_ex_box[i].ejs.length != 0) {
+              object.push({
+                grupo: "EJERCITACION PRINCIPAL : ".concat(
+                  this.mother_big_ex_box[i].nombre
+                ),
+                ciclos: this.mother_big_ex_box[i].ciclos,
+                ejs: this.mother_big_ex_box[i].ejs,
+              });
+              count++;
+            }
           }
         }
-        if(this.big_ex_box[2].ejs != undefined && this.big_ex_box[2].ejs.length != 0){
-        object.push(this.big_ex_box[2]);
-        count = 1;
+        if (
+          this.big_ex_box[2].ejs != undefined &&
+          this.big_ex_box[2].ejs.length != 0
+        ) {
+          object.push(this.big_ex_box[2]);
+          count++;
         }
-        if(count == 0){
-          alert("You must at least one exercise!");
+        if (count < 3 + limit) {
+          alert("Tenés que agregar al menos un ejercicios por ciclo!");
           this.e1--;
           return;
         }
@@ -186,7 +220,7 @@ export default {
     },
   },
   mounted() {
-    bus.$on("updateMotherBigBoxCicle",data =>{
+    bus.$on("updateMotherBigBoxCicle", (data) => {
       console.log("LA DATA ENVIADA ES:");
       console.log(data);
       this.mother_big_ex_box[data.indice].ciclos = data.ciclos;
@@ -195,66 +229,70 @@ export default {
       this.e1++;
     });
     bus.$on("addExerToBigBox", (data) => {
-      if (data.indice > -1) {
-        if (this.big_ex_box[data.indice].ejs.length == 0) {
-          this.big_ex_box[data.indice].ejs.push({
-            ej: data.ej,
-          });
-          console.log("entre = " + this.big_ex_box[data.indice].ejs);
-          return;
-        } else {
-          var element = this.big_ex_box[data.indice].ejs.findIndex(
-            (e) => e.ej == data.ej
-          );
-          if (element == -1) {
+      if (data.isMother == 0) {
+        if (data.indice > -1) {
+          if (this.big_ex_box[data.indice].ejs.length == 0) {
             this.big_ex_box[data.indice].ejs.push({
               ej: data.ej,
             });
+            console.log("entre = " + this.big_ex_box[data.indice].ejs);
+            return;
           } else {
-            console.log(
-              "Element is already in bigBox number " +
-                data.indice +
-                " at index " +
-                element
+            var element = this.big_ex_box[data.indice].ejs.findIndex(
+              (e) => e.ej == data.ej
             );
+            if (element == -1) {
+              this.big_ex_box[data.indice].ejs.push({
+                ej: data.ej,
+              });
+            } else {
+              console.log(
+                "Element is already in bigBox number " +
+                  data.indice +
+                  " at index " +
+                  element
+              );
+            }
           }
+        } else {
+          console.log("Index out of range");
         }
-      } else {
-        console.log("Index out of range");
       }
     });
     bus.$on("addExerToMotherBigBox", (data) => {
       console.log(data);
-      if (data.indice > -1) {
-        if (this.mother_big_ex_box[data.indice].ejs == undefined) {
-          this.mother_big_ex_box[data.indice].ejs = "";
-        }
-        if (this.mother_big_ex_box[data.indice].ejs.length == 0) {
-          this.mother_big_ex_box[data.indice].ejs.push({
-            ej: data.ej,
-          });
-        } else {
-          var element = this.mother_big_ex_box[data.indice].ejs.findIndex(
-            (e) => e.ej == data.ej
-          );
-          if (element == -1) {
+      if (data.isMother == 1) {
+        if (data.indice > -1) {
+          if (this.mother_big_ex_box[data.indice].ejs == undefined) {
+            this.mother_big_ex_box[data.indice].ejs = "";
+          }
+          if (this.mother_big_ex_box[data.indice].ejs.length == 0) {
             this.mother_big_ex_box[data.indice].ejs.push({
               ej: data.ej,
             });
           } else {
-            console.log(
-              "Element is already in bigBox number " +
-                data.indice +
-                " at index " +
-                element
+            var element = this.mother_big_ex_box[data.indice].ejs.findIndex(
+              (e) => e.ej == data.ej
             );
+            if (element == -1) {
+              this.mother_big_ex_box[data.indice].ejs.push({
+                ej: data.ej,
+              });
+            } else {
+              console.log(
+                "Element is already in bigBox number " +
+                  data.indice +
+                  " at index " +
+                  element
+              );
+            }
           }
+          if (this.mother_big_ex_box[data.indice].ejs == undefined) {
+            console.log("ESTOY EN RUTINAS 2 UNDEFINED");
+          }
+        } else {
+          console.log("Index out of range");
         }
-        if (this.mother_big_ex_box[data.indice].ejs == undefined) {
-          console.log("ESTOY EN RUTINAS 2 UNDEFINED");
-        }
-      } else {
-        console.log("Index out of range");
       }
     });
     bus.$on("removeExerciseFromBigBox", (data) => {

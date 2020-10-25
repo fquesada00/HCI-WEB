@@ -43,6 +43,7 @@ export default {
         ej: name,
         cant: amount,
         indice: this.idx,
+        isMother: 1,
       });
     },
   },
