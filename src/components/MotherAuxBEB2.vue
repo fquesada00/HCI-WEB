@@ -25,7 +25,14 @@
     <v-btn color="error" @click="removeIdx">REMOVE</v-btn>
 
     <v-row v-for="exercise in exercises" :key="exercise.ej">
-      <ExerciseBox :ej="exercise.ej" :idx="idx"></ExerciseBox>
+      <ExerciseBox
+        :name="exercise.name"
+        :idx="idx"
+        :detail="exercise.detail"
+        :type="exercise.type"
+        :duration="exercise.duration"
+        :repetitions="exercise.repetitions"
+      ></ExerciseBox>
     </v-row>
   </v-container>
 </template>
@@ -36,7 +43,7 @@ import { bus } from "@/main";
 import ExerciseBox from "./MotherExerciseBox";
 export default {
   components: { ExerciseBox },
-  props: ["seccion_name", "idx", "exercises","ciclos"],
+  props: ["seccion_name", "idx", "exercises", "ciclos"],
 
   data() {
     return {

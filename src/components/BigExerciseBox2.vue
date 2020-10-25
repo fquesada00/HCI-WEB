@@ -23,10 +23,14 @@
       </v-col>
 
     </v-row>
-    <v-row v-for="exercise in exercises" :key="exercise.ej">
+    <v-row v-for="exercise in exercises" :key="exercise.name">
       <ExerciseBox
-        :ej="exercise.ej"
+        :name="exercise.name"
         :idx="idx"
+        :detail="exercise.detail"
+        :type="exercise.type"
+        :duration="exercise.duration"
+        :repetitions="exercise.repetitions"
         @borrarEj="removeExer($event)"
       ></ExerciseBox>
     </v-row>

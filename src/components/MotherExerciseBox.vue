@@ -8,7 +8,7 @@
       <v-btn left color="orange" @click="overlay = !overlay">More</v-btn>
     </v-col>
     <v-col cols="2">
-      <v-btn rigth color="error" @click="removeExercise(ej)">
+      <v-btn rigth color="error" @click="removeExercise">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </v-col>
@@ -29,7 +29,7 @@ import CreateExercise from "@/components/CreateExercise";
 import {bus} from "../main";
 export default {
   components: {CreateExercise},
-  props: ["ej","idx"],
+  props: ["name", "idx", "detail", "type", "duration", "repetitions"],
   data() {
     return {
       cantidad: "CANTIDAD",
@@ -39,14 +39,17 @@ export default {
     };
   },
   methods:{
-    removeExercise(name){
+    removeExercise(){
       var index = this.idx;
-      bus.$emit("removeExerciseFromMotherBigBox",{nombre:name, indice:index});
+      bus.$emit("removeExerciseFromMotherBigBox",{
+        name: this.name,
+        detail: this.detail,
+        type: this.type,
+        duration: this.duration,
+        repetitions: this.repetitions,
+        indice: index,
+      });
     },
-    // move(position){
-    //   var index = this.idx;
-    //   bus.$emit("moveExer",{nombre:this.ej, indice:index, posicion: position});
-    // }
   }
 };
 </script>

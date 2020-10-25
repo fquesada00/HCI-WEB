@@ -15,7 +15,11 @@
           </v-list-item-avatar>
           <v-list-item-content>{{ item.name }}</v-list-item-content>
           <v-list-item-action>
-            <v-btn color="success" @click="addExer(item.name, item.amount)">
+            <v-btn color="success" @click="addExer(item.name,
+                  item.detail,
+                  item.type,
+                  item.duration,
+                  item.repetitions)">
               Add
             </v-btn>
           </v-list-item-action>
@@ -34,24 +38,24 @@ export default {
     indice_interno: -1,
   }),
   methods: {
-    addExer(name, amount) {
-      console.log("agrego en " + this.idx);
+    addExer(name, detail, type, duration, repetitions) {
       if (this.idx == -1) {
         return;
       }
       bus.$emit("addExerToMotherBigBox", {
-        ej: name,
-        cant: amount,
+        name: name,
+        detail: detail,
+        type: type,
+        duration: duration,
+        repetitions: repetitions,
         indice: this.idx,
         isMother: 1,
       });
     },
   },
   mounted() {
-    console.log("estoy en display3 " + this.idx);
     bus.$on("changeMotherIdx", (data) => {
       this.indice_interno = data;
-      console.log("El indice es = " + data);
       bus.$emit("seleccionarBoton", data);
     });
     bus.$on("restartIdx", () => {

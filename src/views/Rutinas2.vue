@@ -174,7 +174,6 @@ export default {
     },
     nextStep() {
       this.e1++;
-      console.log("valgo=" + this.e1);
       if (this.e1 - 1 === this.big_ex_box.length) {
         var object = [];
         var count = 0;
@@ -233,29 +232,32 @@ export default {
         if (data.indice > -1) {
           if (this.big_ex_box[data.indice].ejs.length == 0) {
             this.big_ex_box[data.indice].ejs.push({
-              ej: data.ej,
+              name: data.name,
+              detail: data.detail,
+              type: data.type,
+              duration: data.duration,
+              repetitions: data.repetitions
             });
-            console.log("entre = " + this.big_ex_box[data.indice].ejs);
             return;
           } else {
             var element = this.big_ex_box[data.indice].ejs.findIndex(
-              (e) => e.ej == data.ej
+              (e) =>
+                e.name == data.name &&
+                e.detail == data.detail &&
+                e.type == data.type &&
+                e.duration == data.duration &&
+                e.repetitions == data.repetitions
             );
             if (element == -1) {
               this.big_ex_box[data.indice].ejs.push({
-                ej: data.ej,
+                name: data.name,
+                detail: data.detail,
+                type: data.type,
+                duration: data.duration,
+                repetitions: data.repetitions
               });
-            } else {
-              console.log(
-                "Element is already in bigBox number " +
-                  data.indice +
-                  " at index " +
-                  element
-              );
             }
           }
-        } else {
-          console.log("Index out of range");
         }
       }
     });
@@ -268,30 +270,33 @@ export default {
           }
           if (this.mother_big_ex_box[data.indice].ejs.length == 0) {
             this.mother_big_ex_box[data.indice].ejs.push({
-              ej: data.ej,
+              name: data.name,
+              detail: data.detail,
+              type: data.type,
+              duration: data.duration,
+              repetitions: data.repetitions,
             });
           } else {
             var element = this.mother_big_ex_box[data.indice].ejs.findIndex(
-              (e) => e.ej == data.ej
+              (e) =>  e.name == data.name &&
+                e.detail == data.detail &&
+                e.type == data.type &&
+                e.duration == data.duration &&
+                e.repetitions == data.repetitions
             );
             if (element == -1) {
               this.mother_big_ex_box[data.indice].ejs.push({
-                ej: data.ej,
+                name: data.name,
+              detail: data.detail,
+              type: data.type,
+              duration: data.duration,
+              repetitions: data.repetitions,
               });
-            } else {
-              console.log(
-                "Element is already in bigBox number " +
-                  data.indice +
-                  " at index " +
-                  element
-              );
-            }
+            } 
           }
           if (this.mother_big_ex_box[data.indice].ejs == undefined) {
             console.log("ESTOY EN RUTINAS 2 UNDEFINED");
           }
-        } else {
-          console.log("Index out of range");
         }
       }
     });
@@ -301,32 +306,32 @@ export default {
         return;
       }
       var element = this.big_ex_box[data.indice].ejs.findIndex(
-        (e) => e.ej == data.nombre
+        (e) =>
+          e.name == data.name &&
+          e.detail == data.detail &&
+          e.type == data.type &&
+          e.duration == data.duration &&
+          e.repetitions == data.repetitions
       );
       if (element > -1) {
         this.big_ex_box[data.indice].ejs.splice(element, 1);
-      } else {
-        console.log("Index out of range");
       }
     });
     bus.$on("removeExerciseFromMotherBigBox", (data) => {
       //estos dos ifs chequean errores internos
-      if (data.indice == undefined) {
-        console.log("Index is undefined");
-        return;
-      }
-      if (this.mother_big_ex_box[data.indice].ejs == undefined) {
-        console.log("Arrays of exercises is undefined");
+      if (data.indice == undefined || this.mother_big_ex_box[data.indice].ejs == undefined) {
         return;
       }
       var element = this.mother_big_ex_box[data.indice].ejs.findIndex(
-        (e) => e.ej == data.nombre
+        (e) => e.name == data.name &&
+          e.detail == data.detail &&
+          e.type == data.type &&
+          e.duration == data.duration &&
+          e.repetitions == data.repetitions
       );
       if (element > -1) {
         this.mother_big_ex_box[data.indice].ejs.splice(element, 1);
-      } else {
-        console.log("Index out of range");
-      }
+      } 
     });
     bus.$on("eraseMotherIdx", (data) => {
       if (data > -1 && data < this.mother_big_ex_box.length) {

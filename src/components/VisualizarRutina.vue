@@ -24,9 +24,9 @@
           </v-btn>
         </v-col>
       </v-row>
-      <v-row v-for="ej in seccion.ejs" v-bind:key="ej.ej">
+      <v-row v-for="ej in seccion.ejs" v-bind:key="ej.name">
         <v-col>
-          {{ ej.ej }}
+          {{ ej.name }}
         </v-col>
         <v-col>
           <v-btn  color="error">

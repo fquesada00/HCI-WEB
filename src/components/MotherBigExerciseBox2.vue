@@ -30,29 +30,8 @@ export default {
     nextStep: function () {
       bus.$emit("nextStep");
     },
-    // updateIdx(data) {
-    //   bus.$emit("changeYourIdx", data);
-    // },
   },
-  // created() {
-  //   console.log("CREATED");
-  //   if (this.big_box.ejs == undefined) {
-  //     console.log("UNDEFINED");
-  //   }
-  // },
-  // updated() {
-  //   console.log("UPDATED");
-  //   console.log(this.big_box[0].ejs);
-  //   if (this.big_box[0].ejs == undefined) {
-  //     console.log("UNDEFINED");
-  //   }
-  // },
-  // mounted() {
-  //   console.log("MOUNTED");
-  //   if (this.big_box.ejs == undefined) {
-  //     console.log("UNDEFINED");
-  //   }
-  // },
+
 };
 </script>
 
