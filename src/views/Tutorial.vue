@@ -23,19 +23,19 @@ export default {
     tutorialSlides: [
       {
         title: "Paso 1", subtitle: "Selecciona los Ejercicios",
-        text: "Selecciona los ejercicios haciendo click y arrastrandolos hacia la respectiva seccion de la rutina."
+        text: "Seleccione una categorìa de ejercicios, luego apriete 'agregar' en el ejercicio que desa agregar."
       },
       {
         title: "Paso 2", subtitle: "Crear un nuevo ciclo",
-        text: "Pulsa el Boton + para crear un nuevo ciclo"
+        text: "Para agregar un cicle, escriba el nombre que le quiere poner y clickee en 'agregar ciclo'"
       },
       {
-        title: "Paso 3", subtitle: "Organiza tu rutina",
-        text: "Organiza y edita tanto tus ciclos como tus ejercicios"
+        title: "Paso 3", subtitle: "Revisa tu rutina",
+        text: "Confirma que tu rutina este armada a tu placer y Finalizala"
       },
       {
         title: "¡Listo!", subtitle: "Comenza a armar tu rutina",
-        text: "Organiza tu rutina, modifica los ciclos y reordena tus ejercicios."
+        text: "¡Crea tu rutina!"
       }
     ]
   })
