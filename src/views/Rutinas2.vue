@@ -119,9 +119,9 @@ export default {
         "Enfriamiento",
       ],
       big_ex_box: [
-        { grupo: "Entrada en Calor",ciclos: 1, ejs: [] },
-        { grupo: "Ejercitacion Principal",ciclos:1, ejs: [] },
-        { grupo: "Enfriamiento",ciclos:1, ejs: [] },
+        { grupo: "ENTRADA EN CALOR",ciclos: 1, ejs: [] },
+        { grupo: "EJERCITACION PRINCIPAL",ciclos:1, ejs: [] },
+        { grupo: "ENFRIAMIENTO",ciclos:1, ejs: [] },
       ],
       mother_big_ex_box: [],
       cant: 0,
@@ -164,7 +164,7 @@ export default {
         for (var i = 0; i < this.mother_big_ex_box.length; i++) {
           if (this.mother_big_ex_box[i].ejs != undefined && this.mother_big_ex_box[i].ejs.length != 0) {
             object.push({
-              grupo: this.mother_big_ex_box[i].nombre,
+              grupo: "EJERCITACION PRINCIPAL : ".concat( this.mother_big_ex_box[i].nombre),
               ciclos: this.mother_big_ex_box[i].ciclos,
               ejs: this.mother_big_ex_box[i].ejs,
             });
