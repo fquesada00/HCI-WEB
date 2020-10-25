@@ -8,23 +8,28 @@ class ExercisesApi {
     }
 
     static async createExercise(routineID, cycleID, exercise, controller) {
-        return await Api.post(`${ExercisesApi.url}/` + routineID + '/cycles/' + cycleID, true, exercise, controller)
+        return await Api.post(`${ExercisesApi.url}/` + routineID + '/cycles/' + cycleID+'/exercises', true, exercise, controller)
             .catch(err => {
                 throw err
             })
     }
 
     static async getExercises(routineID, cycleID, controller) {
-        return await Api.get(`${ExercisesApi.url}/` + routineID + '/cycles/' + cycleID, true, controller).catch(err => {
+        return await Api.get(`${ExercisesApi.url}/` + routineID + '/cycles/' + cycleID+'/exercises', true, controller).catch(err => {
             throw err
         })
     }
 
     static async addExerciseToCyle(routineID, cycleID, exercise, controller) {
-        return await Api.put(`${ExercisesApi.url}/` + routineID + '/cycles/' + cycleID, true, exercise, controller)
+        return await Api.post(`${ExercisesApi.url}/` + routineID + '/cycles/' + cycleID+'/exercises', true, exercise, controller)
             .catch(err => {
                 throw err;
             })
+    }
+
+    static async deleteExercise(routineID,cycleID,exerciseID,controller){
+        return await Api.delete(`${ExercisesApi.url}/${routineID}/cycles/${cycleID}/exercises/${exerciseID}`,true,controller)
+            .catch(err =>{throw err});
     }
 }
 

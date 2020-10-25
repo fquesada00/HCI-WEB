@@ -25,26 +25,26 @@ import {bus} from "../main";
 
 export default {
   props: ["exercises","idx"],
-  data: () => ({}),
+  data: () => ({
+      indice_interno: -1,
+  }),
   methods: {
     addExer(name, amount) {
-        console.log("agrego en "+this.idx);
-        if(this.idx == -1){
+        console.log("agrego en "+this.indice_interno);
+        if(this.indice_interno == -1){
             return;
         }
-        
-      var index = this.idx;
-      bus.$emit("addExerToMotherBigBox", {ej: name, cant: amount, indice: index});
+      bus.$emit("addExerToMotherBigBox", {ej: name, cant: amount, indice: this.indice_interno});
     },
   },
   mounted(){
       bus.$on("changeMotherIdx", data => {
-          this.idx = data;
+          this.indice_interno = data;
           console.log("El indice es = "+data);
           bus.$emit("seleccionarBoton",data);
       });
       bus.$on("restartIdx", () => {
-          this.idx = -1;
+          this.indice_interno = -1;
       });
   }
 };

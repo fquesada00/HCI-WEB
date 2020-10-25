@@ -13,6 +13,7 @@ export default {
   components: {LoginForm},
   methods: {
     initialize: async function () {
+      console.log("inicializo")
         await Store.initUser().then(()=>{this.loading=false})
     }
   }

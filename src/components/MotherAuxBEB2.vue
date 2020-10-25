@@ -1,40 +1,19 @@
 <template>
   <v-container rounded class="bigExerciseBox2">
-    <v-row>
-      <v-col>
-        <h2>{{ seccion_name }} x{{ cantCiclos }}</h2>
-      </v-col>
-      <v-col cols="1">
-        <v-btn v-if="cantCiclos > 1" @click="cantCiclos--" x-small fab>
-          <v-icon>
-            mdi-minus
-          </v-icon>
-        </v-btn>
-      </v-col>
-      <v-col cols="1">
-        <v-btn @click="cantCiclos++" x-small fab>
-          <v-icon>
-            mdi-plus
-          </v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
+    <h2>{{ seccion_name }}</h2>
     <v-btn v-if="!show" style="margin-right: 20px" @click="updateIdx"
-    >HERE
-    </v-btn
+      >HERE</v-btn
     >
     <v-btn v-else color="primary" style="margin-right: 20px" @click="updateIdx"
-    >HERE
-    </v-btn
+      >HERE</v-btn
     >
 
-    <v-btn color="error" removeIdx>REMOVE</v-btn>
+    <v-btn color="error" @click="removeIdx">REMOVE</v-btn>
 
     <v-row v-for="exercise in exercises" :key="exercise.ej">
       <ExerciseBox
-          :ej="exercise.ej"
-          :idx="idx"
-          @borrarEjMother="removeExer($event)"
+        :ej="exercise.ej"
+        :idx="idx"
       ></ExerciseBox>
     </v-row>
   </v-container>
@@ -42,28 +21,18 @@
 
 <script>
 // import { bus2 } from "../main";
-import {bus} from "../main";
+import { bus } from "../main";
 import ExerciseBox from "./MotherExerciseBox";
-
 export default {
-  components: {ExerciseBox},
+  components: { ExerciseBox },
   props: ["seccion_name", "idx", "exercises"],
 
   data() {
     return {
       show: false,
-      cantCiclos: 1
     };
   },
   methods: {
-    removeExer(data) {
-      var index = this.idx;
-      if (data.indice == index) {
-        bus.$emit("removeExerciseFromMotherBigBox", data);
-      } else {
-        console.log("Index out of range");
-      }
-    },
     updateIdx() {
       bus.$emit("changeMotherIdx", this.idx);
     },
@@ -82,7 +51,6 @@ export default {
       }
       console.log("Estoy en el idx = " + this.idx + " y estoy " + this.show);
     });
-    console.log("Estoy en el idx = " + this.idx + " y estoy " + this.show);
   },
 };
 </script>

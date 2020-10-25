@@ -1,7 +1,7 @@
 <template @load="getData">
   <v-container class="form">
     <v-row class="justify-center">
-      <h1>Configuración</h1>
+      <h1>Mis datos</h1>
     </v-row>
     <validation-observer ref="observer">
       <form @submit.prevent="submit">
@@ -80,7 +80,7 @@
           <span class="error--text">{{ error }}</span>
         </v-row>
         <v-row class="justify-center">
-          <v-btn type="submit"> submit</v-btn>
+          <v-btn type="submit" > Actualizar</v-btn>
         </v-row>
       </form>
     </validation-observer>

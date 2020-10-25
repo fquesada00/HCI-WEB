@@ -49,8 +49,6 @@
 import { bus } from "../main";
 import ViewExercise from "@/components/ViewExercise";
 import EditExercise from "@/components/EditExercise";
-
-
 export default {
   name: "Exercice_box.vue",
   components: {ViewExercise,EditExercise},
@@ -62,7 +60,6 @@ export default {
       up: "up",
       down: "down",
       edit: true
-
     };
   },
   methods: {
