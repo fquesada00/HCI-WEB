@@ -47,8 +47,8 @@ export default {
       this.samples.find((e) => e.grupo == event).show = true;
     },
   },
-  created() {
-    var results = Store.getMyExercisesAll();
+  async created() {
+    var results = await Store.getMyExercisesAll();
     this.samples[0].push({ grupo: "Brazos", show: false, exercises: [] });
     this.samples[1].push({ grupo: "Piernas", show: false, exercises: [] });
     this.samples[2].push({ grupo: "Pecho", show: false, exercises: [] });

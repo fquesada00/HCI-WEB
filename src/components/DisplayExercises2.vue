@@ -45,12 +45,12 @@ export default {
       this.samples.find((e) => e.grupo == event).show = true;
     },
   },
-  created() {
+  async created() {
     /*
     var arrayExers = getExer().results -->recibo un results *array[4]
     Brazos, Piernas, Pecho, Abdominales en este orden
     */
-    var results = Store.getMyExercisesAll();
+    var results = await Store.getMyExercisesAll();
     this.samples[0].push({ grupo: "Brazos", show: false, exercises: [] });
     this.samples[1].push({ grupo: "Piernas", show: false, exercises: [] });
     this.samples[2].push({ grupo: "Pecho", show: false, exercises: [] });
