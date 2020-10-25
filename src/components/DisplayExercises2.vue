@@ -66,6 +66,7 @@ export default {
     this.samples[2].push({ grupo: "Pecho", show: false, exercises: [] });
     this.samples[3].push({ grupo: "Abdominales", show: false, exercises: [] });
     for (var i = 0; i < 4; i++) {
+      this.samples[i].exercises = [];
       for (var j = 0; j < results[i].length; j++) {
         this.samples[i].exercises.push({
           name: results[i][j].name,
