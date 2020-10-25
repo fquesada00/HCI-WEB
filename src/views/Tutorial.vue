@@ -1,6 +1,6 @@
 <template>
     <v-main>
-      <v-carousel  :show-arrows="false" class="tutorial">
+      <v-carousel  :show-arrows="true" class="tutorial">
         <v-carousel-item v-for="slide in tutorialSlides" v-bind:key="slide.title" >
           <h1 style="margin-left:5%;" class="black--text">{{ slide.title }}</h1>
           <hr/>
@@ -9,8 +9,7 @@
           <br/>
           <p style="margin-left:5%;" class="black--text">{{ slide.text }}</p>
           <v-container ><!--Aca va la animacion! !--></v-container>
-          <v-btn style="margin-left:50%;" color="orange">Omitir</v-btn>
-          <v-btn style="margin-left: 20px;" color="success">Siguiente</v-btn>
+          <v-btn style="margin-left:50%;" color="orange" to="/rutinas">Omitir</v-btn>
         </v-carousel-item>
       </v-carousel>
     </v-main>
@@ -24,19 +23,19 @@ export default {
     tutorialSlides: [
       {
         title: "Paso 1", subtitle: "Selecciona los Ejercicios",
-        text: "Selecciona los ejercicios haciendo click y arrastrandolos hacia la respectiva seccion de la rutina."
+        text: "Seleccione una categorìa de ejercicios, luego apriete 'agregar' en el ejercicio que desa agregar."
       },
       {
         title: "Paso 2", subtitle: "Crear un nuevo ciclo",
-        text: "Pulsa el Boton + para crear un nuevo ciclo"
+        text: "Para agregar un cicle, escriba el nombre que le quiere poner y clickee en 'agregar ciclo'"
       },
       {
-        title: "Paso 3", subtitle: "Organiza tu rutina",
-        text: "Organiza y edita tanto tus ciclos como tus ejercicios"
+        title: "Paso 3", subtitle: "Revisa tu rutina",
+        text: "Confirma que tu rutina este armada a tu placer y Finalizala"
       },
       {
         title: "¡Listo!", subtitle: "Comenza a armar tu rutina",
-        text: "Organiza tu rutina, modifica los ciclos y reordena tus ejercicios."
+        text: "¡Crea tu rutina!"
       }
     ]
   })
