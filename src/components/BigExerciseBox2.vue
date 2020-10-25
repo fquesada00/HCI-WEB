@@ -8,14 +8,14 @@
       <v-spacer>
       </v-spacer>
       <v-col cols="1">
-      <v-btn v-if="cantCiclos > 1" @click="cantCiclos--" x-small fab>
+      <v-btn v-if="cantCiclos > 1" @click="modifyClick(restar)" x-small fab>
         <v-icon>
           mdi-minus
         </v-icon>
       </v-btn>
       </v-col>
       <v-col cols="1">
-        <v-btn  @click="cantCiclos++" x-small fab>
+        <v-btn  @click="modifyClick(sumar)" x-small fab>
           <v-icon>
             mdi-plus
           </v-icon>
@@ -44,8 +44,9 @@ export default {
 
   data() {
     return {
-      // exercises: [],
-      cantCiclos : 1
+      cantCiclos : 1,
+      restar:"restar",
+      sumar:"sumar",
     };
   },
   methods: {
@@ -68,7 +69,35 @@ export default {
         console.log("Index out of range");
       }
     },
+    modifyClick(operacion){
+      if(operacion == "restar"){
+        this.cantCiclos--;
+      }
+      else{
+        this.cantCiclos++;
+      }
+      this.$emit("modificarCiclos",{indice:this.idx, ciclos:this.cantCiclos});
+    }
   },
+  created(){
+    console.log("CREATED");
+    if(this.exercises == undefined){
+      console.log("UNDEFINED");
+    }
+  },
+  updated(){
+        console.log("UPDATED");
+
+    if(this.exercises == undefined){
+      console.log("UNDEFINED");
+    }
+  },
+  mounted(){
+    console.log("MOUNTED");
+    if(this.exercises == undefined){
+      console.log("UNDEFINED");
+    }
+  }
   // beforeUpdate() {
   //   bus.$on("moveExer", (data) => {
   //     if (data.indice == this.idx) {

@@ -1,6 +1,11 @@
 <template>
   <v-container style="background-color: white; z-index: 1">
-    <v-virtual-scroll height=500px width="500px" item-height="64px" :items="exercises">
+    <v-virtual-scroll
+      height="500px"
+      width="500px"
+      item-height="64px"
+      :items="exercises"
+    >
       <template v-slot:default="{ item }">
         <v-list-item>
           <v-list-item-avatar>
@@ -21,31 +26,40 @@
 </template>
 
 <script>
-import {bus} from "../main";
+import { bus } from "../main";
 
 export default {
-  props: ["exercises","idx"],
+  props: ["exercises", "idx"],
   data: () => ({
-      indice_interno: -1,
+    indice_interno: -1,
   }),
   methods: {
     addExer(name, amount) {
-        console.log("agrego en "+this.indice_interno);
-        if(this.indice_interno == -1){
-            return;
-        }
-      bus.$emit("addExerToMotherBigBox", {ej: name, cant: amount, indice: this.indice_interno});
+      console.log("agrego en " + this.idx);
+      if (this.idx == -1) {
+        return;
+      }
+      bus.$emit("addExerToMotherBigBox", {
+        ej: name,
+        cant: amount,
+        indice: this.idx,
+      });
     },
   },
-  mounted(){
-      bus.$on("changeMotherIdx", data => {
-          this.indice_interno = data;
-          console.log("El indice es = "+data);
-          bus.$emit("seleccionarBoton",data);
-      });
-      bus.$on("restartIdx", () => {
-          this.indice_interno = -1;
-      });
+  mounted() {
+    console.log("estoy en display3 " + this.idx);
+    bus.$on("changeMotherIdx", (data) => {
+      this.indice_interno = data;
+      console.log("El indice es = " + data);
+      bus.$emit("seleccionarBoton", data);
+    });
+    bus.$on("restartIdx", () => {
+      this.indice_interno = -1;
+    });
+  },
+  created(){
+          console.log("estoy en display3  CREATED"+this.idx);
+
   }
 };
 </script>

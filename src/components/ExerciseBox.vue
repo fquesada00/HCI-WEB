@@ -12,16 +12,6 @@
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </v-col>
-    <v-col cols="1">
-      <v-btn fab x-small @click="move(up)">
-        <v-icon>mdi-arrow-up</v-icon>
-      </v-btn>
-    </v-col>
-    <v-col cols="1">
-      <v-btn fab x-small @click="move(down)">
-        <v-icon>mdi-arrow-down</v-icon>
-      </v-btn>
-    </v-col>
     <v-overlay rounded light :value="overlay">
       <v-card rounded height="600px" width="600px" light>
         <v-row style="margin-left:10px; margin-right:10px">

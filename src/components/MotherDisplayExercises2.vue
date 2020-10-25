@@ -11,7 +11,7 @@
     </v-row>
     <div>
       <div v-for="display in samples" :key="display.group">
-        <DisplayList v-if="display.show" :exercises="display.exercises" :idx="idx"/>
+        <DisplayList v-if="display.show" :exercises="display.exercises" :idx="indice_interno"/>
       </div>
     </div>
   </v-container>
@@ -19,13 +19,14 @@
 
 <script>
 import DisplayList from "./MotherDisplayExercises3";
-
+import {bus} from "../main";
 export default {
   components: {DisplayList},
   props: ["idx"],
   data: () => ({
     items: ["Espalda", "Biceps", "Hombros", "Pecho", "Triceps", "Piernas"],
     busqueda: "",
+    indice_interno: -1,
     samples: [
       {
         grupo: "Espalda",
@@ -167,8 +168,14 @@ export default {
       this.samples.find((e) => e.grupo == event).show = true;
     },
   },
+  created(){
+      console.log("estoy en display2 CREATED "+this.idx);
+  },
   mounted(){
-      
+      console.log("estoy en display2 "+this.idx);
+      bus.$on("changeMotherDisplay",data =>{
+        this.indice_interno = data;
+      });
   }
 };
 </script>

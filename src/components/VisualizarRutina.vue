@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <v-container v-for="seccion in ejer" v-bind:key="seccion.nombre">
+    <v-container v-for="seccion in ejer" v-bind:key="seccion.grupo">
       <v-row>
         <v-col cols="auto">
           <h2 style="margin-right: 40px">
-            {{ seccion.nombre + " x" + seccion.ciclos }}
+            {{ seccion.grupo + " x" + seccion.ciclos }}
           </h2>
         </v-col>
         <v-col cols="1">
@@ -24,22 +24,13 @@
           </v-btn>
         </v-col>
       </v-row>
-      <v-row v-for="ej in seccion.ejs" v-bind:key="ej.name">
+      <v-row v-for="ej in seccion.ejs" v-bind:key="ej.ej">
         <v-col>
-          {{ ej.name }}
+          {{ ej.ej }}
         </v-col>
         <v-col>
-          <v-btn color="error">
+          <v-btn  color="error">
             <v-icon> mdi-delete</v-icon>
-          </v-btn>
-        </v-col>
-        <v-spacer></v-spacer>
-        <v-col>
-          <v-btn style="margin-right: 20px" fab x-small>
-            <v-icon> mdi-arrow-down</v-icon>
-          </v-btn>
-          <v-btn fab x-small>
-            <v-icon> mdi-arrow-up</v-icon>
           </v-btn>
         </v-col>
       </v-row>
@@ -121,7 +112,7 @@
           <v-row class="justify-center">
             <v-btn style="margin-left: auto; margin-right: auto"
                    color="success"
-                   x-large :loading="loading" type="submit" :disabled="invalid" @click="loading = true"> submit</v-btn>
+                   x-large type="submit" :disabled="invalid"> submit</v-btn>
           </v-row>
         </form>
       </validation-observer>

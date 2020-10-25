@@ -5,17 +5,13 @@
         <h2>{{ seccion_name }} x{{ cantCiclos }}</h2>
       </v-col>
       <v-col cols="1">
-        <v-btn v-if="cantCiclos > 1" @click="cantCiclos--" x-small fab>
-          <v-icon>
-            mdi-minus
-          </v-icon>
+        <v-btn v-if="cantCiclos > 1" @click="modifyClick(restar)" x-small fab>
+          <v-icon> mdi-minus </v-icon>
         </v-btn>
       </v-col>
       <v-col cols="1">
-        <v-btn @click="cantCiclos++" x-small fab>
-          <v-icon>
-            mdi-plus
-          </v-icon>
+        <v-btn @click="modifyClick(sumar)" x-small fab>
+          <v-icon> mdi-plus </v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -29,10 +25,7 @@
     <v-btn color="error" @click="removeIdx">REMOVE</v-btn>
 
     <v-row v-for="exercise in exercises" :key="exercise.ej">
-      <ExerciseBox
-        :ej="exercise.ej"
-        :idx="idx"
-      ></ExerciseBox>
+      <ExerciseBox :ej="exercise.ej" :idx="idx"></ExerciseBox>
     </v-row>
   </v-container>
 </template>
@@ -48,16 +41,32 @@ export default {
   data() {
     return {
       show: false,
-      cantCiclos : 1
+      cantCiclos: 1,
+      sumar: "sumar",
+      restar: "restar",
     };
   },
   methods: {
     updateIdx() {
+      console.log("te paso el indice = " + this.idx);
       bus.$emit("changeMotherIdx", this.idx);
+      bus.$emit("changeMotherDisplay", this.idx);
     },
     removeIdx() {
       bus.$emit("eraseMotherIdx", this.idx);
       bus.$emit("restartIdx");
+    },
+
+    modifyClick(operacion) {
+      if (operacion == "restar") {
+        this.cantCiclos--;
+      } else {
+        this.cantCiclos++;
+      }
+      bus.$emit("updateMotherBigBoxCicle", {
+        indice: this.idx,
+        ciclos: this.cantCiclos,
+      });
     },
   },
   mounted() {
