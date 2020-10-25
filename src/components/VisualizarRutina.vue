@@ -28,11 +28,6 @@
         <v-col>
           {{ ej.name }}
         </v-col>
-        <v-col>
-          <v-btn color="error">
-            <v-icon> mdi-delete</v-icon>
-          </v-btn>
-        </v-col>
       </v-row>
       <br />
       <v-divider style="size: 50px"></v-divider>
@@ -77,19 +72,12 @@
           <v-row class="justify-center"> </v-row>
           <v-row>
             <v-col cols="2">
-              <validation-provider
-                v-slot="{ errors }"
-                name="Detalles"
-                rules="required"
-              >
-                <v-switch
-                  required
-                  :error-messages="errors"
-                  v-model="routine.isPublic"
-                  prepend-icon="mdi-lock"
-                  append-icon="mdi-lock-open"
-                ></v-switch
-              ></validation-provider>
+              <v-switch
+                :error-messages="errors"
+                v-model="routine.isPublic"
+                prepend-icon="mdi-lock"
+                append-icon="mdi-lock-open"
+              ></v-switch>
             </v-col>
             <v-col>
               <validation-provider
