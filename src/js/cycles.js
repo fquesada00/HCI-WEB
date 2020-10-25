@@ -7,22 +7,29 @@ class CyclesApi{
     }
 
     static async createCycle(routineID,cycleData,controller){
-        return await Api.post(`${CyclesApi.url}`+'cycles',true,cycleData,controller)
+        return await Api.post(`${CyclesApi.url}${routineID}/`+'cycles',true,cycleData,controller)
             .catch(err =>{
                 throw err
             })
     }
 
     static async getRoutineCycleById(routineID,cycleId,controller){
-        return await Api.get(`${CyclesApi.url}`+routineID+'cycles/'+cycleId,true,controller).catch(err => {
+        return await Api.get(`${CyclesApi.url}`+routineID+'/cycles/'+cycleId,true,controller).catch(err => {
             throw err;
         })
     }
 
     static async getRoutineCycles(routineID,controller){
-        return await Api.get(`${CyclesApi.url}`+routineID+'cycles',true,controller).catch(err =>{
+        return await Api.get(`${CyclesApi.url}`+routineID+'/cycles',true,controller).catch(err =>{
             throw err
         })
+    }
+
+    static async deleteCycle(routineID,cycleID,controller){
+        return await Api.delete(`${CyclesApi.url}${routineID}/cycles/${cycleID}`,true,controller)
+            .catch(err =>{
+                throw err;
+            })
     }
 
 }

@@ -1,10 +1,7 @@
 <template>
     <v-card class="profile">
       <v-row>
-        <v-icon class="gears" @click="toggleSettings"
-                style="cursor:pointer;">
-          mdi-cog
-        </v-icon>
+        <v-col></v-col>
       </v-row>
       <v-row justify="center">
         <v-avatar @click="editAvatar" style="border-style: solid; border-color:darkgrey;" size="150">
@@ -90,11 +87,5 @@ export default {
 .name {
   font-size: 45px;
   font-weight: lighter;
-}
-
-.gears {
-  margin-left: auto;
-  padding-right: 5%;
-  padding-top: 1%;
 }
 </style>

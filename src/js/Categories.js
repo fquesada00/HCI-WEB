@@ -21,6 +21,16 @@ class CategoriesApi {
                 throw err
             })
     }
+
+    static async getCategoryByName(name,controller){
+        let cats = this.getCategories(controller);
+        cats = cats.results
+        let i;
+        for (i = 0;i <cats.length;i++){
+            if(cats[i].name.normalize() === name.normalize())
+                return cats[i].id
+        }
+    }
 }
 
 class Category{

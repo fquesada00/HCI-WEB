@@ -19,6 +19,13 @@ class RoutinesApi{
     static async updateRoutine(updatedRoutine,id,controller){
         return await Api.put(`${RoutinesApi.url}/`+id,true,updatedRoutine,controller)
     }
+
+    static async deleteRoutine(routineID,controller){
+        return await Api.delete(`${RoutinesApi.url}/${routineID}`,true,controller)
+            .catch(err =>{
+                throw err
+            })
+    }
 }
 class Routine{
     constructor(name,detail,isPublic,category,difficulty) {
