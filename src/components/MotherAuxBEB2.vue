@@ -36,12 +36,12 @@ import { bus } from "../main";
 import ExerciseBox from "./MotherExerciseBox";
 export default {
   components: { ExerciseBox },
-  props: ["seccion_name", "idx", "exercises"],
+  props: ["seccion_name", "idx", "exercises","ciclos"],
 
   data() {
     return {
       show: false,
-      cantCiclos: 1,
+      cantCiclos: this.ciclos,
       sumar: "sumar",
       restar: "restar",
     };

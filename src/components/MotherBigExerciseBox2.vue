@@ -7,6 +7,7 @@
         :seccion_name="bb.nombre"
         :idx="index"
         :exercises="bb.ejs"
+        :ciclos="bb.ciclos"
       />
     </v-row>
   </v-container>

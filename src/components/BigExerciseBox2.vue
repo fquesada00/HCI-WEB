@@ -40,11 +40,11 @@ import ExerciseBox from "./ExerciseBox";
 
 export default {
   components: { ExerciseBox },
-  props: ["seccion_name", "idx", "exercises"],
+  props: ["seccion_name", "idx", "exercises","ciclos"],
 
   data() {
     return {
-      cantCiclos : 1,
+      cantCiclos : this.ciclos,
       restar:"restar",
       sumar:"sumar",
     };
@@ -57,14 +57,6 @@ export default {
       var index = this.idx;
       if (data.indice == index) {
         bus.$emit("removeExerciseFromBigBox", data);
-        // var idx = this.exercises.findIndex((e) => e.ej == data.nombre);
-        // if (idx > -1) {
-        //   this.exercises.splice(idx, 1);
-        //   console.log(this.exercises);
-        // } else {
-        //   console.log("Element is not in the list!");
-        //   return;
-        // }
       } else {
         console.log("Index out of range");
       }

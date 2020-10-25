@@ -40,7 +40,7 @@
                   :seccion_name="step"
                   :idx="e1 - 1"
                   :exercises="big_ex_box[e1 - 1].ejs"
-                  
+                  :ciclos="big_ex_box[e1 - 1].ciclos"
                 />
               </div>
               <div v-else-if="e1 - 1 == 1">
@@ -121,7 +121,7 @@ export default {
       big_ex_box: [
         { grupo: "ENTRADA EN CALOR",ciclos: 1, ejs: [] },
         { grupo: "EJERCITACION PRINCIPAL",ciclos:1, ejs: [] },
-        { grupo: "ENFRIAMIENTO",ciclos:1, ejs: [] },
+        { grupo: "ENFRIAMIENTO",ciclos: 1, ejs: [] },
       ],
       mother_big_ex_box: [],
       cant: 0,
@@ -146,6 +146,7 @@ export default {
   methods: {
     modifyCicle(event){
       this.big_ex_box[event.indice].ciclos = event.ciclos;
+      console.log(this.big_ex_box[event.indice].ciclos);
     },
     addCycle: function () {
       this.mother_big_ex_box.push({ nombre: this.nombre,ciclos:1, ejs: [] });
