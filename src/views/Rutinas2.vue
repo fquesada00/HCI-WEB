@@ -2,8 +2,7 @@
   <v-main class="main">
     <v-row>
       <v-spacer></v-spacer>
-      <v-btn style="margin-right: 13px" color="primary">
-        <!--ToDo: rutear-->
+      <v-btn style="margin-right: 13px" color="primary" to="/tutorial">
         Tutorial
       </v-btn>
     </v-row>

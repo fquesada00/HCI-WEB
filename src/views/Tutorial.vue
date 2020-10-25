@@ -1,6 +1,6 @@
 <template>
     <v-main>
-      <v-carousel  :show-arrows="false" class="tutorial">
+      <v-carousel  :show-arrows="true" class="tutorial">
         <v-carousel-item v-for="slide in tutorialSlides" v-bind:key="slide.title" >
           <h1 style="margin-left:5%;" class="black--text">{{ slide.title }}</h1>
           <hr/>
@@ -9,8 +9,7 @@
           <br/>
           <p style="margin-left:5%;" class="black--text">{{ slide.text }}</p>
           <v-container ><!--Aca va la animacion! !--></v-container>
-          <v-btn style="margin-left:50%;" color="orange">Omitir</v-btn>
-          <v-btn style="margin-left: 20px;" color="success">Continuar</v-btn>
+          <v-btn style="margin-left:50%;" color="orange" to="/rutinas">Omitir</v-btn>
         </v-carousel-item>
       </v-carousel>
     </v-main>
