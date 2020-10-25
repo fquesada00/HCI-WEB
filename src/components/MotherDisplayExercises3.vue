@@ -20,7 +20,7 @@
                   item.type,
                   item.duration,
                   item.repetitions)">
-              Add
+              Añadir
             </v-btn>
           </v-list-item-action>
         </v-list-item>

@@ -40,11 +40,21 @@ export default {
     selectExer(event) {
       if (this.active != null) {
         //buscar el elemento previo y setearlo en null
-        this.samples.find((e) => e.grupo == this.active).show = false;
+        for(var i = 0 ; i < 4 ; i++){
+          if(this.samples[i] != undefined && this.samples[i].grupo == this.active){
+            this.samples[i].show = false;
+          }
+        }
+        // this.samples.find((e) => e.grupo == this.active).show = false;
       }
       this.active = event;
       //actualizar al nuevo elemento
-      this.samples.find((e) => e.grupo == event).show = true;
+      for(var j = 0 ; i < 4 ; i++){
+        if(this.samples[j] != undefined && this.samples[j].grupo == this.active){
+            this.samples[j].show = true;
+          }
+      }
+      // this.samples.find((e) => e.grupo == event).show = true;
     },
   },
   async created() {

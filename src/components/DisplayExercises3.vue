@@ -27,7 +27,7 @@
                 )
               "
             >
-              Add
+              Agregar
             </v-btn>
           </v-list-item-action>
         </v-list-item>

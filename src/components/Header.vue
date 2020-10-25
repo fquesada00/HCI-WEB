@@ -28,7 +28,7 @@
         <div>{{ tab.name }}</div>
         <v-icon right >{{tab.icon}}</v-icon>
       </v-tab>
-      <v-btn large color="rgb(57, 198, 173,0.9)" @click="logOut" depressed :replace="true" to='/' dark height="64px">Cerrar Sesion
+      <v-btn large color="rgb(57, 198, 173,0.9)" @click="logOut" depressed :replace="true" to='/' dark height="64px">Cerrar Sesión
       <v-icon>mdi-exit-to-app</v-icon>
     </v-btn>
     </v-tabs>

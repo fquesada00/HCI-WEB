@@ -11,7 +11,7 @@
         </div>
         <v-divider vertical></v-divider>
         <div>
-          <v-btn x-large text tile><v-icon color="black">create</v-icon></v-btn>
+          <v-btn x-large text tile><v-icon color="black">Crear</v-icon></v-btn>
         </div>
         <v-divider vertical></v-divider>
         <div>
