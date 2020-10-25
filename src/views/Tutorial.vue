@@ -10,7 +10,7 @@
           <p style="margin-left:5%;" class="black--text">{{ slide.text }}</p>
           <v-container ><!--Aca va la animacion! !--></v-container>
           <v-btn style="margin-left:50%;" color="orange">Omitir</v-btn>
-          <v-btn style="margin-left: 20px;" color="success">Continuar</v-btn>
+          <v-btn style="margin-left: 20px;" color="success">Siguiente</v-btn>
         </v-carousel-item>
       </v-carousel>
     </v-main>

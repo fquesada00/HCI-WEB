@@ -16,13 +16,13 @@
       </v-col>
     </v-row>
     <v-btn v-if="!show" style="margin-right: 20px" @click="updateIdx"
-      >HERE</v-btn
+      >AQUÍ</v-btn
     >
     <v-btn v-else color="primary" style="margin-right: 20px" @click="updateIdx"
-      >HERE</v-btn
+      >AQUÍ</v-btn
     >
 
-    <v-btn color="error" @click="removeIdx">REMOVE</v-btn>
+    <v-btn color="error" @click="removeIdx">ELIMINAR</v-btn>
 
     <v-row v-for="exercise in exercises" :key="exercise.ej">
       <ExerciseBox

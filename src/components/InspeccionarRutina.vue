@@ -72,10 +72,10 @@
           </v-icon>
         </v-btn>
         <v-btn v-if="canEdit" color="warning" style="margin-right:20px">
-          Edit
+          Editar
         </v-btn>
         <v-btn color="primary">
-          Close
+          Cerrar
         </v-btn>
       </v-col>
     </v-row>

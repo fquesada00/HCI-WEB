@@ -132,7 +132,7 @@
               >
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="menu = false">
-                  Cancel
+                  Cancelar
                 </v-btn>
                 <v-btn text color="primary" @click="$refs.menu.save(birthday)">
                   OK
@@ -160,7 +160,7 @@
           <span  class="error--text">{{ error }}</span>
         </v-row>
         <v-row class="justify-center">
-          <v-btn :loading="loading" type="submit" :disabled="invalid" @click="loading = true"> submit</v-btn>
+          <v-btn :loading="loading" type="submit" :disabled="invalid" @click="loading = true"> Crear rutina</v-btn>
         </v-row>
       </form>
     </validation-observer>

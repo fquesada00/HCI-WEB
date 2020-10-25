@@ -5,7 +5,7 @@
     </v-col>
     <v-spacer></v-spacer>
     <v-col cols="2">
-      <v-btn left color="orange" @click="overlay = !overlay">More</v-btn>
+      <v-btn left color="orange" @click="overlay = !overlay">Ver más</v-btn>
     </v-col>
     <v-col cols="2">
       <v-btn rigth color="error" @click="removeExercise">
@@ -17,7 +17,7 @@
         <CreateExercise/>
         <!--        No se como se te ocurre aca octa,
         tipo si le pasas como props datos o no se, mañana lo vemos?-->
-        <v-btn color="orange" @click="overlay = !overlay">Close</v-btn>
+        <v-btn color="orange" @click="overlay = !overlay">Cerrar</v-btn>
       </v-card>
     </v-overlay>
   </v-row>

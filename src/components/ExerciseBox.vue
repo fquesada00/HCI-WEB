@@ -5,7 +5,7 @@
     </v-col>
     <v-spacer></v-spacer>
     <v-col cols="2">
-      <v-btn left color="orange" @click="overlay = !overlay">More</v-btn>
+      <v-btn left color="orange" @click="overlay = !overlay">Ver más</v-btn>
     </v-col>
     <v-col cols="2">
       <v-btn rigth color="error" @click="removeExercise">
@@ -46,7 +46,7 @@
             color="primary"
             @click="overlay = !overlay"
           >
-            Close
+            Cerrar
           </v-btn>
         </v-row>
       </v-card>

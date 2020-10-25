@@ -70,7 +70,7 @@
             @click="e1--"
             color="warning"
           >
-            return
+            Volver
           </v-btn>
           <v-spacer></v-spacer>
           <div v-if="e1 - 1 == 1">
@@ -86,7 +86,7 @@
             style="text-align: right; margin-right: 10px"
             @click="addCycle"
             color="success"
-            >Add Cycle
+            >Agregar ciclo
           </v-btn>
           <v-btn
             v-if="e1 < 4"
@@ -94,7 +94,7 @@
             @click="nextStep"
             color="primary"
           >
-            continue
+            Siguiente
           </v-btn>
         </v-row>
       </v-stepper-items>
