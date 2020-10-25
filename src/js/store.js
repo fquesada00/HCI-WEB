@@ -110,8 +110,9 @@ class Store {
                     await CategoriesApi.putCategory(new Category('Corta', 'Rutinas de duracion corta'), controller)
                 }
                 this.error = ''
-                await Store.initExercisesList(controller).catch(() => {
+                await Store.initExercisesList(controller).catch((err) => {
                     this.error = 'No se pudo inicializar mis ejercicios'
+                    throw err;
                 })
             });
 
@@ -190,6 +191,7 @@ class Store {
         let myExercises = await UserApi.getCurrentUserRoutines(controller).catch(err => {
             throw err
         })
+        console.log(myExercises)
         let myExercisesID = myExercises.results[0].id;
         let groups = await CyclesApi.getRoutineCycles(myExercisesID, controller).catch(err => {
             throw err

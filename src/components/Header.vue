@@ -49,7 +49,6 @@ export default {
     loggedIn: sessionStorage.getItem('token'),
     tabsLoggedOut: [
       {name: "Inicio", icon: null, route: "/"},
-      {name: "Crear Rutinas", icon: null, route: "/rutinas"},
       {name: "Explorar", icon: null, route: "/explore"},
       {
         name: "Iniciar Sesion",

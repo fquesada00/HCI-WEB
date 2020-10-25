@@ -23,7 +23,9 @@ class CategoriesApi {
     }
 
     static async getCategoryByName(name,controller){
-        let cats = this.getCategories(controller);
+        let cats = await this.getCategories(controller).catch(err =>{
+            throw err;
+        });
         cats = cats.results
         let i;
         for (i = 0;i <cats.length;i++){
