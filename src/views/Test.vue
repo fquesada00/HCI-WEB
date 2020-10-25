@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import VisualizarRutina from "@/components/VisualizarRutina";
+import VisualizarRutina from "@/components/InspeccionarRutina";
 
 export default {
   components: {VisualizarRutina},

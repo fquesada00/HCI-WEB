@@ -32,7 +32,7 @@
 
 <script>
 // import { bus2 } from "../main";
-import { bus } from "../main";
+import { bus } from "@/main";
 import ExerciseBox from "./MotherExerciseBox";
 export default {
   components: { ExerciseBox },
@@ -72,11 +72,7 @@ export default {
   mounted() {
     console.log("ESTOY EN MOUNTED");
     bus.$on("seleccionarBoton", (data) => {
-      if (this.idx == data) {
-        this.show = true;
-      } else {
-        this.show = false;
-      }
+      this.show = this.idx === data;
       console.log("Estoy en el idx = " + this.idx + " y estoy " + this.show);
     });
   },

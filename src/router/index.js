@@ -6,10 +6,15 @@ import Profile from '../views/Profile.vue';
 import Tutorial from '../views/Tutorial.vue';
 import Rutinas from '../views/Rutinas2.vue';
 import Signin from '../views/Signin.vue';
-import Explore from "@/views/Explore";
 import ConfirmEmail from "../views/ConfirmEmail";
 import NewExercise from "@/views/NewExercise";
 import Test from "@/views/Test";
+import Explore from "@/views/Explore"
+import ExploreFav from "@/views/ExploreFav"
+import MisRutinas from "@/views/ExploreMisRutinas"
+import MisEjercicios from "@/views/ExploreMisEjercicios"
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -61,6 +66,26 @@ const routes = [
         path: '/verifyEmail',
         name: 'verifyEmail',
         component: ConfirmEmail
+    },
+    {
+        path: '/explore',
+        name: 'explorar',
+        component: Explore
+    },
+    {
+        path: '/explore/favoritos',
+        name: 'favoritos',
+        component: ExploreFav
+    },
+    {
+        path: '/explore/mis-rutinas',
+        name: 'misRutinas',
+        component: MisRutinas
+    },
+    {
+        path: '/explore/mis-ejercicios',
+        name: 'misEjercicios',
+        component: MisEjercicios
     }
 ]
 
