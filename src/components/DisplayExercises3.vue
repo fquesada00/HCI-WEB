@@ -1,6 +1,6 @@
 <template>
   <v-container style="background-color: white; z-index: 1">
-    <v-virtual-scroll height=500px width="500px" item-height="64px" :items="exercises">
+    <v-virtual-scroll height=300px width="500px" item-height="64px" :items="exercises">
       <template v-slot:default="{ item }">
         <v-list-item>
           <v-list-item-avatar>

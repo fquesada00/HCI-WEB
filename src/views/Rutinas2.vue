@@ -1,6 +1,6 @@
 <template>
 
-  <v-main>
+  <v-main class="main">
     <v-row>
       <v-spacer></v-spacer>
       <v-btn style="margin-right: 13px" color="primary">

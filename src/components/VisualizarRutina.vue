@@ -1,26 +1,26 @@
 <template>
   <v-container>
-    <v-container v-for="seccion in ejer" v-bind:key="seccion.grupo">
+    <v-container v-for="seccion in ejer" v-bind:key="seccion.nombre">
       <v-row>
         <v-col cols="auto">
           <h2 style="margin-right: 40px">
-            {{ seccion.grupo + " x" + seccion.ciclos }}
+            {{ seccion.nombre + " x" + seccion.ciclos }}
           </h2>
         </v-col>
         <v-col cols="1">
           <v-btn
-            style="margin-right: 20px"
-            v-show="seccion.ciclos > 1"
-            @click="seccion.ciclos--"
-            fab
-            x-small
+              style="margin-right: 20px"
+              v-show="seccion.ciclos > 1"
+              @click="seccion.ciclos--"
+              fab
+              x-small
           >
-            <v-icon> mdi-minus </v-icon>
+            <v-icon> mdi-minus</v-icon>
           </v-btn>
         </v-col>
         <v-col cols="1">
           <v-btn @click="seccion.ciclos++" fab x-small>
-            <v-icon> mdi-plus </v-icon>
+            <v-icon> mdi-plus</v-icon>
           </v-btn>
         </v-col>
       </v-row>
@@ -30,126 +30,153 @@
         </v-col>
         <v-col>
           <v-btn color="error">
-            <v-icon> mdi-delete </v-icon>
+            <v-icon> mdi-delete</v-icon>
           </v-btn>
         </v-col>
         <v-spacer></v-spacer>
         <v-col>
           <v-btn style="margin-right: 20px" fab x-small>
-            <v-icon> mdi-arrow-down </v-icon>
+            <v-icon> mdi-arrow-down</v-icon>
           </v-btn>
           <v-btn fab x-small>
-            <v-icon> mdi-arrow-up </v-icon>
+            <v-icon> mdi-arrow-up</v-icon>
           </v-btn>
         </v-col>
       </v-row>
-      <br />
+      <br/>
       <v-divider style="size: 50px"></v-divider>
     </v-container>
+    <v-container>
+      <validation-observer ref="observer" v-slot="{ invalid }">
+        <form @submit.prevent="submit">
+          <v-row>
+            <v-col cols="4">
+            <validation-provider
+                v-slot="{ errors }"
+                name="Nombre"
+                rules="required|alpha_spaces|max:50"
+            >
+              <v-text-field
+                  label="Nombre de la Rutina"
+                  v-model="routine.name"
+                  counter
+                  :error-messages="errors"
+                  required>
+              </v-text-field>
+            </validation-provider>
+            </v-col>
+            <v-col cols="8">
+            <validation-provider
+                v-slot="{ errors }"
+                name="Detalles"
+                rules="required|alpha_spaces|max:200">
+              <v-textarea
+                  label="Detalles"
+                  v-model="routine.detail"
+                  counter
+                  :error-messages="errors"
+                  required>
+              </v-textarea>
+            </validation-provider>
+            </v-col>
+          </v-row>
+          <v-row class="justify-center">
+          </v-row>
+          <v-row>
+            <v-col cols="2">
+              <validation-provider
+                  v-slot="{ errors }"
+                  name="Detalles"
+                  rules="required">
+              <v-switch required :error-messages="errors"
+                  v-model="routine.isPublic"
+                  prepend-icon="mdi-lock"
+                  append-icon="mdi-lock-open"
+              ></v-switch></validation-provider>
+            </v-col>
+            <v-col>
+              <validation-provider
+                  v-slot="{ errors }"
+                  name="Detalles"
+                  rules="required">
+              <v-select required :error-messages="errors"
+                  :items="categoria"
+                  v-model="routine.category"
+                  label="Longitud de rutina"
+              ></v-select>
+              </validation-provider>
+            </v-col>
+            <v-col>
+              <validation-provider
+                  v-slot="{ errors }"
+                  name="Detalles"
+                  rules="required">
+              <v-select required :error-messages="errors"
+                  :items="dificultad"
+                  v-model="routine.difficulty"
+                  label="Dificultad de rutina"
+              ></v-select></validation-provider>
+            </v-col>
+          </v-row>
+          <v-row class="justify-center">
+            <v-btn style="margin-left: auto; margin-right: auto"
+                   color="success"
+                   x-large :loading="loading" type="submit" :disabled="invalid" @click="loading = true"> submit</v-btn>
+          </v-row>
+        </form>
+      </validation-observer>
+    </v-container>
     <v-row>
-      <v-btn
-        style="margin-left: auto; margin-right: auto"
-        color="success"
-        x-large
-      >
-        Guardar Rutina
-      </v-btn>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { bus } from "@/main";
+import {bus} from "@/main";
+import {Routine} from "@/js/routines";
+import {alpha_num, alpha_spaces, max, required} from "vee-validate/dist/rules";
+import {
+  extend,
+  ValidationProvider,
+  ValidationObserver,
+} from "vee-validate";
+
+extend("required", {
+  ...required,
+  message: "El {_field_} no puede estar vacio",
+});
+extend("max", {
+  ...max,
+  message: "El {_field_} debe ser menor a {length} caracteres",
+});
+
+extend("alpha_spaces", {
+  ...alpha_spaces,
+  message: "Solo se permiten letras y espacios",
+});
+extend("alpha_num", {
+  ...alpha_num,
+  message: "Solo se permiten letras y numeros",
+});
 
 export default {
+  components: {ValidationObserver, ValidationProvider},
   data() {
     return {
-      ejer: [
-        {
-          grupo: "Entrada en Calor",
-          ciclos: 2,
-          ejs: [
-            { icon: "mdi-weight-gram", name: "ESPALDA", amount: 0 },
-            { icon: "mdi-bike", name: "Destruye Brazos", amount: 0 },
-            { icon: "mdi-biathlon", name: "Ayuda Abs", amount: 0 },
-            { icon: "mdi-bowling", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-cactus", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-cannabis", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-castle", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-dog", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-elephant", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-face", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-foot-print", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-ghost", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-heart-pulse", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-lingerie", name: "Destruye Piernas", amount: 0 },
-            {
-              icon: "mdi-nintendo-switch",
-              name: "Destruye Piernas",
-              amount: 0,
-            },
-          ],
-        },
-        {
-          grupo: "Ejercitacion Principal",
-          ciclos: 2,
-          ejs: [
-            { icon: "mdi-weight-gram", name: "ESPALDA", amount: 0 },
-            { icon: "mdi-bike", name: "Destruye Brazos", amount: 0 },
-            { icon: "mdi-biathlon", name: "Ayuda Abs", amount: 0 },
-            { icon: "mdi-bowling", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-cactus", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-cannabis", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-castle", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-dog", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-elephant", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-face", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-foot-print", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-ghost", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-heart-pulse", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-lingerie", name: "Destruye Piernas", amount: 0 },
-            {
-              icon: "mdi-nintendo-switch",
-              name: "Destruye Piernas",
-              amount: 0,
-            },
-          ],
-        },
-        {
-          grupo: "Enfriamiento",
-          ciclos: 2,
-          ejs: [
-            { icon: "mdi-weight-gram", name: "ESPALDA", amount: 0 },
-            { icon: "mdi-bike", name: "Destruye Brazos", amount: 0 },
-            { icon: "mdi-biathlon", name: "Ayuda Abs", amount: 0 },
-            { icon: "mdi-bowling", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-cactus", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-cannabis", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-castle", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-dog", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-elephant", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-face", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-foot-print", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-ghost", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-heart-pulse", name: "Destruye Piernas", amount: 0 },
-            { icon: "mdi-lingerie", name: "Destruye Piernas", amount: 0 },
-            {
-              icon: "mdi-nintendo-switch",
-              name: "Destruye Piernas",
-              amount: 0,
-            },
-          ],
-        },
-      ],
+      routine: new Routine(),
+      switch1: false,
+      categoria: ['Corta', 'Media', 'Larga'],
+      dificultad: ['rookie', 'beginner', 'intermediate', 'advanced', 'expert'],
+      ejer: ''
       /*
-          mother_big_ex_box:[{nombre:"brazos", ciclos: ,ejs:[{name, amount},{name,amount}}],
+          mother_big_ex_box:[{nombre:"brazos", ciclos: ,ejs:[name,name,name],
           {nombre:"gonikian",ciclos: ,...}]
         */
     };
   },
   mounted() {
     bus.$on("confirmarRutina", (big_ex_box) => {
-      this.grupos = big_ex_box;
+      this.ejer = big_ex_box;
     });
   },
   name: "VisualizarRutina",

@@ -1,20 +1,40 @@
 <template>
   <v-container rounded class="bigExerciseBox2">
-    <h2>{{ seccion_name }}</h2>
+    <v-row>
+      <v-col>
+        <h2>{{ seccion_name }} x{{ cantCiclos }}</h2>
+      </v-col>
+      <v-col cols="1">
+        <v-btn v-if="cantCiclos > 1" @click="cantCiclos--" x-small fab>
+          <v-icon>
+            mdi-minus
+          </v-icon>
+        </v-btn>
+      </v-col>
+      <v-col cols="1">
+        <v-btn @click="cantCiclos++" x-small fab>
+          <v-icon>
+            mdi-plus
+          </v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
     <v-btn v-if="!show" style="margin-right: 20px" @click="updateIdx"
-      >HERE</v-btn
+    >HERE
+    </v-btn
     >
     <v-btn v-else color="primary" style="margin-right: 20px" @click="updateIdx"
-      >HERE</v-btn
+    >HERE
+    </v-btn
     >
 
     <v-btn color="error" removeIdx>REMOVE</v-btn>
 
     <v-row v-for="exercise in exercises" :key="exercise.ej">
       <ExerciseBox
-        :ej="exercise.ej"
-        :idx="idx"
-        @borrarEjMother="removeExer($event)"
+          :ej="exercise.ej"
+          :idx="idx"
+          @borrarEjMother="removeExer($event)"
       ></ExerciseBox>
     </v-row>
   </v-container>
@@ -22,15 +42,17 @@
 
 <script>
 // import { bus2 } from "../main";
-import { bus } from "../main";
+import {bus} from "../main";
 import ExerciseBox from "./MotherExerciseBox";
+
 export default {
-  components: { ExerciseBox },
+  components: {ExerciseBox},
   props: ["seccion_name", "idx", "exercises"],
 
   data() {
     return {
       show: false,
+      cantCiclos: 1
     };
   },
   methods: {
